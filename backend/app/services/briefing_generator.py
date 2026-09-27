@@ -267,3 +267,93 @@ def generate_action_plan_briefing(action_plan_data: Dict[str, Any]) -> str:
     )
 
     return " ".join(parts)
+
+
+def generate_dashboard_briefing(dashboard_data: Dict[str, Any]) -> str:
+    """
+    Generate a high-level command center briefing for the dashboard.
+    Uses the same underlying data structure as action_plan_data but focuses on high-level KPIs.
+    """
+    parts: List[str] = []
+    stats = dashboard_data.get("stats", {})
+    table = dashboard_data.get("priority_table", [])
+
+    parts.append("Command Center Dashboard Briefing.")
+
+    total_hab = stats.get("total_habitations", 0)
+    total_pop = stats.get("total_population", 0)
+    parts.append(
+        f"Monitoring {int(total_hab)} habitations across the region, "
+        f"representing a total population of {int(total_pop):,}."
+    )
+
+    red_zones = stats.get("red_zones", 0)
+    affected_pop = stats.get("affected_population", 0)
+    if red_zones > 0:
+        parts.append(
+            f"Alert: {int(red_zones)} critical red zones identified, "
+            f"putting approximately {int(affected_pop):,} people at immediate or short-term risk."
+        )
+    else:
+        parts.append("System status normal. No critical red zones currently identified.")
+
+    if isinstance(table, list) and len(table) > 0:
+        top_name = table[0].get("habitation_name", "Unknown")
+        top_score = table[0].get("risk_score", 0)
+        parts.append(
+            f"The highest risk habitation is currently {top_name} with an RPI score of {float(top_score):.1f}."
+        )
+
+    assigned = stats.get("assigned_count", 0)
+    unassigned = stats.get("unassigned_count", 0)
+    if unassigned > 0:
+        parts.append(f"{int(unassigned)} critical habitations are pending site assignment.")
+    if assigned > 0:
+        parts.append(f"{int(assigned)} habitations have been successfully matched to safe relocation sites.")
+
+    parts.append("Please review the Action Plan for detailed dispatch instructions.")
+    return " ".join(parts)
+
+
+def generate_notifications_briefing(alert_data: Dict[str, Any]) -> str:
+    """
+    Generate an incident report briefing from the notifications feed.
+    
+    Expected keys:
+        - summary: dict with total, critical, high, warning, info, unacknowledged, resolved
+        - alerts: list of alert dicts
+    """
+    parts: List[str] = []
+    summary = alert_data.get("summary", {})
+    alerts = alert_data.get("alerts", [])
+
+    parts.append("Incident Command Ledger Briefing.")
+
+    unack = summary.get("unacknowledged", 0)
+    if unack == 0:
+        parts.append("There are currently zero unacknowledged incidents. The system is clear.")
+    else:
+        parts.append(f"Attention required: There are {int(unack)} unacknowledged incidents pending review.")
+
+    critical = summary.get("critical", 0)
+    high = summary.get("high", 0)
+    
+    if critical > 0:
+        parts.append(f"{int(critical)} critical alerts demand immediate intervention.")
+    if high > 0:
+        parts.append(f"{int(high)} high-priority alerts are active.")
+        
+    resolved = summary.get("resolved", 0)
+    if resolved > 0:
+        parts.append(f"A total of {int(resolved)} incidents have been successfully resolved.")
+
+    # Mention the most recent critical/high alert if available
+    unresolved_alerts = [a for a in alerts if not a.get("is_resolved") and not a.get("is_acknowledged")]
+    if unresolved_alerts:
+        top_alert = unresolved_alerts[0]
+        title = top_alert.get("title", "Unknown incident")
+        severity = top_alert.get("severity", "INFO")
+        parts.append(f"The most recent active {severity} alert is: {title}.")
+
+    parts.append("Please acknowledge or resolve active incidents from the notification dashboard.")
+    return " ".join(parts)

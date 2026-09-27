@@ -239,7 +239,7 @@ export default function NotificationsPage() {
         <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
           {!loading && !error && (
             <VoiceBriefingPlayer
-              endpoint="/voice/action-plan-briefing"
+              endpoint="/voice/notifications-briefing"
               requestBody={{}}
               idleLabel="Brief Me"
               icon="🎙"

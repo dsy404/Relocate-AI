@@ -20,6 +20,8 @@ from app.db.repository import Repository
 from app.services.briefing_generator import (
     generate_action_plan_briefing,
     generate_risk_briefing,
+    generate_dashboard_briefing,
+    generate_notifications_briefing,
 )
 from app.services.voice_service import is_available, synthesize_speech
 
@@ -403,3 +405,132 @@ def action_plan_briefing_text():
         "briefing_text": briefing_text,
         "voice_available": is_available(),
     })
+
+
+@voice_bp.route("/dashboard-briefing", methods=["POST"])
+def dashboard_briefing():
+    """Generate a voice briefing for the Command Center Dashboard."""
+    Session = get_session_factory()
+    session = Session()
+    try:
+        habitations = Repository.get_all_habitations(session)
+        assignments = Repository.get_all_assignments(session)
+        total_habitations = len(habitations)
+        total_population = sum(h.population for h in habitations)
+        red_zones = 0
+        affected_population = 0
+        for h in habitations:
+            if h.necessity:
+                nc = h.necessity.category
+                if nc in ["Immediate", "Short-Term"]:
+                    red_zones += 1
+                    affected_population += h.population
+
+        assigned_hab_ids = {a.habitation_id for a in assignments if a.site_id is not None}
+        unassigned_at_risk = [
+            h for h in habitations
+            if h.id not in assigned_hab_ids
+            and h.necessity
+            and h.necessity.category in ["Immediate", "Short-Term", "Medium-Term"]
+        ]
+        priority_table = []
+        for hab in habitations:
+            rpi = hab.risk_assessment.rpi if hab.risk_assessment else 0.0
+            priority_table.append({
+                "habitation_name": hab.name,
+                "risk_score": round(rpi, 2),
+            })
+        priority_table.sort(key=lambda x: x["risk_score"], reverse=True)
+
+        dashboard_data = {
+            "stats": {
+                "total_habitations": total_habitations,
+                "total_population": total_population,
+                "red_zones": red_zones,
+                "affected_population": affected_population,
+                "assigned_count": len(assigned_hab_ids),
+                "unassigned_count": len(unassigned_at_risk),
+            },
+            "priority_table": priority_table,
+        }
+    finally:
+        session.close()
+
+    try:
+        briefing_text = generate_dashboard_briefing(dashboard_data)
+    except Exception as e:
+        logger.exception("Failed to generate dashboard briefing text")
+        return jsonify({"error": "Failed to generate briefing text."}), 500
+
+    if not briefing_text or not briefing_text.strip():
+        return jsonify({"error": "No briefing could be generated — insufficient data."}), 422
+
+    audio_bytes, error_msg = synthesize_speech(
+        text=briefing_text,
+        briefing_type="dashboard",
+        entity_id="current",
+    )
+
+    if error_msg:
+        return jsonify({"error": error_msg, "briefing_text": briefing_text}), 503
+
+    return Response(
+        audio_bytes,
+        mimetype="audio/mpeg",
+        headers={
+            "Content-Disposition": 'inline; filename="dashboard_briefing.mp3"',
+            "Cache-Control": "no-store",
+        },
+    )
+
+
+@voice_bp.route("/notifications-briefing", methods=["POST"])
+def notifications_briefing():
+    """Generate a voice briefing for the active Incident Ledger / Notifications."""
+    Session = get_session_factory()
+    session = Session()
+    try:
+        all_alerts = Repository.get_alerts(session)
+        summary = {
+            "total": len(all_alerts),
+            "critical": len([a for a in all_alerts if (a.severity or "").upper() == "CRITICAL"]),
+            "high": len([a for a in all_alerts if (a.severity or "").upper() == "HIGH"]),
+            "warning": len([a for a in all_alerts if (a.severity or "").upper() == "WARNING"]),
+            "info": len([a for a in all_alerts if (a.severity or "").upper() == "INFO"]),
+            "unacknowledged": len([a for a in all_alerts if not a.is_acknowledged and not a.is_resolved]),
+            "resolved": len([a for a in all_alerts if a.is_resolved]),
+        }
+        alerts_data = [Repository.alert_to_dict(a) for a in all_alerts]
+        alert_data = {
+            "summary": summary,
+            "alerts": alerts_data
+        }
+    finally:
+        session.close()
+
+    try:
+        briefing_text = generate_notifications_briefing(alert_data)
+    except Exception as e:
+        logger.exception("Failed to generate notifications briefing text")
+        return jsonify({"error": "Failed to generate briefing text."}), 500
+
+    if not briefing_text or not briefing_text.strip():
+        return jsonify({"error": "No briefing could be generated — insufficient data."}), 422
+
+    audio_bytes, error_msg = synthesize_speech(
+        text=briefing_text,
+        briefing_type="notifications",
+        entity_id="current",
+    )
+
+    if error_msg:
+        return jsonify({"error": error_msg, "briefing_text": briefing_text}), 503
+
+    return Response(
+        audio_bytes,
+        mimetype="audio/mpeg",
+        headers={
+            "Content-Disposition": 'inline; filename="notifications_briefing.mp3"',
+            "Cache-Control": "no-store",
+        },
+    )

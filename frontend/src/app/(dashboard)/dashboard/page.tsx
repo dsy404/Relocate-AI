@@ -42,11 +42,11 @@ export default function DashboardPage() {
         <div className="flex gap-3 items-center">
           {!loading && !error && stats && (
             <VoiceBriefingPlayer
-              endpoint="/voice/action-plan-briefing"
+              endpoint="/voice/dashboard-briefing"
               requestBody={{}}
               idleLabel="Brief Me"
               icon="🎙"
-              tooltip="Generate a concise executive voice briefing from the current system state."
+              tooltip="Generate a concise executive voice briefing of the current system state."
               size="md"
             />
           )}
