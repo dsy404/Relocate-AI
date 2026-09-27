@@ -20,6 +20,7 @@ from .api.routes.ml import ml_bp
 from .api.routes.habitations import habitations_bp
 from .api.routes.sites import sites_bp
 from .api.routes.field_verification import field_verification_bp
+from .api.routes.voice import voice_bp
 
 app = Flask(settings.app_name)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -40,6 +41,7 @@ app.register_blueprint(ml_bp, url_prefix=settings.api_prefix + "/ml")
 app.register_blueprint(habitations_bp, url_prefix=settings.api_prefix + "/habitations")
 app.register_blueprint(sites_bp, url_prefix=settings.api_prefix + "/sites")
 app.register_blueprint(field_verification_bp, url_prefix=settings.api_prefix + "/field-verification")
+app.register_blueprint(voice_bp, url_prefix=settings.api_prefix + "/voice")
 
 @app.route("/api/health", methods=["GET"])
 def health_check():

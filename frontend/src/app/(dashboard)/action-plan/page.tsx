@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { StatsCards, DashboardStats } from '@/components/dashboard/StatsCards';
 import { PriorityTable, PriorityRow } from '@/components/dashboard/PriorityTable';
+import VoiceBriefingPlayer from '@/components/voice/VoiceBriefingPlayer';
 
 import { API_BASE_URL } from '@/lib/api';
 import ExportButton from '@/components/reports/ExportButton';
@@ -66,7 +67,18 @@ export default function ActionPlanPage() {
             <h1 className="text-3xl font-bold text-gray-900">Government Action Plan</h1>
             <p className="text-gray-500 mt-1">Executive summary of disaster relocation priorities and assignments.</p>
           </div>
-          <div className="flex gap-3 no-print">
+          <div className="flex gap-3 no-print items-center">
+            {/* AI Voice Briefing — Brief Me */}
+            {!loading && !error && stats && (
+              <VoiceBriefingPlayer
+                endpoint="/voice/action-plan-briefing"
+                requestBody={{}}
+                idleLabel="Brief Me"
+                icon="🎙"
+                tooltip="Generate a concise executive voice briefing from the current action plan."
+                size="md"
+              />
+            )}
             <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-2 rounded-lg flex items-center shadow-sm">
               <svg className="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
@@ -89,6 +101,12 @@ export default function ActionPlanPage() {
         <>
           {stats && <StatsCards stats={stats} />}
           {rows && <PriorityTable rows={rows} />}
+          {/* ElevenLabs Attribution */}
+          <div className="text-center mt-2 mb-4">
+            <p className="text-[10px] text-gray-400">
+              AI Voice Briefing powered by ElevenLabs
+            </p>
+          </div>
         </>
       )}
     </div>

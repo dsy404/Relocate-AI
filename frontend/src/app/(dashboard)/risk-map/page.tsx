@@ -1,6 +1,7 @@
 "use client";
 
 import DynamicMap from '@/components/map/DynamicMap';
+import VoiceBriefingPlayer from '@/components/voice/VoiceBriefingPlayer';
 import { useEffect, useState } from 'react';
 
 export default function RiskMapPage() {
@@ -73,10 +74,29 @@ export default function RiskMapPage() {
                     <div className="bg-white border rounded">Exp<br/><b>{village.exposure_score}</b></div>
                     <div className="bg-white border rounded">Vul<br/><b>{village.vulnerability_score}</b></div>
                   </div>
+                  {/* AI Voice Briefing — Explain This Risk */}
+                  <div className="mt-2 pt-2 border-t border-dashed border-gray-200">
+                    <VoiceBriefingPlayer
+                      endpoint="/voice/risk-briefing"
+                      requestBody={{ habitation_id: village.id }}
+                      idleLabel="Explain This Risk"
+                      icon="🔊"
+                      tooltip="Generate a concise voice briefing from the current risk assessment."
+                      size="sm"
+                    />
+                  </div>
                 </div>
               ))
             )}
           </div>
+          {/* Attribution */}
+          {topVillages.length > 0 && (
+            <div className="border-t border-gray-100 px-3 py-2">
+              <p className="text-[9px] text-gray-400 text-center">
+                AI Voice Briefing powered by ElevenLabs
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
