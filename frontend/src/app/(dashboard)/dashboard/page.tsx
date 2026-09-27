@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { StatsCards, DashboardStats } from '@/components/dashboard/StatsCards';
 import { apiClient } from '@/lib/api';
+import VoiceBriefingPlayer from '@/components/voice/VoiceBriefingPlayer';
 
 export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -38,7 +39,17 @@ export default function DashboardPage() {
           <h1 className="text-3xl font-bold text-gray-900">Command Center Dashboard</h1>
           <p className="text-gray-500 mt-1">High-level overview of disaster risk and relocation status.</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
+          {!loading && !error && stats && (
+            <VoiceBriefingPlayer
+              endpoint="/voice/action-plan-briefing"
+              requestBody={{}}
+              idleLabel="Brief Me"
+              icon="🎙"
+              tooltip="Generate a concise executive voice briefing from the current system state."
+              size="md"
+            />
+          )}
           <Link href="/action-plan" className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2 px-4 rounded-lg shadow-sm transition-colors flex items-center gap-2">
             View Action Plan
           </Link>

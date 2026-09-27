@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { apiClient } from "@/lib/api";
+import VoiceBriefingPlayer from '@/components/voice/VoiceBriefingPlayer';
 
 export interface AlertRecord {
   id: string;
@@ -235,7 +236,17 @@ export default function NotificationsPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 w-full sm:w-auto">
+        <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+          {!loading && !error && (
+            <VoiceBriefingPlayer
+              endpoint="/voice/action-plan-briefing"
+              requestBody={{}}
+              idleLabel="Brief Me"
+              icon="🎙"
+              tooltip="Generate a concise executive voice briefing of the current system state."
+              size="md"
+            />
+          )}
           {summary && summary.unacknowledged > 0 && (
             <button
               onClick={handleAcknowledgeAll}
