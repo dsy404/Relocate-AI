@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![SIH 2026](https://img.shields.io/badge/SIH%202026-Problem%20SIH26191-FF6B35?style=for-the-badge&logo=target&logoColor=white)](https://sih.gov.in)
+
 [![Frontend](https://img.shields.io/badge/Frontend-Next.js%2016%20%7C%20TypeScript%20%7C%20Tailwind-38BDF8?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![Backend](https://img.shields.io/badge/Backend-Python%20%7C%20Flask%20%7C%20Shapely-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://flask.palletsprojects.com)
 [![Tests](https://img.shields.io/badge/Tests-57%2F57%20Passing%20(100%25)-10B981?style=for-the-badge&logo=pytest&logoColor=white)](backend/tests)
@@ -22,7 +22,7 @@
 
 Natural disasters such as catastrophic flooding, landslides, and riverbank erosion displace vulnerable communities across India every year. Traditional post-disaster rehabilitation often suffers from fragmented data, arbitrary site allocations, infrastructure bottlenecks, and lack of real-time auditability.
 
-**Relocate AI** is an enterprise-grade Decision Support System (DSS) developed for **Smart India Hackathon 2026 (Problem Statement: SIH26191)**. It provides disaster management authorities (NDMA/SDMA) with an end-to-end scientific pipeline:
+**Relocate AI** is an enterprise-grade Decision Support System (DSS). It provides disaster management authorities (NDMA/SDMA) with an end-to-end scientific pipeline:
 
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐
@@ -194,8 +194,8 @@ Ensure you have the following installed on your machine:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/dsy404/SIH-2026.git
-cd SIH-2026
+git clone https://github.com/dsy404/Relocate-AI.git
+cd Relocate-AI
 ```
 
 ### 2. Backend Setup
@@ -292,7 +292,7 @@ npx playwright test
 ## 🗺️ Project Structure
 
 ```
-SIH-2026/
+Relocate-AI/
 ├── backend/                         # Flask Backend Application
 │   ├── app/
 │   │   ├── api/routes/              # 12 Modular API Blueprints
@@ -349,7 +349,7 @@ SIH-2026/
 
 ## 👥 Contributors 
 
-Developed with pride for **Smart India Hackathon (SIH) 2026** by team **LOLGORITHMS**.
+Developed with pride by team **LOLGORITHMS**.
 
 <div align="center">
 
