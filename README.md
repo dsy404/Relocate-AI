@@ -182,6 +182,62 @@ Step 4: Generate Execution Ledger, Distance Traveled, and Action Directives
 
 ---
 
+## 🎙️ ELEVENLABS HACKATHON DEMO (VOICE COPILOT)
+
+The RELOCATE AI Voice Copilot enables conversational disaster-intelligence queries by deeply integrating ElevenLabs Conversational AI with our authoritative backend calculation engines. The agent natively invokes client-side tools to fetch dynamic geo-spatial risk assessments, suitable relocation sites, and scenario simulations.
+
+### 1. ElevenLabs Agent Setup
+
+To run the live voice copilot demonstration, you must create a Conversational AI agent in your ElevenLabs dashboard:
+
+1. Log into your ElevenLabs account and navigate to **Conversational AI**.
+2. Create a new Agent named **"RELOCATE AI Voice Copilot"**.
+3. Under **System Prompt**, provide the following context:
+   > "You assist authorized disaster-management personnel in understanding the data and analysis available in the RELOCATE AI application. Use backend tools for application-specific facts, scores, rankings, candidate sites, capacity results, and simulations. Do not invent missing data, calculations, safety certifications, official designations, or government decisions. Distinguish real observations from synthetic demo data and scenario simulations. Explain the reasons behind a result when the relevant data is available. Speak in concise, clear language. Ask a follow-up question when the requested habitation, site, or scenario is ambiguous."
+4. Enable **Client Tools** and add the following 6 tools EXACTLY with these names and descriptions:
+   - `get_highest_risk_habitation`: (No parameters) Retrieves the highest risk habitation from current data.
+   - `explain_habitation_risk`: Parameters: `habitation_id` (string). Retrieves why a habitation has its risk score.
+   - `find_suitable_relocation_sites`: Parameters: `habitation_id` (string). Retrieves candidate safe sites.
+   - `check_site_capacity`: Parameters: `site_id` (string), `incoming_population` (integer). Assesses carrying capacity.
+   - `run_scenario_simulation`: Parameters: `baseline_rainfall_mm` (integer), `scenario_rainfall_mm` (integer). Runs a disaster rainfall scenario.
+   - `generate_command_briefing`: (No parameters) Generates an executive overview and action plan.
+5. In the ElevenLabs agent configuration, ensure **Authorization** is configured correctly (if Public, the agent ID is all you need).
+6. Copy the **Agent ID**.
+
+### 2. Configure Environment
+
+In the `frontend/` directory, create or edit `.env.local`:
+```
+NEXT_PUBLIC_ELEVENLABS_AGENT_ID=your_elevenlabs_agent_id_here
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api
+```
+
+In the `backend/` directory, edit `.env`:
+```
+ELEVENLABS_API_KEY=sk_... (Your API Key for text-to-speech fallback & verification)
+```
+
+### 3. Running the 90-Second Demo
+
+1. Start both frontend and backend (see Quickstart below).
+2. Open the dashboard at `http://localhost:3000`.
+3. Click the floating **Talk to RELOCATE AI** microphone button on the bottom right.
+4. Click **START VOICE COPILOT** and allow microphone access.
+5. **0-15s:** Say: *"Give me an overview of the highest-risk habitation in our current dataset."*
+   > *Agent triggers `get_highest_risk_habitation`, explains the risk score.*
+6. **15-30s:** Say: *"Why is its risk score high?"*
+   > *Agent triggers `explain_habitation_risk`, explains the hazard and vulnerability components.*
+7. **30-50s:** Say: *"Find suitable relocation sites for that habitation."*
+   > *Agent triggers `find_suitable_relocation_sites`, lists safe candidates.*
+8. **50-65s:** Say: *"Can the recommended site support the affected population?"*
+   > *Agent triggers `check_site_capacity`, assessing multi-dimensional bottlenecks.*
+9. **65-80s:** Say: *"Run the supported demo scenario with 210 millimeters of rainfall."*
+   > *Agent triggers `run_scenario_simulation`, projecting cascading impacts.*
+10. **80-90s:** Say: *"Summarize the main findings."*
+    > *Agent triggers `generate_command_briefing`.*
+
+---
+
 ## 🚀 Quickstart & Installation
 
 ### Prerequisites

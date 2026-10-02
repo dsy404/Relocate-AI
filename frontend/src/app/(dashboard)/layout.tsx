@@ -1,5 +1,6 @@
 import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
+import VoiceCopilot from "@/components/voice/VoiceCopilot";
 
 export default function DashboardLayout({
   children,
@@ -11,10 +12,11 @@ export default function DashboardLayout({
       <Sidebar />
       <div className="flex-1 flex flex-col h-screen overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-6 relative">
           {children}
         </main>
       </div>
+      <VoiceCopilot />
     </div>
   );
 }
