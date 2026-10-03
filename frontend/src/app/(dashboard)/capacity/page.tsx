@@ -74,25 +74,25 @@ export default function CapacityPage() {
     <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-8 pb-10">
       
       {/* Page Header */}
-      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-slate-200">
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-cmd-border">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Carrying Capacity Analysis</h1>
-          <p className="text-slate-500 font-medium text-sm max-w-2xl leading-relaxed">
+          <h1 className="text-3xl font-extrabold text-cmd-text tracking-tight mb-2">Carrying Capacity Analysis</h1>
+          <p className="text-cmd-text-muted font-medium text-sm max-w-2xl leading-relaxed">
             Dynamic 8-dimensional infrastructure headroom evaluation and binding bottleneck detection.
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-2.5 rounded-lg flex items-center shadow-sm text-xs font-bold uppercase tracking-wider">
-            <Layers className="w-4 h-4 mr-2 text-blue-600" />
+          <div className="bg-cmd-info/10 border border-cmd-info/30 text-cmd-info px-4 py-2.5 rounded-lg flex items-center shadow-sm text-xs font-bold uppercase tracking-wider">
+            <Layers className="w-4 h-4 mr-2 text-cmd-info" />
             <span>Capacity Engine Active</span>
           </div>
         </div>
       </div>
 
       {/* Mandatory Planning Disclaimer Banner */}
-      <div className="bg-amber-50/80 border border-amber-200 rounded-2xl p-5 shadow-sm flex items-start gap-4">
+      <div className="bg-cmd-warning/10/80 border border-cmd-warning/30 rounded-2xl p-5 shadow-sm flex items-start gap-4">
         <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-          <Info className="w-5 h-5 text-amber-600" />
+          <Info className="w-5 h-5 text-cmd-warning" />
         </div>
         <div>
           <h3 className="text-sm font-bold text-amber-950 mb-1">
@@ -105,10 +105,10 @@ export default function CapacityPage() {
       </div>
 
       {/* Interactive Controls Bar: Dynamic Candidate Site & Population Inputs */}
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-6">
+      <div className="bg-cmd-card p-6 rounded-2xl shadow-sm border border-cmd-border flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-6">
         <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-6">
           <div className="flex-1 max-w-lg">
-            <label className="flex items-center gap-2 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+            <label className="flex items-center gap-2 text-[11px] font-bold text-cmd-text-muted uppercase tracking-widest mb-2">
               <MapPin className="w-3.5 h-3.5" />
               Select Candidate Relocation Site
             </label>
@@ -116,7 +116,7 @@ export default function CapacityPage() {
               <select
                 value={selectedSiteId}
                 onChange={(e) => setSelectedSiteId(e.target.value)}
-                className="w-full pl-4 pr-10 py-3 border border-slate-300 rounded-xl text-sm font-bold text-slate-900 bg-slate-50 hover:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all cursor-pointer appearance-none"
+                className="w-full pl-4 pr-10 py-3 border border-cmd-border rounded-xl text-sm font-bold text-cmd-text bg-cmd-secondary hover:bg-cmd-card focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all cursor-pointer appearance-none"
               >
                 {sites.map((s) => (
                   <option key={s.id} value={s.id}>
@@ -134,7 +134,7 @@ export default function CapacityPage() {
                 )}
               </select>
               <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-cmd-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </div>
@@ -142,7 +142,7 @@ export default function CapacityPage() {
           </div>
 
           <div className="w-full sm:w-64">
-            <label className="flex items-center gap-2 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+            <label className="flex items-center gap-2 text-[11px] font-bold text-cmd-text-muted uppercase tracking-widest mb-2">
               <Users className="w-3.5 h-3.5" />
               Planned Relocated Population
             </label>
@@ -153,9 +153,9 @@ export default function CapacityPage() {
                 step="50"
                 value={incomingPop}
                 onChange={(e) => setIncomingPop(Math.max(0, parseInt(e.target.value) || 0))}
-                className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm font-bold text-slate-900 bg-slate-50 hover:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all"
+                className="w-full px-4 py-3 border border-cmd-border rounded-xl text-sm font-bold text-cmd-text bg-cmd-secondary hover:bg-cmd-card focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all"
               />
-              <span className="absolute right-4 top-3 text-xs text-slate-400 font-bold pointer-events-none">
+              <span className="absolute right-4 top-3 text-xs text-cmd-text-muted font-bold pointer-events-none">
                 people
               </span>
             </div>
@@ -163,17 +163,17 @@ export default function CapacityPage() {
         </div>
 
         {data && (
-          <div className="flex items-center gap-6 px-6 py-4 bg-slate-50 rounded-xl border border-slate-200">
+          <div className="flex items-center gap-6 px-6 py-4 bg-cmd-secondary rounded-xl border border-cmd-border">
             <div>
-              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-1">Feasible Headroom</div>
-              <div className="text-2xl font-black text-slate-900 tracking-tight">
-                {data.feasible_additional_capacity?.toLocaleString()} <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">people</span>
+              <div className="text-[10px] text-cmd-text-muted uppercase font-bold tracking-widest mb-1">Feasible Headroom</div>
+              <div className="text-2xl font-black text-cmd-text tracking-tight">
+                {data.feasible_additional_capacity?.toLocaleString()} <span className="text-xs font-bold text-cmd-text-muted uppercase tracking-widest">people</span>
               </div>
             </div>
             <div className="h-10 w-px bg-slate-200" />
             <div>
-              <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-1">Binding Bottleneck</div>
-              <div className="text-sm font-bold text-rose-600 flex items-center gap-1.5 uppercase tracking-wide">
+              <div className="text-[10px] text-cmd-text-muted uppercase font-bold tracking-widest mb-1">Binding Bottleneck</div>
+              <div className="text-sm font-bold text-cmd-critical flex items-center gap-1.5 uppercase tracking-wide">
                 <AlertTriangle className="w-4 h-4" />
                 {data.critical_bottleneck}
               </div>
@@ -184,16 +184,16 @@ export default function CapacityPage() {
 
       {/* Main Results Display */}
       {loading ? (
-        <div className="flex flex-col justify-center items-center h-64 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
-          <Loader2 className="animate-spin h-8 w-8 text-blue-600 mb-4" />
-          <p className="text-sm font-medium text-slate-500">Analyzing capacity dimensions...</p>
+        <div className="flex flex-col justify-center items-center h-64 bg-cmd-secondary rounded-2xl border border-cmd-border border-dashed">
+          <Loader2 className="animate-spin h-8 w-8 text-cmd-info mb-4" />
+          <p className="text-sm font-medium text-cmd-text-muted">Analyzing capacity dimensions...</p>
         </div>
       ) : error ? (
-        <div className="bg-rose-50 border border-rose-200 p-6 rounded-2xl shadow-sm flex items-start gap-4">
-          <AlertTriangle className="w-6 h-6 text-rose-600 flex-shrink-0 mt-0.5" />
+        <div className="bg-cmd-critical/10 border border-cmd-critical/30 p-6 rounded-2xl shadow-sm flex items-start gap-4">
+          <AlertTriangle className="w-6 h-6 text-cmd-critical flex-shrink-0 mt-0.5" />
           <div>
             <h3 className="font-bold text-rose-800">Analysis Error</h3>
-            <p className="text-sm text-rose-700 mt-1">{error}</p>
+            <p className="text-sm text-cmd-critical mt-1">{error}</p>
           </div>
         </div>
       ) : data ? (

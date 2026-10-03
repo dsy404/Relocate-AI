@@ -40,7 +40,7 @@ export default function ExportButton() {
       <button 
         onClick={handleExportCSV}
         disabled={loading}
-        className="bg-white hover:bg-gray-50 text-gray-700 font-semibold py-2 px-4 border border-gray-300 rounded-lg shadow-sm flex items-center transition-colors disabled:opacity-50"
+        className="bg-cmd-card hover:bg-cmd-secondary text-cmd-text-secondary font-semibold py-2 px-4 border border-cmd-border rounded-lg shadow-sm flex items-center transition-colors disabled:opacity-50"
       >
         <span className="mr-2">📊</span>
         CSV Export

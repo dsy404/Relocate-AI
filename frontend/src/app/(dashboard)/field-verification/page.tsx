@@ -181,33 +181,33 @@ export default function FieldVerificationPage() {
     <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-8 pb-10">
       
       {/* Page Header */}
-      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-slate-200">
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-cmd-border">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Field Verification Console</h1>
-          <p className="text-slate-500 font-medium text-sm max-w-2xl leading-relaxed">
+          <h1 className="text-3xl font-extrabold text-cmd-text tracking-tight mb-2">Field Verification Console</h1>
+          <p className="text-cmd-text-muted font-medium text-sm max-w-2xl leading-relaxed">
             Ground-truth verification console with automated cascading recalculation: Field Report → Vulnerability → Hazard → Risk → Necessity → Optimizer.
           </p>
         </div>
 
         {/* Action / Navigation Tabs */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="bg-slate-100/80 p-1.5 rounded-xl flex gap-1 border border-slate-200 shadow-sm">
+          <div className="bg-cmd-secondary/50/80 p-1.5 rounded-xl flex gap-1 border border-cmd-border shadow-sm">
             <button
               onClick={() => setActiveTab('FORM')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'FORM' ? 'bg-white text-blue-700 shadow-sm ring-1 ring-slate-200/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'}`}
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'FORM' ? 'bg-cmd-card text-cmd-info shadow-sm ring-1 ring-slate-200/50' : 'text-cmd-text-secondary hover:text-cmd-text hover:bg-slate-200/50'}`}
             >
               Verification Console
             </button>
             <button
               onClick={() => { setActiveTab('AUDIT'); fetchHistory(); }}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'AUDIT' ? 'bg-white text-blue-700 shadow-sm ring-1 ring-slate-200/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'}`}
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'AUDIT' ? 'bg-cmd-card text-cmd-info shadow-sm ring-1 ring-slate-200/50' : 'text-cmd-text-secondary hover:text-cmd-text hover:bg-slate-200/50'}`}
             >
               Audit Trail ({history.length})
             </button>
           </div>
           <Link
             href="/action-plan"
-            className="text-xs bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 hover:text-slate-900 px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm flex items-center gap-2"
+            className="text-xs bg-cmd-card text-cmd-text-secondary border border-cmd-border hover:bg-cmd-secondary hover:text-cmd-text px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm flex items-center gap-2"
           >
             <FileText className="w-3.5 h-3.5" />
             Action Plan
@@ -226,24 +226,24 @@ export default function FieldVerificationPage() {
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
           
           {/* Left Panel: Habitation Directory */}
-          <div className="xl:col-span-4 bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col h-[850px] overflow-hidden">
-            <div className="p-6 bg-slate-50/50 border-b border-slate-200 space-y-4">
+          <div className="xl:col-span-4 bg-cmd-card rounded-3xl shadow-sm border border-cmd-border flex flex-col h-[850px] overflow-hidden">
+            <div className="p-6 bg-cmd-secondary/50 border-b border-cmd-border space-y-4">
               <div className="flex justify-between items-center">
-                <h3 className="font-extrabold text-slate-900 text-sm tracking-tight flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-slate-400" />
+                <h3 className="font-extrabold text-cmd-text text-sm tracking-tight flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-cmd-text-muted" />
                   Habitation Directory
                 </h3>
-                <span className="text-xs font-bold text-slate-500 bg-slate-200/50 px-2.5 py-1 rounded-md">{filteredHabitations.length} Total</span>
+                <span className="text-xs font-bold text-cmd-text-muted bg-slate-200/50 px-2.5 py-1 rounded-md">{filteredHabitations.length} Total</span>
               </div>
               
               <div className="relative">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <Search className="w-4 h-4 text-cmd-text-muted absolute left-3 top-3" />
                 <input
                   type="text"
                   placeholder="Search by name or ID..."
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className="w-full text-sm font-medium pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all placeholder:text-slate-400"
+                  className="w-full text-sm font-medium pl-10 pr-4 py-2.5 bg-cmd-card border border-cmd-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all placeholder:text-cmd-text-muted"
                 />
               </div>
 
@@ -253,7 +253,7 @@ export default function FieldVerificationPage() {
                     key={status}
                     onClick={() => setFilterStatus(status)}
                     className={`text-[10px] px-2.5 py-1 rounded-md font-bold transition-all uppercase tracking-wider ${
-                      filterStatus === status ? 'bg-slate-800 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 hover:text-slate-900'
+                      filterStatus === status ? 'bg-slate-800 text-white shadow-sm' : 'bg-cmd-card text-cmd-text-secondary border border-cmd-border hover:bg-cmd-secondary/50 hover:text-cmd-text'
                     }`}
                   >
                     {status.replace('_', ' ')}
@@ -262,7 +262,7 @@ export default function FieldVerificationPage() {
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto divide-y divide-slate-100/80 bg-slate-50/30">
+            <div className="flex-1 overflow-y-auto divide-y divide-slate-100/80 bg-cmd-secondary/30">
               {filteredHabitations.map(hab => {
                 const isSelected = hab.id === selectedHabId;
                 const isBlocked = hab.road_status === 'BLOCKED' || hab.road_accessible === false;
@@ -271,29 +271,29 @@ export default function FieldVerificationPage() {
                     key={hab.id}
                     onClick={() => handleSelectHabitation(hab)}
                     className={`p-5 cursor-pointer transition-all ${
-                      isSelected ? 'bg-blue-50/80 border-l-4 border-blue-600 shadow-sm relative z-10' : 'hover:bg-white border-l-4 border-transparent'
+                      isSelected ? 'bg-cmd-info/10/80 border-l-4 border-blue-600 shadow-sm relative z-10' : 'hover:bg-cmd-card border-l-4 border-transparent'
                     }`}
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <div className="font-extrabold text-slate-900 text-sm tracking-tight">{hab.name}</div>
-                      <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">{hab.id}</span>
+                      <div className="font-extrabold text-cmd-text text-sm tracking-tight">{hab.name}</div>
+                      <span className="text-[10px] font-bold text-cmd-text-muted bg-cmd-secondary/50 px-2 py-0.5 rounded uppercase tracking-wider">{hab.id}</span>
                     </div>
                     
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-xs font-semibold text-slate-600 flex items-center gap-1">
-                        <Users className="w-3.5 h-3.5 text-slate-400" />
+                      <span className="text-xs font-semibold text-cmd-text-secondary flex items-center gap-1">
+                        <Users className="w-3.5 h-3.5 text-cmd-text-muted" />
                         {hab.population}
                       </span>
-                      <span className="text-xs font-black text-rose-600 flex items-center gap-1 bg-rose-50 px-2 py-0.5 rounded-md">
+                      <span className="text-xs font-black text-cmd-critical flex items-center gap-1 bg-cmd-critical/10 px-2 py-0.5 rounded-md">
                         RPI: {hab.risk_score.toFixed(1)}
                       </span>
                       {isBlocked ? (
-                        <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200 flex items-center gap-1 shrink-0">
+                        <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-rose-100 text-rose-800 border border-cmd-critical/30 flex items-center gap-1 shrink-0">
                           <XCircle className="w-3 h-3" />
                           Blocked
                         </span>
                       ) : (
-                        <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1 shrink-0">
+                        <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-cmd-success/30 flex items-center gap-1 shrink-0">
                           <CheckCircle2 className="w-3 h-3" />
                           Open
                         </span>
@@ -302,13 +302,13 @@ export default function FieldVerificationPage() {
                     
                     <div className="flex items-center justify-between">
                       <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${
-                        hab.verification_status === 'VERIFIED' ? 'bg-emerald-50 text-emerald-700' :
-                        hab.verification_status === 'NEEDS_VERIFICATION' ? 'bg-amber-50 text-amber-700' :
-                        'bg-slate-100 text-slate-600'
+                        hab.verification_status === 'VERIFIED' ? 'bg-cmd-success/10 text-cmd-success' :
+                        hab.verification_status === 'NEEDS_VERIFICATION' ? 'bg-cmd-warning/10 text-cmd-warning' :
+                        'bg-cmd-secondary/50 text-cmd-text-secondary'
                       }`}>
                         {hab.verification_status.replace('_', ' ')}
                       </span>
-                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{hab.necessity_category}</span>
+                      <span className="text-[10px] font-bold text-cmd-text-muted uppercase tracking-widest">{hab.necessity_category}</span>
                     </div>
                   </div>
                 );
@@ -319,35 +319,35 @@ export default function FieldVerificationPage() {
           {/* Right Panel: Verification Form & Cascading Impact Modal */}
           <div className="xl:col-span-8 space-y-8">
             {currentHab ? (
-              <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+              <form onSubmit={handleSubmit} className="bg-cmd-card rounded-3xl shadow-sm border border-cmd-border overflow-hidden">
                 
                 {/* Habitation Banner */}
-                <div className="bg-slate-900 text-white p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+                <div className="bg-cmd-bg text-white p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 opacity-20 pointer-events-none" />
                   
                   <div className="relative z-10">
                     <div className="flex items-center gap-3 mb-2">
                       <h2 className="text-2xl font-black tracking-tight">{currentHab.name}</h2>
-                      <span className="text-xs font-bold uppercase tracking-widest bg-white/10 text-white px-2.5 py-1 rounded-md border border-white/20">
+                      <span className="text-xs font-bold uppercase tracking-widest bg-cmd-card/10 text-white px-2.5 py-1 rounded-md border border-white/20">
                         {currentHab.id}
                       </span>
                     </div>
                     <p className="text-sm font-medium text-slate-300 flex flex-wrap items-center gap-4">
-                      <span><span className="text-slate-400">Lat:</span> {currentHab.latitude.toFixed(4)}</span>
-                      <span><span className="text-slate-400">Lng:</span> {currentHab.longitude.toFixed(4)}</span>
-                      <span><span className="text-slate-400">Elev:</span> {currentHab.elevation}m</span>
-                      <span><span className="text-slate-400">Slope:</span> {currentHab.slope}°</span>
+                      <span><span className="text-cmd-text-muted">Lat:</span> {currentHab.latitude.toFixed(4)}</span>
+                      <span><span className="text-cmd-text-muted">Lng:</span> {currentHab.longitude.toFixed(4)}</span>
+                      <span><span className="text-cmd-text-muted">Elev:</span> {currentHab.elevation}m</span>
+                      <span><span className="text-cmd-text-muted">Slope:</span> {currentHab.slope}°</span>
                     </p>
                   </div>
                   
-                  <div className="relative z-10 flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl backdrop-blur-sm">
+                  <div className="relative z-10 flex items-center gap-4 bg-cmd-card/5 border border-white/10 p-4 rounded-2xl backdrop-blur-sm">
                     <div className="text-right">
-                      <div className="text-[10px] uppercase font-bold tracking-widest text-slate-400 mb-1">Baseline RPI</div>
+                      <div className="text-[10px] uppercase font-bold tracking-widest text-cmd-text-muted mb-1">Baseline RPI</div>
                       <div className="text-3xl font-black text-white leading-none">{currentHab.risk_score.toFixed(1)}</div>
                     </div>
-                    <div className="w-px h-10 bg-white/10 mx-2" />
+                    <div className="w-px h-10 bg-cmd-card/10 mx-2" />
                     <div>
-                      <div className="text-[10px] uppercase font-bold tracking-widest text-slate-400 mb-1">Necessity</div>
+                      <div className="text-[10px] uppercase font-bold tracking-widest text-cmd-text-muted mb-1">Necessity</div>
                       <span className="text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30">
                         {currentHab.necessity_category}
                       </span>
@@ -358,28 +358,28 @@ export default function FieldVerificationPage() {
                 <div className="p-6 md:p-8 space-y-10">
                   {/* Section 1: Verifier Credentials & Metadata */}
                   <div>
-                    <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                    <h3 className="text-[11px] font-black uppercase tracking-widest text-cmd-text-muted mb-4 flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
                       1. Verifier Identity & Audit Metadata
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Verifier Name / Badge ID</label>
+                        <label className="block text-xs font-bold text-cmd-text-secondary mb-2 uppercase tracking-wide">Verifier Name / Badge ID</label>
                         <input
                           type="text"
                           required
                           value={verifierName}
                           onChange={e => setVerifierName(e.target.value)}
-                          className="w-full text-sm font-semibold p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white"
+                          className="w-full text-sm font-semibold p-3 border border-cmd-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-cmd-secondary hover:bg-cmd-card"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Verification Status</label>
+                        <label className="block text-xs font-bold text-cmd-text-secondary mb-2 uppercase tracking-wide">Verification Status</label>
                         <div className="relative">
                           <select
                             value={verificationStatus}
                             onChange={e => setVerificationStatus(e.target.value)}
-                            className="w-full text-sm font-semibold p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white appearance-none cursor-pointer"
+                            className="w-full text-sm font-semibold p-3 pr-10 border border-cmd-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-cmd-secondary hover:bg-cmd-card appearance-none cursor-pointer"
                           >
                             <option value="VERIFIED">Verified (Ground truth confirmed)</option>
                             <option value="NEEDS_VERIFICATION">Needs Verification (Pending follow-up)</option>
@@ -387,7 +387,7 @@ export default function FieldVerificationPage() {
                             <option value="OUTDATED">Outdated (Seasonal resurvey needed)</option>
                           </select>
                           <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg className="w-4 h-4 text-cmd-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
                           </div>
                         </div>
                       </div>
@@ -396,11 +396,11 @@ export default function FieldVerificationPage() {
 
                   {/* Section 2: Evacuation Road Accessibility Trigger */}
                   <div>
-                    <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                    <h3 className="text-[11px] font-black uppercase tracking-widest text-cmd-text-muted mb-4 flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
                       2. Evacuation Corridor & Transit Accessibility
                     </h3>
-                    <div className="bg-amber-50/50 border border-amber-200 p-6 rounded-2xl">
+                    <div className="bg-cmd-warning/10/50 border border-cmd-warning/30 p-6 rounded-2xl">
                       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                         <div className="max-w-xl">
                           <span className="text-sm font-bold text-amber-950 block mb-1">Primary Evacuation Road Status</span>
@@ -413,7 +413,7 @@ export default function FieldVerificationPage() {
                             type="button"
                             onClick={() => setRoadStatus('OPEN')}
                             className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                              roadStatus === 'OPEN' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                              roadStatus === 'OPEN' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10' : 'bg-cmd-card text-cmd-text-secondary border border-cmd-border hover:border-cmd-border hover:bg-cmd-secondary'
                             }`}
                           >
                             <CheckCircle2 className="w-4 h-4" /> Road Open
@@ -422,7 +422,7 @@ export default function FieldVerificationPage() {
                             type="button"
                             onClick={() => setRoadStatus('BLOCKED')}
                             className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                              roadStatus === 'BLOCKED' ? 'bg-rose-600 text-white shadow-md shadow-rose-900/10' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                              roadStatus === 'BLOCKED' ? 'bg-rose-600 text-white shadow-md shadow-rose-900/10' : 'bg-cmd-card text-cmd-text-secondary border border-cmd-border hover:border-cmd-border hover:bg-cmd-secondary'
                             }`}
                           >
                             <XCircle className="w-4 h-4" /> Road Blocked
@@ -431,7 +431,7 @@ export default function FieldVerificationPage() {
                             type="button"
                             onClick={() => setRoadStatus('DAMAGED')}
                             className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                              roadStatus === 'DAMAGED' ? 'bg-amber-500 text-white shadow-md shadow-amber-900/10' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                              roadStatus === 'DAMAGED' ? 'bg-amber-500 text-white shadow-md shadow-amber-900/10' : 'bg-cmd-card text-cmd-text-secondary border border-cmd-border hover:border-cmd-border hover:bg-cmd-secondary'
                             }`}
                           >
                             <AlertTriangle className="w-4 h-4" /> Road Damaged
@@ -443,18 +443,18 @@ export default function FieldVerificationPage() {
 
                   {/* Section 3: Socio-Economic Infrastructure */}
                   <div>
-                    <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                    <h3 className="text-[11px] font-black uppercase tracking-widest text-cmd-text-muted mb-4 flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
                       3. Ground-Truth Socio-Economic Observations
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Drinking Water</label>
+                        <label className="block text-xs font-bold text-cmd-text-secondary mb-2 uppercase tracking-wide">Drinking Water</label>
                         <div className="relative">
                           <select
                             value={waterAvail}
                             onChange={e => setWaterAvail(e.target.value)}
-                            className="w-full text-sm font-semibold p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white appearance-none cursor-pointer"
+                            className="w-full text-sm font-semibold p-3 pr-10 border border-cmd-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-cmd-secondary hover:bg-cmd-card appearance-none cursor-pointer"
                           >
                             <option value="ABUNDANT">Abundant (Protected aquifer)</option>
                             <option value="ADEQUATE">Adequate (Meets 70 LPCD)</option>
@@ -462,18 +462,18 @@ export default function FieldVerificationPage() {
                             <option value="CONTAMINATED">Contaminated (+15 vuln)</option>
                           </select>
                           <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg className="w-4 h-4 text-cmd-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
                           </div>
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Housing Condition</label>
+                        <label className="block text-xs font-bold text-cmd-text-secondary mb-2 uppercase tracking-wide">Housing Condition</label>
                         <div className="relative">
                           <select
                             value={housingCondition}
                             onChange={e => setHousingCondition(e.target.value)}
-                            className="w-full text-sm font-semibold p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white appearance-none cursor-pointer"
+                            className="w-full text-sm font-semibold p-3 pr-10 border border-cmd-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-cmd-secondary hover:bg-cmd-card appearance-none cursor-pointer"
                           >
                             <option value="PUCCA_GOOD">Pucca Good (Stable)</option>
                             <option value="SEMI_PUCCA">Semi-Pucca (+10 vuln)</option>
@@ -481,18 +481,18 @@ export default function FieldVerificationPage() {
                             <option value="DAMAGED">Damaged (+20 vuln)</option>
                           </select>
                           <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg className="w-4 h-4 text-cmd-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
                           </div>
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Healthcare Access</label>
-                        <div className="flex items-center h-12 bg-slate-50 border border-slate-300 rounded-xl px-4 cursor-pointer" onClick={() => setHealthcareAccessible(!healthcareAccessible)}>
+                        <label className="block text-xs font-bold text-cmd-text-secondary mb-2 uppercase tracking-wide">Healthcare Access</label>
+                        <div className="flex items-center h-12 bg-cmd-secondary border border-cmd-border rounded-xl px-4 cursor-pointer" onClick={() => setHealthcareAccessible(!healthcareAccessible)}>
                           <div className={`w-12 h-6 rounded-full transition-colors relative flex items-center px-1 ${healthcareAccessible ? 'bg-emerald-500' : 'bg-slate-300'}`}>
-                            <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${healthcareAccessible ? 'translate-x-6' : 'translate-x-0'}`} />
+                            <div className={`w-4 h-4 rounded-full bg-cmd-card shadow-sm transition-transform ${healthcareAccessible ? 'translate-x-6' : 'translate-x-0'}`} />
                           </div>
-                          <span className={`ml-3 text-xs font-bold ${healthcareAccessible ? 'text-slate-900' : 'text-slate-500'}`}>
+                          <span className={`ml-3 text-xs font-bold ${healthcareAccessible ? 'text-cmd-text' : 'text-cmd-text-muted'}`}>
                             {healthcareAccessible ? 'Clinic Route Clear' : 'Route Severed (+10)'}
                           </span>
                         </div>
@@ -502,18 +502,18 @@ export default function FieldVerificationPage() {
 
                   {/* Section 4: Geotechnical & Hazard Observations */}
                   <div>
-                    <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                    <h3 className="text-[11px] font-black uppercase tracking-widest text-cmd-text-muted mb-4 flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
                       4. Active Hazard Field Observations
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Field Hazard Sighting</label>
+                        <label className="block text-xs font-bold text-cmd-text-secondary mb-2 uppercase tracking-wide">Field Hazard Sighting</label>
                         <div className="relative">
                           <select
                             value={hazardObs}
                             onChange={e => setHazardObs(e.target.value)}
-                            className="w-full text-sm font-semibold p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-all bg-slate-50 hover:bg-white appearance-none cursor-pointer"
+                            className="w-full text-sm font-semibold p-3 pr-10 border border-cmd-border rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-all bg-cmd-secondary hover:bg-cmd-card appearance-none cursor-pointer"
                           >
                             <option value="NONE">None (No active expansion)</option>
                             <option value="RISING_WATER">Rising Water (+25 hazard)</option>
@@ -522,19 +522,19 @@ export default function FieldVerificationPage() {
                             <option value="FLASH_FLOOD">Flash Flood (+25 hazard)</option>
                           </select>
                           <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                            <svg className="w-4 h-4 text-cmd-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
                           </div>
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Field Officer Detailed Notes</label>
+                        <label className="block text-xs font-bold text-cmd-text-secondary mb-2 uppercase tracking-wide">Field Officer Detailed Notes</label>
                         <textarea
                           rows={3}
                           placeholder="Record qualitative observations, culvert conditions..."
                           value={notes}
                           onChange={e => setNotes(e.target.value)}
-                          className="w-full text-sm font-medium p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white resize-none"
+                          className="w-full text-sm font-medium p-3 border border-cmd-border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-cmd-secondary hover:bg-cmd-card resize-none"
                         ></textarea>
                       </div>
                     </div>
@@ -542,7 +542,7 @@ export default function FieldVerificationPage() {
                 </div>
 
                 {/* Submit Action */}
-                <div className="bg-slate-50 p-6 md:p-8 border-t border-slate-200 flex justify-end">
+                <div className="bg-cmd-secondary p-6 md:p-8 border-t border-cmd-border flex justify-end">
                   <button
                     type="submit"
                     disabled={submitting}
@@ -563,28 +563,28 @@ export default function FieldVerificationPage() {
                 </div>
               </form>
             ) : (
-              <div className="bg-white rounded-3xl p-16 text-center border border-slate-200 border-dashed flex flex-col items-center justify-center h-[400px]">
+              <div className="bg-cmd-card rounded-3xl p-16 text-center border border-cmd-border border-dashed flex flex-col items-center justify-center h-[400px]">
                 <MapPin className="w-12 h-12 text-slate-300 mb-4" />
-                <p className="text-slate-500 font-medium text-lg">Select a habitation from the directory to start verification.</p>
+                <p className="text-cmd-text-muted font-medium text-lg">Select a habitation from the directory to start verification.</p>
               </div>
             )}
 
             {/* Recalculation Impact Proof Card */}
             {recalcResult && (
-              <div className="bg-white rounded-3xl shadow-xl shadow-blue-900/5 border-2 border-blue-500 p-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <div className="flex justify-between items-start border-b border-slate-100 pb-5">
+              <div className="bg-cmd-card rounded-3xl shadow-xl shadow-blue-900/5 border-2 border-blue-500 p-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex justify-between items-start border-b border-cmd-border/50 pb-5">
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 mb-3">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-cmd-info bg-cmd-info/10 border border-blue-100 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 mb-3">
                       <ShieldCheck className="w-3.5 h-3.5" />
                       Cascading Recalculation Complete
                     </span>
-                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">
-                      {recalcResult.habitation.name} <span className="text-slate-400 font-bold ml-1 text-lg">({recalcResult.habitation.id})</span>
+                    <h3 className="text-2xl font-black text-cmd-text tracking-tight">
+                      {recalcResult.habitation.name} <span className="text-cmd-text-muted font-bold ml-1 text-lg">({recalcResult.habitation.id})</span>
                     </h3>
                   </div>
                   <button
                     onClick={() => setRecalcResult(null)}
-                    className="text-slate-400 hover:text-slate-900 transition-colors p-2"
+                    className="text-cmd-text-muted hover:text-cmd-text transition-colors p-2"
                   >
                     <XCircle className="w-6 h-6" />
                   </button>
@@ -593,47 +593,47 @@ export default function FieldVerificationPage() {
                 {/* Before vs After Metric Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   {/* Vulnerability */}
-                  <div className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50">
-                    <span className="text-[11px] uppercase font-bold tracking-widest text-slate-500">Vulnerability Score</span>
+                  <div className="border border-cmd-border rounded-2xl p-5 bg-cmd-secondary/50">
+                    <span className="text-[11px] uppercase font-bold tracking-widest text-cmd-text-muted">Vulnerability Score</span>
                     <div className="flex items-baseline gap-3 mt-2">
-                      <span className="text-xl font-bold text-slate-400 line-through">
+                      <span className="text-xl font-bold text-cmd-text-muted line-through">
                         {recalcResult.before.vulnerability_score.toFixed(1)}
                       </span>
-                      <span className="text-3xl font-black text-blue-600">
+                      <span className="text-3xl font-black text-cmd-info">
                         {recalcResult.after.vulnerability_score.toFixed(1)}
                       </span>
-                      <span className="text-xs font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
+                      <span className="text-xs font-black text-cmd-critical bg-cmd-critical/10 px-2 py-0.5 rounded-md">
                         +{recalcResult.difference.vulnerability_delta}
                       </span>
                     </div>
                   </div>
 
                   {/* RPI Risk Score */}
-                  <div className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50">
-                    <span className="text-[11px] uppercase font-bold tracking-widest text-slate-500">Relocation Priority (RPI)</span>
+                  <div className="border border-cmd-border rounded-2xl p-5 bg-cmd-secondary/50">
+                    <span className="text-[11px] uppercase font-bold tracking-widest text-cmd-text-muted">Relocation Priority (RPI)</span>
                     <div className="flex items-baseline gap-3 mt-2">
-                      <span className="text-xl font-bold text-slate-400 line-through">
+                      <span className="text-xl font-bold text-cmd-text-muted line-through">
                         {recalcResult.before.rpi.toFixed(1)}
                       </span>
-                      <span className="text-3xl font-black text-rose-600">
+                      <span className="text-3xl font-black text-cmd-critical">
                         {recalcResult.after.rpi.toFixed(1)}
                       </span>
-                      <span className="text-xs font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
+                      <span className="text-xs font-black text-cmd-critical bg-cmd-critical/10 px-2 py-0.5 rounded-md">
                         +{recalcResult.difference.rpi_delta}
                       </span>
                     </div>
                   </div>
 
                   {/* Relocation Necessity */}
-                  <div className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50">
-                    <span className="text-[11px] uppercase font-bold tracking-widest text-slate-500">Relocation Urgency Tier</span>
+                  <div className="border border-cmd-border rounded-2xl p-5 bg-cmd-secondary/50">
+                    <span className="text-[11px] uppercase font-bold tracking-widest text-cmd-text-muted">Relocation Urgency Tier</span>
                     <div className="flex flex-col gap-2 mt-2">
-                      <span className="text-sm font-bold text-slate-400 line-through">
+                      <span className="text-sm font-bold text-cmd-text-muted line-through">
                         {recalcResult.before.necessity_category}
                       </span>
                       <div className="flex items-center gap-2">
-                        <ArrowRight className="w-4 h-4 text-slate-400" />
-                        <span className="text-sm font-black uppercase tracking-wider px-3 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200">
+                        <ArrowRight className="w-4 h-4 text-cmd-text-muted" />
+                        <span className="text-sm font-black uppercase tracking-wider px-3 py-1 rounded-md bg-rose-100 text-rose-800 border border-cmd-critical/30">
                           {recalcResult.after.necessity_category}
                         </span>
                       </div>
@@ -648,7 +648,7 @@ export default function FieldVerificationPage() {
                     <div className="text-sm text-indigo-950 font-medium flex items-center gap-2 flex-wrap">
                       <span className="line-through opacity-60">{recalcResult.before.assigned_site_name}</span> 
                       <ArrowRight className="w-4 h-4 opacity-50" /> 
-                      <span className="font-bold text-indigo-700 bg-white px-2 py-1 rounded-md shadow-sm border border-indigo-100">{recalcResult.after.assigned_site_name}</span>
+                      <span className="font-bold text-indigo-700 bg-cmd-card px-2 py-1 rounded-md shadow-sm border border-indigo-100">{recalcResult.after.assigned_site_name}</span>
                     </div>
                   </div>
                   <Link
@@ -661,14 +661,14 @@ export default function FieldVerificationPage() {
 
                 {/* Pipeline Progression Steps */}
                 <div className="pt-2">
-                  <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
+                  <h4 className="text-[10px] font-black uppercase tracking-widest text-cmd-text-muted mb-3 flex items-center gap-2">
                     <Activity className="w-3.5 h-3.5" />
                     Automated Cascading Execution Log
                   </h4>
-                  <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl font-mono text-xs space-y-2.5 shadow-inner">
+                  <div className="bg-cmd-bg border border-slate-800 p-5 rounded-2xl font-mono text-xs space-y-2.5 shadow-inner">
                     {recalcResult.cascading_pipeline_steps.map((step, idx) => (
                       <div key={idx} className="flex items-start gap-3 text-emerald-400/90">
-                        <span className="text-slate-500 shrink-0 mt-0.5">[{new Date().toLocaleTimeString()}]</span>
+                        <span className="text-cmd-text-muted shrink-0 mt-0.5">[{new Date().toLocaleTimeString()}]</span>
                         <span className="leading-relaxed">{step}</span>
                       </div>
                     ))}
@@ -682,15 +682,15 @@ export default function FieldVerificationPage() {
 
       {/* Tab 2: Audit Trail & Provenance Ledger */}
       {activeTab === 'AUDIT' && (
-        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="p-6 md:p-8 bg-slate-50/50 border-b border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="bg-cmd-card rounded-3xl shadow-sm border border-cmd-border overflow-hidden">
+          <div className="p-6 md:p-8 bg-cmd-secondary/50 border-b border-cmd-border flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h2 className="text-xl font-black text-slate-900 tracking-tight">Field Verification Audit Trail & Provenance Ledger</h2>
-              <p className="text-sm text-slate-500 font-medium mt-1">Non-destructive history preserving original source records and timestamped ground truth submissions.</p>
+              <h2 className="text-xl font-black text-cmd-text tracking-tight">Field Verification Audit Trail & Provenance Ledger</h2>
+              <p className="text-sm text-cmd-text-muted font-medium mt-1">Non-destructive history preserving original source records and timestamped ground truth submissions.</p>
             </div>
             <button
               onClick={fetchHistory}
-              className="text-xs bg-white text-slate-700 border border-slate-300 px-4 py-2.5 rounded-xl font-bold hover:bg-slate-50 shadow-sm transition-all"
+              className="text-xs bg-cmd-card text-cmd-text-secondary border border-cmd-border px-4 py-2.5 rounded-xl font-bold hover:bg-cmd-secondary shadow-sm transition-all"
             >
               Refresh Log
             </button>
@@ -698,7 +698,7 @@ export default function FieldVerificationPage() {
 
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm text-left whitespace-nowrap">
-              <thead className="bg-white text-slate-500 text-[10px] font-bold uppercase tracking-widest border-b border-slate-200">
+              <thead className="bg-cmd-card text-cmd-text-muted text-[10px] font-bold uppercase tracking-widest border-b border-cmd-border">
                 <tr>
                   <th className="py-4 px-6">Timestamp</th>
                   <th className="py-4 px-6">Habitation</th>
@@ -711,15 +711,15 @@ export default function FieldVerificationPage() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {history.map(item => (
-                  <tr key={item.id} className="hover:bg-slate-50/50 transition-colors">
-                    <td className="py-4 px-6 font-mono text-[11px] text-slate-500">
+                  <tr key={item.id} className="hover:bg-cmd-secondary/50 transition-colors">
+                    <td className="py-4 px-6 font-mono text-[11px] text-cmd-text-muted">
                       {item.verified_at ? new Date(item.verified_at).toLocaleString() : '—'}
                     </td>
                     <td className="py-4 px-6">
-                      <div className="font-bold text-slate-900">{item.habitation_name}</div>
-                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{item.habitation_id}</span>
+                      <div className="font-bold text-cmd-text">{item.habitation_name}</div>
+                      <span className="text-[10px] text-cmd-text-muted font-bold uppercase tracking-widest">{item.habitation_id}</span>
                     </td>
-                    <td className="py-4 px-6 font-semibold text-slate-700">{item.verifier_name}</td>
+                    <td className="py-4 px-6 font-semibold text-cmd-text-secondary">{item.verifier_name}</td>
                     <td className="py-4 px-6">
                       <span className={`text-[10px] px-2.5 py-1 rounded-md font-bold uppercase tracking-wider ${
                         item.road_status === 'BLOCKED' ? 'bg-rose-100 text-rose-800' : 
@@ -730,21 +730,21 @@ export default function FieldVerificationPage() {
                       </span>
                     </td>
                     <td className="py-4 px-6">
-                      <span className="text-[10px] px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 font-bold border border-blue-100 uppercase tracking-wider">
+                      <span className="text-[10px] px-2.5 py-1 rounded-md bg-cmd-info/10 text-cmd-info font-bold border border-blue-100 uppercase tracking-wider">
                         {item.verification_status.replace('_', ' ')}
                       </span>
                     </td>
                     <td className="py-4 px-6 font-mono text-[11px]">
                       {item.recalculation_diff ? (
                         <div className="flex flex-col gap-1 font-bold">
-                          <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded w-max">Δ Vuln: +{item.recalculation_diff.vulnerability_delta}</span>
-                          <span className="text-rose-600 bg-rose-50 px-2 py-0.5 rounded w-max">Δ RPI: +{item.recalculation_diff.rpi_delta}</span>
+                          <span className="text-cmd-info bg-cmd-info/10 px-2 py-0.5 rounded w-max">Δ Vuln: +{item.recalculation_diff.vulnerability_delta}</span>
+                          <span className="text-cmd-critical bg-cmd-critical/10 px-2 py-0.5 rounded w-max">Δ RPI: +{item.recalculation_diff.rpi_delta}</span>
                         </div>
                       ) : (
                         <span className="text-slate-300">—</span>
                       )}
                     </td>
-                    <td className="py-4 px-6 text-[11px] font-medium text-slate-500 max-w-[200px] truncate" title={item.notes}>
+                    <td className="py-4 px-6 text-[11px] font-medium text-cmd-text-muted max-w-[200px] truncate" title={item.notes}>
                       {item.notes || '—'}
                     </td>
                   </tr>

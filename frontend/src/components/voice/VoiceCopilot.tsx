@@ -187,7 +187,7 @@ function VoiceCopilotInner() {
       {/* Voice Workspace Panel */}
       {isOpen && (
         <div className="fixed inset-0 z-[60] flex justify-end bg-black/50 backdrop-blur-sm transition-opacity">
-          <div className="w-full max-w-md h-full bg-slate-900 border-l border-slate-700 shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-0">
+          <div className="w-full max-w-md h-full bg-cmd-bg border-l border-slate-700 shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-0">
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-700 bg-slate-800">
               <div>
@@ -201,7 +201,7 @@ function VoiceCopilotInner() {
                   }
                   setIsOpen(false);
                 }}
-                className="text-slate-400 hover:text-white transition-colors"
+                className="text-cmd-text-muted hover:text-white transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -210,9 +210,9 @@ function VoiceCopilotInner() {
             </div>
 
             {/* Conversation Log Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-900/50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-cmd-bg/50">
               {logs.length === 0 && (
-                <div className="text-center text-slate-500 mt-10">
+                <div className="text-center text-cmd-text-muted mt-10">
                   <p>Ready to assist with disaster intelligence.</p>
                   <p className="text-sm mt-2">Click the button below to start.</p>
                 </div>
@@ -220,7 +220,7 @@ function VoiceCopilotInner() {
               {logs.map((log, index) => (
                 <div key={index} className={`flex flex-col ${log.type === 'user' ? 'items-end' : 'items-start'}`}>
                   {log.type === 'status' && (
-                    <span className="text-xs text-slate-500 mx-auto bg-slate-800 px-3 py-1 rounded-full uppercase tracking-wider">{log.message}</span>
+                    <span className="text-xs text-cmd-text-muted mx-auto bg-slate-800 px-3 py-1 rounded-full uppercase tracking-wider">{log.message}</span>
                   )}
                   {log.type === 'error' && (
                     <div className="bg-red-900/40 border border-red-800 text-red-200 text-sm px-4 py-2 rounded-lg max-w-[85%]">
@@ -248,7 +248,7 @@ function VoiceCopilotInner() {
                   )}
                   {log.type === 'result' && log.data && (
                     <div className="bg-slate-800 border border-slate-600 rounded-lg p-3 max-w-full text-xs font-mono overflow-x-auto shadow-inner text-green-400 mt-1 mb-2">
-                      <div className="text-slate-400 mb-1 border-b border-slate-700 pb-1 flex justify-between">
+                      <div className="text-cmd-text-muted mb-1 border-b border-slate-700 pb-1 flex justify-between">
                         <span>{log.message}</span>
                         <span className="text-blue-400 ml-2">DEMO DATA</span>
                       </div>
@@ -261,7 +261,7 @@ function VoiceCopilotInner() {
 
             {/* Controls Area */}
             <div className="p-6 border-t border-slate-700 bg-slate-800 flex flex-col items-center">
-              <div className="mb-4 text-xs font-medium uppercase tracking-widest text-slate-400 flex items-center">
+              <div className="mb-4 text-xs font-medium uppercase tracking-widest text-cmd-text-muted flex items-center">
                 <span className={`w-2 h-2 rounded-full mr-2 ${conversation.status === 'connected' ? (conversation.isSpeaking ? 'bg-green-400 animate-pulse' : 'bg-blue-400') : 'bg-slate-600'}`}></span>
                 {conversation.status === 'connected' ? (conversation.isSpeaking ? 'Agent Speaking' : 'Listening...') : 'Disconnected'}
               </div>

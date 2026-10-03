@@ -121,9 +121,9 @@ export default function SimulationPanel() {
     <div className="space-y-8">
       {/* Mandatory Demo Simulation Banner */}
       <div className="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 text-white p-6 rounded-3xl shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-cmd-card/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
         <div className="flex items-start md:items-center gap-4 relative z-10">
-          <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-sm border border-white/20">
+          <div className="bg-cmd-card/20 p-3 rounded-2xl backdrop-blur-sm border border-white/20">
             <AlertTriangle className="w-8 h-8 text-white" />
           </div>
           <div>
@@ -142,20 +142,20 @@ export default function SimulationPanel() {
       </div>
 
       {/* Scenario Control Deck */}
-      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-100 pb-6">
+      <div className="bg-cmd-card rounded-3xl shadow-sm border border-cmd-border p-6 md:p-8 space-y-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-cmd-border/50 pb-6">
           <div>
-            <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+            <h2 className="text-xl font-extrabold text-cmd-text flex items-center gap-2">
               <CloudLightning className="w-5 h-5 text-indigo-600" />
               Environmental Scenario Controls
             </h2>
-            <p className="text-sm font-medium text-slate-500 mt-1">Adjust simulated precipitation intensity to observe downstream hazard amplification and optimizer reassignments.</p>
+            <p className="text-sm font-medium text-cmd-text-muted mt-1">Adjust simulated precipitation intensity to observe downstream hazard amplification and optimizer reassignments.</p>
           </div>
           <div className="flex items-center gap-3 w-full md:w-auto">
             <button
               onClick={handleReset}
               disabled={loading}
-              className="flex-1 md:flex-none px-5 py-3 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2 shadow-sm"
+              className="flex-1 md:flex-none px-5 py-3 text-xs font-bold text-cmd-text-secondary bg-cmd-secondary/50 hover:bg-slate-200 rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2 shadow-sm"
             >
               <RefreshCw className="w-4 h-4" />
               Reset Scenario
@@ -177,14 +177,14 @@ export default function SimulationPanel() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Baseline Rainfall */}
-          <div className="space-y-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+          <div className="space-y-4 p-6 bg-cmd-secondary rounded-2xl border border-cmd-border">
             <div className="flex justify-between items-center">
-              <label className="text-[11px] font-black text-slate-500 uppercase tracking-widest">Baseline Rainfall</label>
-              <span className="text-lg font-black font-mono text-slate-800 bg-white px-3 py-1.5 rounded-lg border border-slate-300 shadow-sm">
+              <label className="text-[11px] font-black text-cmd-text-muted uppercase tracking-widest">Baseline Rainfall</label>
+              <span className="text-lg font-black font-mono text-cmd-text bg-cmd-card px-3 py-1.5 rounded-lg border border-cmd-border shadow-sm">
                 {baselineRainfall} mm/day
               </span>
             </div>
-            <p className="text-sm font-medium text-slate-500">Historical regional average monsoon baseline precipitation.</p>
+            <p className="text-sm font-medium text-cmd-text-muted">Historical regional average monsoon baseline precipitation.</p>
           </div>
 
           {/* Scenario Rainfall Slider */}
@@ -194,11 +194,11 @@ export default function SimulationPanel() {
               <label className="text-[11px] font-black text-indigo-900 uppercase tracking-widest">Simulated Scenario Rainfall</label>
               <div className="flex items-center gap-3">
                 <span className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1.5 rounded-lg border shadow-sm ${
-                  rainfallSurge > 0 ? 'bg-rose-100 text-rose-800 border-rose-200' : 'bg-emerald-100 text-emerald-800 border-emerald-200'
+                  rainfallSurge > 0 ? 'bg-rose-100 text-rose-800 border-cmd-critical/30' : 'bg-emerald-100 text-emerald-800 border-cmd-success/30'
                 }`}>
                   {rainfallSurge >= 0 ? `+${rainfallSurge} mm surge` : `${rainfallSurge} mm drop`}
                 </span>
-                <span className="text-lg font-black font-mono text-indigo-700 bg-white px-3 py-1.5 rounded-lg border border-indigo-200 shadow-sm">
+                <span className="text-lg font-black font-mono text-indigo-700 bg-cmd-card px-3 py-1.5 rounded-lg border border-indigo-200 shadow-sm">
                   {scenarioRainfall} mm/day
                 </span>
               </div>
@@ -227,31 +227,31 @@ export default function SimulationPanel() {
       {result && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Red Zones Delta */}
-          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group hover:border-rose-200 transition-colors">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-rose-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="bg-cmd-card rounded-3xl shadow-sm border border-cmd-border p-6 relative overflow-hidden group hover:border-cmd-critical/30 transition-colors">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-cmd-critical/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
-              <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-1.5 mb-3">
+              <span className="text-[11px] font-black uppercase tracking-widest text-cmd-text-muted flex items-center gap-1.5 mb-3">
                 <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
                 Red-Zone Habitations
               </span>
               <div className="flex items-baseline gap-3">
                 <span className="text-3xl font-bold text-slate-300 line-through decoration-slate-200">{result.summary.baseline_red_zones}</span>
-                <span className="text-4xl font-black text-slate-900">{result.summary.scenario_red_zones}</span>
+                <span className="text-4xl font-black text-cmd-text">{result.summary.scenario_red_zones}</span>
                 <span className={`text-xs font-black px-2.5 py-1 rounded-md ${
-                  result.summary.red_zone_delta > 0 ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-600'
+                  result.summary.red_zone_delta > 0 ? 'bg-rose-100 text-cmd-critical' : 'bg-cmd-secondary/50 text-cmd-text-secondary'
                 }`}>
                   {result.summary.red_zone_delta >= 0 ? `+${result.summary.red_zone_delta}` : result.summary.red_zone_delta}
                 </span>
               </div>
-              <p className="text-xs font-medium text-slate-500 mt-3">Critical & Immediate urgency zones</p>
+              <p className="text-xs font-medium text-cmd-text-muted mt-3">Critical & Immediate urgency zones</p>
             </div>
           </div>
 
           {/* Affected Population */}
-          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group hover:border-amber-200 transition-colors">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="bg-cmd-card rounded-3xl shadow-sm border border-cmd-border p-6 relative overflow-hidden group hover:border-cmd-warning/30 transition-colors">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-cmd-warning/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
-              <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-1.5 mb-3">
+              <span className="text-[11px] font-black uppercase tracking-widest text-cmd-text-muted flex items-center gap-1.5 mb-3">
                 <Users className="w-3.5 h-3.5 text-amber-500" />
                 Displaced / At-Risk Pop
               </span>
@@ -259,49 +259,49 @@ export default function SimulationPanel() {
                 <span className="text-3xl font-bold text-slate-300 line-through decoration-slate-200">
                   {(result.summary.baseline_affected_population / 1000).toFixed(1)}k
                 </span>
-                <span className="text-4xl font-black text-slate-900">
+                <span className="text-4xl font-black text-cmd-text">
                   {(result.summary.scenario_affected_population / 1000).toFixed(1)}k
                 </span>
               </div>
-              <p className="text-xs font-bold text-amber-600 bg-amber-50 inline-block px-2 py-0.5 rounded-md mt-3 border border-amber-100">
+              <p className="text-xs font-bold text-cmd-warning bg-cmd-warning/10 inline-block px-2 py-0.5 rounded-md mt-3 border border-amber-100">
                 +{result.summary.affected_population_delta.toLocaleString()} newly affected
               </p>
             </div>
           </div>
 
           {/* Urgency Escalations */}
-          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group hover:border-purple-200 transition-colors">
+          <div className="bg-cmd-card rounded-3xl shadow-sm border border-cmd-border p-6 relative overflow-hidden group hover:border-purple-200 transition-colors">
             <div className="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
-              <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-1.5 mb-3">
+              <span className="text-[11px] font-black uppercase tracking-widest text-cmd-text-muted flex items-center gap-1.5 mb-3">
                 <Activity className="w-3.5 h-3.5 text-purple-500" />
                 Urgency Category Shifts
               </span>
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-black text-slate-900">
+                <span className="text-4xl font-black text-cmd-text">
                   {result.summary.habitations_urgency_changed}
                 </span>
-                <span className="text-sm font-bold text-slate-400">habitations</span>
+                <span className="text-sm font-bold text-cmd-text-muted">habitations</span>
               </div>
-              <p className="text-xs font-medium text-slate-500 mt-3">Transitions to Short-Term/Immediate</p>
+              <p className="text-xs font-medium text-cmd-text-muted mt-3">Transitions to Short-Term/Immediate</p>
             </div>
           </div>
 
           {/* Optimizer Reassignments */}
-          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group hover:border-blue-200 transition-colors">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="bg-cmd-card rounded-3xl shadow-sm border border-cmd-border p-6 relative overflow-hidden group hover:border-cmd-info/30 transition-colors">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-cmd-info/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="relative z-10">
-              <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-1.5 mb-3">
+              <span className="text-[11px] font-black uppercase tracking-widest text-cmd-text-muted flex items-center gap-1.5 mb-3">
                 <ArrowRightLeft className="w-3.5 h-3.5 text-blue-500" />
                 Optimizer Reroutes
               </span>
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-black text-slate-900">
+                <span className="text-4xl font-black text-cmd-text">
                   {result.summary.habitations_site_reassigned}
                 </span>
-                <span className="text-sm font-bold text-slate-400">corridors</span>
+                <span className="text-sm font-bold text-cmd-text-muted">corridors</span>
               </div>
-              <p className="text-xs font-medium text-slate-500 mt-3">Due to priority greedy reallocation</p>
+              <p className="text-xs font-medium text-cmd-text-muted mt-3">Due to priority greedy reallocation</p>
             </div>
           </div>
         </div>
@@ -309,16 +309,16 @@ export default function SimulationPanel() {
 
       {/* Differential Habitation Ledger Table */}
       {result && (
-        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="p-6 md:p-8 bg-slate-50/50 border-b border-slate-200 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
+        <div className="bg-cmd-card rounded-3xl shadow-sm border border-cmd-border overflow-hidden">
+          <div className="p-6 md:p-8 bg-cmd-secondary/50 border-b border-cmd-border flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
             <div>
-              <h3 className="text-lg font-black text-slate-900 flex items-center gap-3">
+              <h3 className="text-lg font-black text-cmd-text flex items-center gap-3">
                 Differential Scenario Impact Ledger
                 <span className="text-[10px] font-bold text-indigo-700 bg-indigo-100 px-2.5 py-1 rounded-md uppercase tracking-widest border border-indigo-200">
                   Base ({baselineRainfall}mm) vs Scen ({scenarioRainfall}mm)
                 </span>
               </h3>
-              <p className="text-sm text-slate-500 font-medium mt-1">
+              <p className="text-sm text-cmd-text-muted font-medium mt-1">
                 Highlights habitations whose hazard, risk category, relocation urgency, or recommended safe site changed under this simulation.
               </p>
             </div>
@@ -330,14 +330,14 @@ export default function SimulationPanel() {
                   placeholder="Filter habitations..."
                   value={search}
                   onChange={e => setSearch(e.target.value)}
-                  className="w-full xl:w-64 text-sm font-medium pl-4 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
+                  className="w-full xl:w-64 text-sm font-medium pl-4 pr-4 py-2.5 bg-cmd-card border border-cmd-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-cmd-text-muted"
                 />
               </div>
               <div className="flex flex-wrap gap-1.5">
                 <button
                   onClick={() => setFilter('ALL')}
                   className={`text-[11px] px-3 py-2 rounded-lg font-bold uppercase tracking-wider transition-all ${
-                    filter === 'ALL' ? 'bg-slate-800 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                    filter === 'ALL' ? 'bg-slate-800 text-white shadow-sm' : 'bg-cmd-card text-cmd-text-secondary border border-cmd-border hover:bg-cmd-secondary/50'
                   }`}
                 >
                   All ({result.comparison.length})
@@ -345,7 +345,7 @@ export default function SimulationPanel() {
                 <button
                   onClick={() => setFilter('IMPACTED')}
                   className={`text-[11px] px-3 py-2 rounded-lg font-bold uppercase tracking-wider transition-all ${
-                    filter === 'IMPACTED' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                    filter === 'IMPACTED' ? 'bg-blue-600 text-white shadow-sm' : 'bg-cmd-card text-cmd-text-secondary border border-cmd-border hover:bg-cmd-secondary/50'
                   }`}
                 >
                   Impacted
@@ -353,7 +353,7 @@ export default function SimulationPanel() {
                 <button
                   onClick={() => setFilter('RED_ZONES')}
                   className={`text-[11px] px-3 py-2 rounded-lg font-bold uppercase tracking-wider transition-all ${
-                    filter === 'RED_ZONES' ? 'bg-rose-600 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                    filter === 'RED_ZONES' ? 'bg-rose-600 text-white shadow-sm' : 'bg-cmd-card text-cmd-text-secondary border border-cmd-border hover:bg-cmd-secondary/50'
                   }`}
                 >
                   Red Zones
@@ -361,7 +361,7 @@ export default function SimulationPanel() {
                 <button
                   onClick={() => setFilter('REASSIGNED')}
                   className={`text-[11px] px-3 py-2 rounded-lg font-bold uppercase tracking-wider transition-all ${
-                    filter === 'REASSIGNED' ? 'bg-purple-600 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                    filter === 'REASSIGNED' ? 'bg-purple-600 text-white shadow-sm' : 'bg-cmd-card text-cmd-text-secondary border border-cmd-border hover:bg-cmd-secondary/50'
                   }`}
                 >
                   Reassigned
@@ -372,7 +372,7 @@ export default function SimulationPanel() {
 
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm text-left whitespace-nowrap">
-              <thead className="bg-white text-slate-500 text-[10px] font-bold uppercase tracking-widest border-b border-slate-200">
+              <thead className="bg-cmd-card text-cmd-text-muted text-[10px] font-bold uppercase tracking-widest border-b border-cmd-border">
                 <tr>
                   <th className="py-4 px-6">Habitation & Demographics</th>
                   <th className="py-4 px-6 text-center">Hazard (Base → Scen)</th>
@@ -391,17 +391,17 @@ export default function SimulationPanel() {
                     <tr
                       key={item.habitation_id}
                       className={`transition-colors ${
-                        isRedZone ? 'bg-rose-50/30' : diff.is_impacted ? 'bg-amber-50/20' : 'hover:bg-slate-50/50'
+                        isRedZone ? 'bg-cmd-critical/10/30' : diff.is_impacted ? 'bg-cmd-warning/10/20' : 'hover:bg-cmd-secondary/50'
                       }`}
                     >
                       {/* Habitation */}
                       <td className="py-4 px-6">
-                        <div className="font-extrabold text-slate-900 mb-1 flex items-center gap-2">
-                          <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                        <div className="font-extrabold text-cmd-text mb-1 flex items-center gap-2">
+                          <MapPin className="w-3.5 h-3.5 text-cmd-text-muted" />
                           {item.habitation_name}
                         </div>
-                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                          <span className="bg-slate-100 px-1.5 py-0.5 rounded">{item.habitation_id}</span>
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-cmd-text-muted uppercase tracking-widest">
+                          <span className="bg-cmd-secondary/50 px-1.5 py-0.5 rounded">{item.habitation_id}</span>
                           <span>•</span>
                           <span>Pop: {item.population}</span>
                           <span>•</span>
@@ -412,14 +412,14 @@ export default function SimulationPanel() {
                       {/* Hazard Score */}
                       <td className="py-4 px-6 text-center">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="text-sm font-bold text-slate-400 line-through decoration-slate-300">{item.baseline.hazard_score.toFixed(1)}</span>
+                          <span className="text-sm font-bold text-cmd-text-muted line-through decoration-slate-300">{item.baseline.hazard_score.toFixed(1)}</span>
                           <ArrowRight className="w-3 h-3 text-slate-300" />
-                          <span className={`text-base font-black ${diff.hazard_delta > 0 ? 'text-rose-600' : 'text-slate-900'}`}>
+                          <span className={`text-base font-black ${diff.hazard_delta > 0 ? 'text-cmd-critical' : 'text-cmd-text'}`}>
                             {item.scenario.hazard_score.toFixed(1)}
                           </span>
                         </div>
                         {diff.hazard_delta > 0 && (
-                          <div className="text-[10px] font-black text-rose-600 bg-rose-50 inline-block px-1.5 py-0.5 rounded mt-1">
+                          <div className="text-[10px] font-black text-cmd-critical bg-cmd-critical/10 inline-block px-1.5 py-0.5 rounded mt-1">
                             +{diff.hazard_delta.toFixed(1)}
                           </div>
                         )}
@@ -428,13 +428,13 @@ export default function SimulationPanel() {
                       {/* RPI Risk & Category */}
                       <td className="py-4 px-6 text-center">
                         <div className="flex items-center justify-center gap-2">
-                          <span className="text-sm font-bold text-slate-400 line-through decoration-slate-300">{item.baseline.rpi.toFixed(1)}</span>
+                          <span className="text-sm font-bold text-cmd-text-muted line-through decoration-slate-300">{item.baseline.rpi.toFixed(1)}</span>
                           <ArrowRight className="w-3 h-3 text-slate-300" />
-                          <span className={`text-base font-black ${item.scenario.rpi >= 76 ? 'text-rose-600' : 'text-slate-900'}`}>
+                          <span className={`text-base font-black ${item.scenario.rpi >= 76 ? 'text-cmd-critical' : 'text-cmd-text'}`}>
                             {item.scenario.rpi.toFixed(1)}
                           </span>
                         </div>
-                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">
+                        <div className="text-[10px] font-bold text-cmd-text-muted uppercase tracking-widest mt-1">
                           {item.scenario.risk_category}
                         </div>
                       </td>
@@ -443,14 +443,14 @@ export default function SimulationPanel() {
                       <td className="py-4 px-6 text-center">
                         {diff.urgency_changed ? (
                           <div className="flex items-center justify-center gap-2">
-                            <span className="text-xs font-bold text-slate-400 line-through decoration-slate-300">{item.baseline.urgency}</span>
+                            <span className="text-xs font-bold text-cmd-text-muted line-through decoration-slate-300">{item.baseline.urgency}</span>
                             <ArrowRight className="w-3 h-3 text-slate-300" />
-                            <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200">
+                            <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md bg-rose-100 text-rose-800 border border-cmd-critical/30">
                               {item.scenario.urgency}
                             </span>
                           </div>
                         ) : (
-                          <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md bg-slate-100 text-slate-600">
+                          <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md bg-cmd-secondary/50 text-cmd-text-secondary">
                             {item.scenario.urgency}
                           </span>
                         )}
@@ -460,7 +460,7 @@ export default function SimulationPanel() {
                       <td className="py-4 px-6">
                         {diff.site_changed ? (
                           <div className="flex flex-col gap-1">
-                            <div className="text-xs font-bold text-slate-400 line-through decoration-slate-300 flex items-center gap-1">
+                            <div className="text-xs font-bold text-cmd-text-muted line-through decoration-slate-300 flex items-center gap-1">
                               <MapPin className="w-3 h-3" /> {item.baseline.recommended_site}
                             </div>
                             <div className="text-xs font-black text-indigo-700 flex items-center gap-1.5 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-100 w-fit">
@@ -468,8 +468,8 @@ export default function SimulationPanel() {
                             </div>
                           </div>
                         ) : (
-                          <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                            <MapPin className="w-3 h-3 text-slate-400" /> {item.scenario.recommended_site}
+                          <span className="text-xs font-bold text-cmd-text-secondary flex items-center gap-1.5">
+                            <MapPin className="w-3 h-3 text-cmd-text-muted" /> {item.scenario.recommended_site}
                           </span>
                         )}
                       </td>
@@ -478,12 +478,12 @@ export default function SimulationPanel() {
                       <td className="py-4 px-6 text-center">
                         <div className="flex flex-wrap gap-1.5 justify-center">
                           {diff.risk_category_changed && (
-                            <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-amber-100 text-amber-800 border border-amber-200">
+                            <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-amber-100 text-amber-800 border border-cmd-warning/30">
                               Escalated
                             </span>
                           )}
                           {diff.urgency_changed && (
-                            <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200">
+                            <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-rose-100 text-rose-800 border border-cmd-critical/30">
                               Urgency Shift
                             </span>
                           )}

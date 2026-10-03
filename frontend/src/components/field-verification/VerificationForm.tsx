@@ -53,7 +53,7 @@ export default function VerificationForm({ habitation, onBack, onSubmit }: Verif
           ✓
         </div>
         <h2 className="text-xl font-bold text-gray-800">Verification Submitted!</h2>
-        <p className="text-gray-500 text-center mt-2">The ground truth data has been synced to the master DSS.</p>
+        <p className="text-cmd-text-muted text-center mt-2">The ground truth data has been synced to the master DSS.</p>
       </div>
     );
   }
@@ -63,27 +63,27 @@ export default function VerificationForm({ habitation, onBack, onSubmit }: Verif
       <div className="flex items-center mb-6">
         <button 
           onClick={onBack}
-          className="mr-3 p-2 rounded-full hover:bg-gray-100 transition-colors"
+          className="mr-3 p-2 rounded-full hover:bg-cmd-secondary/50 transition-colors"
           aria-label="Go back"
         >
           ←
         </button>
         <div>
           <h2 className="text-xl font-bold text-gray-800">{habitation.name}</h2>
-          <p className="text-xs text-gray-500">ID: {habitation.id}</p>
+          <p className="text-xs text-cmd-text-muted">ID: {habitation.id}</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         
         {/* Data Comparison Section */}
-        <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+        <div className="bg-cmd-info/10 p-4 rounded-xl border border-blue-100">
           <h3 className="text-sm font-bold text-blue-800 uppercase tracking-wide mb-3">Field Validation</h3>
           
           <div className="grid grid-cols-2 gap-4">
             {/* Elevation */}
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Elevation (m)</label>
+              <label className="block text-xs font-medium text-cmd-text-muted mb-1">Elevation (m)</label>
               <div className="flex flex-col">
                 <span className="text-[10px] text-gray-400 mb-1">System: {habitation.systemData.elevation}</span>
                 <input 
@@ -91,14 +91,14 @@ export default function VerificationForm({ habitation, onBack, onSubmit }: Verif
                   name="elevation"
                   value={formData.elevation}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-2 border border-cmd-border rounded text-sm focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
             </div>
 
             {/* Slope */}
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Slope (°)</label>
+              <label className="block text-xs font-medium text-cmd-text-muted mb-1">Slope (°)</label>
               <div className="flex flex-col">
                 <span className="text-[10px] text-gray-400 mb-1">System: {habitation.systemData.slope}</span>
                 <input 
@@ -106,14 +106,14 @@ export default function VerificationForm({ habitation, onBack, onSubmit }: Verif
                   name="slope"
                   value={formData.slope}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-2 border border-cmd-border rounded text-sm focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
             </div>
 
             {/* Population */}
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Population</label>
+              <label className="block text-xs font-medium text-cmd-text-muted mb-1">Population</label>
               <div className="flex flex-col">
                 <span className="text-[10px] text-gray-400 mb-1">System: {habitation.systemData.population}</span>
                 <input 
@@ -121,14 +121,14 @@ export default function VerificationForm({ habitation, onBack, onSubmit }: Verif
                   name="population"
                   value={formData.population}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-2 border border-cmd-border rounded text-sm focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
             </div>
 
             {/* Households */}
             <div>
-              <label className="block text-xs font-medium text-gray-500 mb-1">Households</label>
+              <label className="block text-xs font-medium text-cmd-text-muted mb-1">Households</label>
               <div className="flex flex-col">
                 <span className="text-[10px] text-gray-400 mb-1">System: {habitation.systemData.households}</span>
                 <input 
@@ -136,7 +136,7 @@ export default function VerificationForm({ habitation, onBack, onSubmit }: Verif
                   name="households"
                   value={formData.households}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded text-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-2 border border-cmd-border rounded text-sm focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
             </div>
@@ -144,10 +144,10 @@ export default function VerificationForm({ habitation, onBack, onSubmit }: Verif
         </div>
 
         {/* Status Toggle */}
-        <div className="bg-red-50 p-4 rounded-xl border border-red-100 flex items-center justify-between">
+        <div className="bg-cmd-critical/10 p-4 rounded-xl border border-red-100 flex items-center justify-between">
           <div>
             <h3 className="font-medium text-red-800">Immediate Danger?</h3>
-            <p className="text-xs text-red-600">Flag for emergency evacuation</p>
+            <p className="text-xs text-cmd-critical">Flag for emergency evacuation</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input 
@@ -157,27 +157,27 @@ export default function VerificationForm({ habitation, onBack, onSubmit }: Verif
               onChange={handleChange}
               className="sr-only peer" 
             />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-cmd-card after:border-cmd-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
           </label>
         </div>
 
         {/* Notes */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Field Notes / Remarks</label>
+          <label className="block text-sm font-medium text-cmd-text-secondary mb-2">Field Notes / Remarks</label>
           <textarea 
             name="notes"
             value={formData.notes}
             onChange={handleChange}
             rows={3}
-            className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-3 border border-cmd-border rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
             placeholder="Add observations about infrastructure, access roads..."
           ></textarea>
         </div>
 
         {/* Photo Upload Mockup */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Evidence (Photos)</label>
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors cursor-pointer">
+          <label className="block text-sm font-medium text-cmd-text-secondary mb-2">Evidence (Photos)</label>
+          <div className="border-2 border-dashed border-cmd-border rounded-lg p-6 flex flex-col items-center justify-center text-cmd-text-muted hover:bg-cmd-secondary transition-colors cursor-pointer">
             <span className="text-2xl mb-2">📷</span>
             <span className="text-sm font-medium">Tap to take photo</span>
           </div>

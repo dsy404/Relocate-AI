@@ -244,12 +244,12 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div className="bg-cmd-card rounded-xl shadow-sm border border-cmd-border overflow-hidden">
       {/* Wizard Step Progress Bar */}
-      <div className="bg-gray-50 border-b border-gray-200 px-6 py-4">
+      <div className="bg-cmd-secondary border-b border-cmd-border px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <span className="text-sm font-bold text-gray-700">Real Data Ingestion Wizard</span>
+            <span className="text-sm font-bold text-cmd-text-secondary">Real Data Ingestion Wizard</span>
             <span className="bg-blue-100 text-blue-800 text-xs px-2.5 py-0.5 rounded-full font-bold">
               Step {step} of 5
             </span>
@@ -263,7 +263,7 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
                     ? "bg-blue-600 text-white font-bold"
                     : step > idx + 1
                     ? "bg-green-100 text-green-800 font-medium"
-                    : "text-gray-400 bg-gray-100"
+                    : "text-gray-400 bg-cmd-secondary/50"
                 }`}
               >
                 {label}
@@ -275,9 +275,9 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
 
       <div className="p-6">
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-md">
+          <div className="mb-6 p-4 bg-cmd-critical/10 border-l-4 border-red-500 rounded-md">
             <div className="flex items-center">
-              <svg className="w-5 h-5 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-cmd-critical mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
               </svg>
               <span className="text-sm font-bold text-red-800">{error}</span>
@@ -289,9 +289,9 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
         {step === 1 && (
           <form onSubmit={handleInspect} className="space-y-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Target Data Category</label>
+              <label className="block text-sm font-semibold text-cmd-text-secondary mb-1">Target Data Category</label>
               <select
-                className="w-full p-2.5 border rounded-lg bg-white shadow-sm font-medium"
+                className="w-full p-2.5 border rounded-lg bg-cmd-card shadow-sm font-medium"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
@@ -310,20 +310,20 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Select File (CSV or GeoJSON)</label>
+              <label className="block text-sm font-semibold text-cmd-text-secondary mb-1">Select File (CSV or GeoJSON)</label>
               <input
                 type="file"
                 accept=".csv,.geojson,.json"
-                className="w-full p-3 border border-dashed border-gray-300 rounded-lg bg-gray-50 text-sm cursor-pointer hover:bg-gray-100"
+                className="w-full p-3 border border-dashed border-cmd-border rounded-lg bg-cmd-secondary text-sm cursor-pointer hover:bg-cmd-secondary/50"
                 onChange={(e) => setFile(e.target.files?.[0] || null)}
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-cmd-text-muted mt-1">
                 Upload raw CSV or GeoJSON. You can map arbitrary field names in Step 3.
               </p>
             </div>
 
             {/* Template Download Section */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="bg-cmd-info/10 border border-cmd-info/30 rounded-lg p-4">
               <p className="text-xs font-bold text-blue-900 uppercase tracking-wide mb-2">
                 Download Reference Templates:
               </p>
@@ -331,21 +331,21 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
                 <a
                   href={`${API_BASE_URL}/datasets/templates/habitations.csv`}
                   download
-                  className="bg-white px-3 py-1.5 border border-blue-300 rounded text-blue-700 font-medium hover:bg-blue-100 shadow-sm"
+                  className="bg-cmd-card px-3 py-1.5 border border-cmd-info/50 rounded text-cmd-info font-medium hover:bg-blue-100 shadow-sm"
                 >
                   📥 Habitations CSV Template
                 </a>
                 <a
                   href={`${API_BASE_URL}/datasets/templates/habitations.geojson`}
                   download
-                  className="bg-white px-3 py-1.5 border border-blue-300 rounded text-blue-700 font-medium hover:bg-blue-100 shadow-sm"
+                  className="bg-cmd-card px-3 py-1.5 border border-cmd-info/50 rounded text-cmd-info font-medium hover:bg-blue-100 shadow-sm"
                 >
                   📥 Habitations GeoJSON Template
                 </a>
                 <a
                   href={`${API_BASE_URL}/datasets/templates/hazards.geojson`}
                   download
-                  className="bg-white px-3 py-1.5 border border-blue-300 rounded text-blue-700 font-medium hover:bg-blue-100 shadow-sm"
+                  className="bg-cmd-card px-3 py-1.5 border border-cmd-info/50 rounded text-cmd-info font-medium hover:bg-blue-100 shadow-sm"
                 >
                   📥 Hazards GeoJSON Template
                 </a>
@@ -365,41 +365,41 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
         {/* ── STEP 2: SCHEMA INSPECTION & PREVIEW ── */}
         {step === 2 && inspection && (
           <div className="space-y-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200 text-sm">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-cmd-secondary p-4 rounded-lg border border-cmd-border text-sm">
               <div>
-                <p className="text-xs text-gray-500 font-semibold">Format Detected</p>
-                <p className="font-bold text-gray-900 uppercase">{inspection.format}</p>
+                <p className="text-xs text-cmd-text-muted font-semibold">Format Detected</p>
+                <p className="font-bold text-cmd-text uppercase">{inspection.format}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-semibold">Record Count</p>
-                <p className="font-bold text-gray-900">{inspection.total_records}</p>
+                <p className="text-xs text-cmd-text-muted font-semibold">Record Count</p>
+                <p className="font-bold text-cmd-text">{inspection.total_records}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-semibold">Detected CRS</p>
-                <p className="font-bold text-gray-900">{inspection.detected_crs}</p>
+                <p className="text-xs text-cmd-text-muted font-semibold">Detected CRS</p>
+                <p className="font-bold text-cmd-text">{inspection.detected_crs}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-500 font-semibold">Geometry Type</p>
-                <p className="font-bold text-gray-900">{inspection.geometry_type}</p>
+                <p className="text-xs text-cmd-text-muted font-semibold">Geometry Type</p>
+                <p className="font-bold text-cmd-text">{inspection.geometry_type}</p>
               </div>
             </div>
 
             <div>
               <h3 className="font-bold text-gray-800 text-sm mb-2">Raw Data Preview (First {inspection.sample_rows.length} rows):</h3>
-              <div className="overflow-x-auto max-h-60 border border-gray-200 rounded-lg">
+              <div className="overflow-x-auto max-h-60 border border-cmd-border rounded-lg">
                 <table className="w-full text-xs text-left">
-                  <thead className="bg-gray-100 uppercase text-gray-600 sticky top-0">
+                  <thead className="bg-cmd-secondary/50 uppercase text-gray-600 sticky top-0">
                     <tr>
                       {inspection.headers.map((h) => (
                         <th key={h} className="px-3 py-2 whitespace-nowrap">{h}</th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-200 bg-white font-mono">
+                  <tbody className="divide-y divide-gray-200 bg-cmd-card font-mono">
                     {inspection.sample_rows.map((row, rIdx) => (
-                      <tr key={rIdx} className="hover:bg-gray-50">
+                      <tr key={rIdx} className="hover:bg-cmd-secondary">
                         {inspection.headers.map((h) => (
-                          <td key={h} className="px-3 py-1.5 whitespace-nowrap text-gray-700">
+                          <td key={h} className="px-3 py-1.5 whitespace-nowrap text-cmd-text-secondary">
                             {row[h] !== undefined && row[h] !== null ? String(row[h]) : <span className="text-red-300 italic">null</span>}
                           </td>
                         ))}
@@ -414,7 +414,7 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50"
+                className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-cmd-secondary"
               >
                 ← Back
               </button>
@@ -433,17 +433,17 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
         {step === 3 && inspection && (
           <div className="space-y-6">
             <div>
-              <h3 className="font-bold text-gray-900 text-base">Map Your File Columns to System Schema</h3>
-              <p className="text-xs text-gray-500 mt-0.5">
+              <h3 className="font-bold text-cmd-text text-base">Map Your File Columns to System Schema</h3>
+              <p className="text-xs text-cmd-text-muted mt-0.5">
                 Ensure required fields (Name, Coordinates, Population) are mapped appropriately.
               </p>
             </div>
 
-            <div className="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <div className="space-y-3 bg-cmd-secondary p-4 rounded-lg border border-cmd-border">
               {inspection.headers.map((header) => {
                 const mappedVal = columnMapping[header] || "__ignore__";
                 return (
-                  <div key={header} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-200 pb-2.5">
+                  <div key={header} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cmd-border pb-2.5">
                     <div className="sm:w-1/2">
                       <span className="font-mono text-sm font-bold text-gray-800">{header}</span>
                       <span className="text-xs text-gray-400 block">Sample: {String(inspection.sample_rows[0]?.[header] ?? "N/A")}</span>
@@ -451,7 +451,7 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
                     <div className="sm:w-1/2">
                       <select
                         className={`w-full p-2 border rounded-md text-xs font-semibold ${
-                          mappedVal !== "__ignore__" ? "border-blue-500 bg-blue-50/40 text-blue-900" : "bg-white text-gray-500"
+                          mappedVal !== "__ignore__" ? "border-blue-500 bg-cmd-info/10/40 text-blue-900" : "bg-cmd-card text-cmd-text-muted"
                         }`}
                         value={mappedVal}
                         onChange={(e) =>
@@ -474,7 +474,7 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50"
+                className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-cmd-secondary"
               >
                 ← Back to Preview
               </button>
@@ -494,15 +494,15 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
         {step === 4 && validation && (
           <div className="space-y-6">
             <div className="grid grid-cols-3 gap-4 text-center">
-              <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
+              <div className="bg-cmd-success/10 border border-cmd-success/30 p-4 rounded-lg">
                 <p className="text-xs text-green-700 font-bold uppercase">Valid Records</p>
                 <p className="text-3xl font-black text-green-700 mt-1">{validation.valid_count}</p>
               </div>
-              <div className={`p-4 rounded-lg border ${validation.invalid_count > 0 ? "bg-red-50 border-red-200 text-red-700" : "bg-gray-50 border-gray-200 text-gray-400"}`}>
+              <div className={`p-4 rounded-lg border ${validation.invalid_count > 0 ? "bg-cmd-critical/10 border-cmd-critical/30 text-cmd-critical" : "bg-cmd-secondary border-cmd-border text-gray-400"}`}>
                 <p className="text-xs font-bold uppercase">Invalid Records</p>
                 <p className="text-3xl font-black mt-1">{validation.invalid_count}</p>
               </div>
-              <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg text-amber-800">
+              <div className="bg-cmd-warning/10 border border-cmd-warning/30 p-4 rounded-lg text-amber-800">
                 <p className="text-xs font-bold uppercase">Missing Field Values</p>
                 <p className="text-3xl font-black mt-1">{validation.missing_values_count}</p>
               </div>
@@ -510,9 +510,9 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
 
             {/* Error alerts if invalid records exist */}
             {validation.errors.length > 0 && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-h-48 overflow-y-auto">
+              <div className="bg-cmd-critical/10 border border-cmd-critical/30 rounded-lg p-4 max-h-48 overflow-y-auto">
                 <h4 className="text-xs font-bold text-red-800 uppercase mb-2">Validation Errors Detected:</h4>
-                <ul className="text-xs text-red-700 space-y-1 list-disc pl-4 font-mono">
+                <ul className="text-xs text-cmd-critical space-y-1 list-disc pl-4 font-mono">
                   {validation.errors.map((err, idx) => (
                     <li key={idx}>
                       Row {err.row}: {err.message}
@@ -523,21 +523,21 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
             )}
 
             {/* Dataset Metadata Configuration */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-cmd-secondary p-4 rounded-lg border border-cmd-border">
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1">Dataset Name</label>
+                <label className="block text-xs font-bold text-cmd-text-secondary mb-1">Dataset Name</label>
                 <input
                   type="text"
-                  className="w-full p-2 border rounded text-xs bg-white"
+                  className="w-full p-2 border rounded text-xs bg-cmd-card"
                   value={datasetName}
                   onChange={(e) => setDatasetName(e.target.value)}
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1">Source / Authority</label>
+                <label className="block text-xs font-bold text-cmd-text-secondary mb-1">Source / Authority</label>
                 <input
                   type="text"
-                  className="w-full p-2 border rounded text-xs bg-white"
+                  className="w-full p-2 border rounded text-xs bg-cmd-card"
                   value={source}
                   onChange={(e) => setSource(e.target.value)}
                 />
@@ -548,7 +548,7 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
               <button
                 type="button"
                 onClick={() => setStep(3)}
-                className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50"
+                className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-cmd-secondary"
               >
                 ← Back to Mapping
               </button>
@@ -567,18 +567,18 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
         {/* ── STEP 5: IMPORT & RECALCULATION COMPLETE ── */}
         {step === 5 && importResult && (
           <div className="text-center py-6 space-y-4">
-            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
+            <div className="w-16 h-16 bg-green-100 text-cmd-success rounded-full flex items-center justify-center mx-auto shadow-inner">
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
 
-            <h3 className="text-2xl font-black text-gray-900">Real Data Ingestion & Recalculation Complete!</h3>
+            <h3 className="text-2xl font-black text-cmd-text">Real Data Ingestion & Recalculation Complete!</h3>
             <p className="text-sm text-gray-600 max-w-md mx-auto">
               {importResult.message}
             </p>
 
-            <div className="inline-block bg-gray-50 border border-gray-200 rounded-lg p-4 text-xs font-mono text-gray-700">
+            <div className="inline-block bg-cmd-secondary border border-cmd-border rounded-lg p-4 text-xs font-mono text-cmd-text-secondary">
               <p>Imported Records: <b>{importResult.imported_count}</b></p>
               <p>Total Habitations in System: <b>{importResult.total_system_habitations}</b></p>
               <p>Analytical Engines: <b>MasterEngine + Necessity + Optimizer Re-executed</b></p>
@@ -600,7 +600,7 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
               <button
                 type="button"
                 onClick={handleReset}
-                className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm hover:bg-gray-50"
+                className="border border-cmd-border text-cmd-text-secondary px-4 py-2 rounded-lg text-sm hover:bg-cmd-secondary"
               >
                 Ingest Another Dataset
               </button>

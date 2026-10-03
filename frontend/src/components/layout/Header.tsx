@@ -1,8 +1,9 @@
 "use client";
 
 import { usePathname } from 'next/navigation';
-import { User, ShieldAlert } from 'lucide-react';
+import { User, ShieldAlert, Clock, LayoutGrid, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 const routeTitles: Record<string, string> = {
   '/dashboard': 'Command Center',
@@ -13,7 +14,7 @@ const routeTitles: Record<string, string> = {
   '/necessity': 'Relocation Necessity',
   '/optimizer': 'Relocation Optimizer',
   '/action-plan': 'Government Action Plan',
-  '/field-verification': 'Field Verification Console',
+  '/field-verification': 'Field Verification',
   '/post-relocation': 'Post-Relocation Tracking',
   '/notifications': 'System Alerts',
   '/simulation': 'Scenario Simulation',
@@ -23,42 +24,103 @@ const routeTitles: Record<string, string> = {
 export default function Header() {
   const pathname = usePathname();
   const pageTitle = routeTitles[pathname] || 'Dashboard';
+  
+  const [time, setTime] = useState<string>('');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    // Check initial theme from document attribute if set
+    if (document.documentElement.getAttribute('data-theme') === 'light') {
+      setTheme('light');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    if (newTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  };
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(now.toISOString().split('T')[0] + ' ' + now.toTimeString().split(' ')[0]);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <header className="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between shadow-sm z-10 relative">
-      <div className="flex items-center space-x-6">
-        <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">
-          {pageTitle}
-        </h1>
-        
-        <motion.div 
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.3 }}
-          className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-rose-50 border border-rose-200 rounded-full"
-        >
-          <ShieldAlert className="w-4 h-4 text-rose-600" />
-          <span className="text-xs font-bold text-rose-700 uppercase tracking-wide">
-            Ramgarh District (Demo)
-          </span>
-        </motion.div>
-      </div>
-      
-      <div className="flex items-center space-x-5">
-        <div className="hidden sm:flex items-center gap-3 pr-4 border-r border-slate-200">
-          <div className="flex flex-col items-end">
-            <span className="text-sm font-bold text-slate-900">Administrator</span>
-            <span className="text-xs text-slate-500 font-medium">Demo Mode</span>
+    <motion.header 
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+      className="bg-cmd-secondary border-b border-cmd-border h-[72px] shrink-0 px-6 flex items-center justify-between z-10 relative"
+    >
+      <div className="flex items-center space-x-4">
+        <div className="w-8 h-8 rounded-lg bg-cmd-card border border-cmd-border flex items-center justify-center">
+          <LayoutGrid className="w-4 h-4 text-cmd-text-muted" />
+        </div>
+        <div className="flex flex-col">
+          <h1 className="text-lg font-bold text-cmd-text tracking-tight leading-tight">
+            {pageTitle}
+          </h1>
+          <div className="flex items-center text-[10px] text-cmd-text-muted font-mono tracking-widest gap-2">
+            <span>RELOCATE AI</span>
+            <span>/</span>
+            <span className="text-cmd-text-secondary">{pageTitle.toUpperCase()}</span>
           </div>
         </div>
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center cursor-pointer hover:bg-slate-200 transition-colors shadow-sm"
-        >
-          <User className="w-5 h-5 text-slate-600" />
-        </motion.div>
       </div>
-    </header>
+      
+      <div className="flex items-center space-x-6">
+        {/* Status badges */}
+        <div className="hidden lg:flex items-center gap-4">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-cmd-card border border-cmd-border rounded-full">
+            <Clock className="w-3.5 h-3.5 text-cmd-text-muted" />
+            <span className="text-[10px] font-mono text-cmd-text-secondary">SYS_SYNC: {time || 'LOADING...'}</span>
+          </div>
+          
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-cmd-warning/10 border border-cmd-warning/20 rounded-full">
+            <ShieldAlert className="w-3.5 h-3.5 text-cmd-warning" />
+            <span className="text-[10px] font-bold text-cmd-warning uppercase tracking-wide">
+              DEMO DATASET
+            </span>
+          </div>
+        </div>
+
+        {/* Separator */}
+        <div className="hidden sm:block w-px h-6 bg-cmd-border" />
+
+        {/* Theme Toggle */}
+        <button 
+          onClick={toggleTheme}
+          className="w-9 h-9 rounded-full bg-cmd-card border border-cmd-border flex items-center justify-center hover:bg-cmd-border transition-colors outline-none focus:ring-2 focus:ring-cmd-info/50"
+          title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+        >
+          {theme === 'dark' ? (
+            <Sun className="w-4 h-4 text-cmd-text-secondary" />
+          ) : (
+            <Moon className="w-4 h-4 text-cmd-text-secondary" />
+          )}
+        </button>
+
+        {/* User profile */}
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex flex-col items-end">
+            <span className="text-[12px] font-bold text-cmd-text">GovAdmin_01</span>
+            <span className="text-[10px] text-cmd-text-muted font-medium uppercase tracking-wider">Clearance L3</span>
+          </div>
+          <button className="w-9 h-9 rounded-full bg-cmd-card border border-cmd-border flex items-center justify-center hover:bg-cmd-border transition-colors outline-none focus:ring-2 focus:ring-cmd-info/50">
+            <User className="w-4 h-4 text-cmd-text-secondary" />
+          </button>
+        </div>
+      </div>
+    </motion.header>
   );
 }

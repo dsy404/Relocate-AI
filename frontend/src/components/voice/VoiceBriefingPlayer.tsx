@@ -205,8 +205,8 @@ export default function VoiceBriefingPlayer({
             aria-label={idleLabel}
             className={`
               inline-flex items-center ${sizeClasses} rounded-lg font-medium
-              bg-slate-100 text-slate-700 border border-slate-200
-              hover:bg-slate-200 hover:border-slate-300
+              bg-cmd-secondary/50 text-cmd-text-secondary border border-cmd-border
+              hover:bg-slate-200 hover:border-cmd-border
               active:bg-slate-300
               transition-all duration-150
               focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-1
@@ -225,7 +225,7 @@ export default function VoiceBriefingPlayer({
             aria-label="Generating briefing"
             className={`
               inline-flex items-center ${sizeClasses} rounded-lg font-medium
-              bg-blue-50 text-blue-600 border border-blue-200
+              bg-cmd-info/10 text-cmd-info border border-cmd-info/30
               cursor-wait
               ${className}
             `}
@@ -246,7 +246,7 @@ export default function VoiceBriefingPlayer({
               aria-label="Pause briefing"
               className={`
                 inline-flex items-center ${sizeClasses} rounded-lg font-medium
-                bg-green-50 text-green-700 border border-green-200
+                bg-cmd-success/10 text-green-700 border border-cmd-success/30
                 hover:bg-green-100
                 transition-all duration-150
                 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1
@@ -259,7 +259,7 @@ export default function VoiceBriefingPlayer({
             <button
               onClick={() => { cleanup(); setState("idle"); }}
               aria-label="Stop briefing"
-              className="p-1.5 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+              className="p-1.5 rounded text-cmd-text-muted hover:text-cmd-text-secondary hover:bg-cmd-secondary/50 transition-colors"
               title="Stop"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -276,7 +276,7 @@ export default function VoiceBriefingPlayer({
             aria-label="Resume briefing"
             className={`
               inline-flex items-center ${sizeClasses} rounded-lg font-medium
-              bg-amber-50 text-amber-700 border border-amber-200
+              bg-cmd-warning/10 text-cmd-warning border border-cmd-warning/30
               hover:bg-amber-100
               transition-all duration-150
               focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-1
@@ -297,7 +297,7 @@ export default function VoiceBriefingPlayer({
                 aria-label="Retry voice briefing"
                 className={`
                   inline-flex items-center ${sizeClasses} rounded-lg font-medium
-                  bg-red-50 text-red-600 border border-red-200
+                  bg-cmd-critical/10 text-cmd-critical border border-cmd-critical/30
                   hover:bg-red-100
                   transition-all duration-150
                   focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-1
@@ -309,7 +309,7 @@ export default function VoiceBriefingPlayer({
               <button
                 onClick={() => { setState("idle"); setErrorMessage(""); setFallbackText(""); }}
                 aria-label="Dismiss error"
-                className="p-1.5 rounded text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                className="p-1.5 rounded text-cmd-text-muted hover:text-cmd-text-secondary hover:bg-cmd-secondary/50 transition-colors"
                 title="Dismiss"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -318,12 +318,12 @@ export default function VoiceBriefingPlayer({
               </button>
             </div>
             {errorMessage && (
-              <p className="text-xs text-red-500 max-w-xs">{errorMessage}</p>
+              <p className="text-xs text-cmd-critical max-w-xs">{errorMessage}</p>
             )}
             {fallbackText && (
-              <details className="text-xs text-slate-500 max-w-sm mt-1">
-                <summary className="cursor-pointer hover:text-slate-700">View briefing text</summary>
-                <p className="mt-1 p-2 bg-slate-50 rounded border border-slate-200 text-slate-600 leading-relaxed">
+              <details className="text-xs text-cmd-text-muted max-w-sm mt-1">
+                <summary className="cursor-pointer hover:text-cmd-text-secondary">View briefing text</summary>
+                <p className="mt-1 p-2 bg-cmd-secondary rounded border border-cmd-border text-cmd-text-secondary leading-relaxed">
                   {fallbackText}
                 </p>
               </details>

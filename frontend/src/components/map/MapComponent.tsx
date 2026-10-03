@@ -62,7 +62,7 @@ export default function MapComponent() {
   const onEachHabitation = (feature: any, layer: L.Layer) => {
     const p = feature.properties;
     if (p && p.name) {
-      layer.bindPopup(`<div class="p-4 w-64 text-center text-gray-500">Loading risk assessment...</div>`);
+      layer.bindPopup(`<div class="p-4 w-64 text-center text-cmd-text-muted">Loading risk assessment...</div>`);
       
       layer.on('click', async (e) => {
         try {
@@ -77,18 +77,18 @@ export default function MapComponent() {
                   <span class="text-[10px] px-2 py-1 rounded bg-black text-white font-bold whitespace-nowrap ml-2">${data.risk_category}</span>
                 </div>
                 
-                <div class="bg-gray-100 p-2 rounded mb-2 text-center border ${data.overall_risk > 75 ? 'border-red-500 bg-red-50 text-red-700' : 'border-gray-300'}">
-                  <div class="text-xs uppercase font-bold text-gray-500">Overall Risk (RPI)</div>
+                <div class="bg-cmd-secondary/50 p-2 rounded mb-2 text-center border ${data.overall_risk > 75 ? 'border-red-500 bg-cmd-critical/10 text-cmd-critical' : 'border-cmd-border'}">
+                  <div class="text-xs uppercase font-bold text-cmd-text-muted">Overall Risk (RPI)</div>
                   <div class="text-3xl font-black">${data.overall_risk.toFixed(1)}</div>
                 </div>
                 
                 <div class="grid grid-cols-3 gap-1 text-[10px] text-center font-mono mb-2">
-                  <div class="bg-white border p-1 rounded">Haz<br/><b>${data.hazard_score.toFixed(1)}</b></div>
-                  <div class="bg-white border p-1 rounded">Exp<br/><b>${data.exposure_score.toFixed(1)}</b></div>
-                  <div class="bg-white border p-1 rounded">Vul<br/><b>${data.vulnerability_score.toFixed(1)}</b></div>
+                  <div class="bg-cmd-card border p-1 rounded">Haz<br/><b>${data.hazard_score.toFixed(1)}</b></div>
+                  <div class="bg-cmd-card border p-1 rounded">Exp<br/><b>${data.exposure_score.toFixed(1)}</b></div>
+                  <div class="bg-cmd-card border p-1 rounded">Vul<br/><b>${data.vulnerability_score.toFixed(1)}</b></div>
                 </div>
                 
-                <div class="text-xs text-gray-700 bg-blue-50 p-2 rounded border border-blue-100">
+                <div class="text-xs text-cmd-text-secondary bg-cmd-info/10 p-2 rounded border border-blue-100">
                   <p class="font-bold mb-1">Risk Drivers:</p>
                   <ul class="list-disc pl-4 mb-2">${data.primary_risk_drivers.map((d: string) => `<li>${d}</li>`).join('')}</ul>
                   <p class="font-bold mb-1">Explanation:</p>
@@ -99,10 +99,10 @@ export default function MapComponent() {
             `;
             layer.setPopupContent(popupHtml);
           } else {
-            layer.setPopupContent(`<div class="p-2 text-red-500">Failed to load risk assessment.</div>`);
+            layer.setPopupContent(`<div class="p-2 text-cmd-critical">Failed to load risk assessment.</div>`);
           }
         } catch (err) {
-          layer.setPopupContent(`<div class="p-2 text-red-500">Error fetching assessment.</div>`);
+          layer.setPopupContent(`<div class="p-2 text-cmd-critical">Error fetching assessment.</div>`);
         }
       });
     }
@@ -119,8 +119,8 @@ export default function MapComponent() {
   return (
     <div className="h-full w-full relative border rounded-lg overflow-hidden shadow-sm">
       {loading && (
-        <div className="absolute inset-0 bg-white/80 z-[2000] flex items-center justify-center">
-          <div className="text-lg font-bold text-gray-700 animate-pulse">Running Master Risk Engine...</div>
+        <div className="absolute inset-0 bg-cmd-card/80 z-[2000] flex items-center justify-center">
+          <div className="text-lg font-bold text-cmd-text-secondary animate-pulse">Running Master Risk Engine...</div>
         </div>
       )}
       

@@ -53,12 +53,12 @@ export default function UploadForm() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-cmd-card p-6 rounded-lg shadow-sm border border-cmd-border">
       <h2 className="text-xl font-bold mb-4 border-b pb-2">Upload Dataset</h2>
       
       <form onSubmit={handleUpload} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Data Category</label>
+          <label className="block text-sm font-medium text-cmd-text-secondary mb-1">Data Category</label>
           <select 
             className="w-full p-2 border rounded-md"
             value={category}
@@ -72,7 +72,7 @@ export default function UploadForm() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">File Format</label>
+          <label className="block text-sm font-medium text-cmd-text-secondary mb-1">File Format</label>
           <select 
             className="w-full p-2 border rounded-md"
             value={format}
@@ -88,17 +88,17 @@ export default function UploadForm() {
 
         {format !== "demo" && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Select File</label>
+            <label className="block text-sm font-medium text-cmd-text-secondary mb-1">Select File</label>
             <input 
               type="file" 
-              className="w-full p-2 border rounded-md bg-gray-50"
+              className="w-full p-2 border rounded-md bg-cmd-secondary"
               onChange={(e) => setFile(e.target.files?.[0] || null)}
               disabled={format === "shapefile" || format === "raster"}
             />
           </div>
         )}
 
-        {error && <div className="text-red-600 text-sm p-2 bg-red-50 rounded">{error}</div>}
+        {error && <div className="text-cmd-critical text-sm p-2 bg-cmd-critical/10 rounded">{error}</div>}
         
         <button 
           type="submit" 
@@ -114,9 +114,9 @@ export default function UploadForm() {
           <h3 className="font-semibold text-lg mb-2">Processing Report</h3>
           
           <div className="flex space-x-4 mb-4">
-            <div className="bg-gray-100 p-3 rounded flex-1 text-center">
+            <div className="bg-cmd-secondary/50 p-3 rounded flex-1 text-center">
               <div className="text-2xl font-bold">{status.total_records}</div>
-              <div className="text-xs text-gray-500 uppercase">Total Records</div>
+              <div className="text-xs text-cmd-text-muted uppercase">Total Records</div>
             </div>
             <div className="bg-green-100 text-green-800 p-3 rounded flex-1 text-center">
               <div className="text-2xl font-bold">{status.valid_records_count}</div>
@@ -129,9 +129,9 @@ export default function UploadForm() {
           </div>
 
           {status.invalid_records_count > 0 && (
-            <div className="bg-red-50 p-3 rounded border border-red-200">
+            <div className="bg-cmd-critical/10 p-3 rounded border border-cmd-critical/30">
               <p className="text-sm font-semibold text-red-800 mb-2">Validation Errors (Preview):</p>
-              <ul className="text-xs text-red-700 list-disc pl-4 space-y-1">
+              <ul className="text-xs text-cmd-critical list-disc pl-4 space-y-1">
                 {status.errors.map((err: any, idx: number) => (
                   <li key={idx}>Row {err.__row_num__}: {err.__errors__.join(', ')}</li>
                 ))}
@@ -140,9 +140,9 @@ export default function UploadForm() {
           )}
           
           {status.invalid_records_count === 0 && status.total_records > 0 && (
-            <div className="bg-green-50 p-4 rounded border border-green-200 text-sm text-green-800 flex flex-col space-y-2">
+            <div className="bg-cmd-success/10 p-4 rounded border border-cmd-success/30 text-sm text-green-800 flex flex-col space-y-2">
               <div className="font-semibold text-base">✅ Dataset validated and standardized successfully.</div>
-              <div className="grid grid-cols-2 gap-2 mt-2 bg-white/50 p-3 rounded">
+              <div className="grid grid-cols-2 gap-2 mt-2 bg-cmd-card/50 p-3 rounded">
                 <div><span className="font-medium">Projected CRS:</span> {status.projected_crs || "N/A"}</div>
                 <div><span className="font-medium">Data Confidence:</span> {status.format === 'demo' ? 'SYNTHETIC' : (status.format === 'csv' ? 'MODERATE' : 'HIGH')}</div>
               </div>

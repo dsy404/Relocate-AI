@@ -38,13 +38,13 @@ export default function RelocationStatus({ summary, details, loading }: Relocati
     <div className="space-y-6">
       {/* Top Banner - Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-center">
-          <h3 className="text-gray-500 text-sm font-medium mb-1">Total Relocated</h3>
+        <div className="bg-cmd-card p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-center">
+          <h3 className="text-cmd-text-muted text-sm font-medium mb-1">Total Relocated</h3>
           <p className="text-3xl font-bold text-gray-800">{totalHouseholds}</p>
           <span className="text-xs text-gray-400 mt-1">Households tracked</span>
         </div>
         
-        <div className="bg-green-50 p-4 rounded-xl shadow-sm border border-green-200">
+        <div className="bg-cmd-success/10 p-4 rounded-xl shadow-sm border border-cmd-success/30">
           <h3 className="text-green-700 text-sm font-medium mb-1">Stable</h3>
           <p className="text-3xl font-bold text-green-800">{summary.stable}</p>
           <div className="w-full bg-green-200 h-1.5 rounded-full mt-2 overflow-hidden">
@@ -60,8 +60,8 @@ export default function RelocationStatus({ summary, details, loading }: Relocati
           </div>
         </div>
 
-        <div className="bg-red-50 p-4 rounded-xl shadow-sm border border-red-200">
-          <h3 className="text-red-700 text-sm font-medium mb-1">At Risk</h3>
+        <div className="bg-cmd-critical/10 p-4 rounded-xl shadow-sm border border-cmd-critical/30">
+          <h3 className="text-cmd-critical text-sm font-medium mb-1">At Risk</h3>
           <p className="text-3xl font-bold text-red-800">{summary.at_risk}</p>
           <div className="w-full bg-red-200 h-1.5 rounded-full mt-2 overflow-hidden">
             <div className="bg-red-600 h-full" style={{ width: `${(summary.at_risk/totalHouseholds)*100}%`}}></div>
@@ -70,13 +70,13 @@ export default function RelocationStatus({ summary, details, loading }: Relocati
       </div>
 
       {/* Details Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
+      <div className="bg-cmd-card rounded-xl shadow-sm border border-cmd-border overflow-hidden">
+        <div className="px-6 py-4 border-b border-cmd-border">
           <h2 className="text-lg font-bold text-gray-800">Habitation Tracking Log</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-gray-600">
-            <thead className="text-xs text-gray-500 uppercase bg-gray-50 border-b border-gray-200">
+            <thead className="text-xs text-cmd-text-muted uppercase bg-cmd-secondary border-b border-cmd-border">
               <tr>
                 <th className="px-6 py-3 font-medium">Habitation</th>
                 <th className="px-6 py-3 font-medium">Households</th>
@@ -87,22 +87,22 @@ export default function RelocationStatus({ summary, details, loading }: Relocati
             </thead>
             <tbody className="divide-y divide-gray-100">
               {details.map((detail, idx) => (
-                <tr key={idx} className="hover:bg-gray-50 transition-colors">
+                <tr key={idx} className="hover:bg-cmd-secondary transition-colors">
                   <td className="px-6 py-4">
-                    <div className="font-medium text-gray-900">{detail.habitation_name}</div>
+                    <div className="font-medium text-cmd-text">{detail.habitation_name}</div>
                     <div className="text-xs text-gray-400 font-mono">{detail.habitation_id}</div>
                   </td>
                   <td className="px-6 py-4">{detail.households}</td>
                   <td className="px-6 py-4">
-                    <span className="inline-flex items-center px-2 py-1 rounded bg-blue-50 text-blue-700 border border-blue-100 text-xs font-medium">
+                    <span className="inline-flex items-center px-2 py-1 rounded bg-cmd-info/10 text-cmd-info border border-blue-100 text-xs font-medium">
                       {detail.assigned_site}
                     </span>
                   </td>
                   <td className="px-6 py-4">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
-                      detail.status === 'Stable' ? 'bg-green-100 text-green-800 border-green-200' :
+                      detail.status === 'Stable' ? 'bg-green-100 text-green-800 border-cmd-success/30' :
                       detail.status === 'Needs Attention' ? 'bg-orange-100 text-orange-800 border-orange-200' :
-                      'bg-red-100 text-red-800 border-red-200'
+                      'bg-red-100 text-red-800 border-cmd-critical/30'
                     }`}>
                       {detail.status}
                     </span>
@@ -113,7 +113,7 @@ export default function RelocationStatus({ summary, details, loading }: Relocati
                     ) : (
                       <div className="flex flex-wrap gap-1">
                         {detail.missing_infrastructure.map((infra, i) => (
-                          <span key={i} className="inline-flex items-center px-2 py-1 rounded text-[10px] font-bold bg-red-50 text-red-600 border border-red-100 uppercase tracking-wider">
+                          <span key={i} className="inline-flex items-center px-2 py-1 rounded text-[10px] font-bold bg-cmd-critical/10 text-cmd-critical border border-red-100 uppercase tracking-wider">
                             ⚠ {infra}
                           </span>
                         ))}

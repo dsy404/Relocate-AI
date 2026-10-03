@@ -26,30 +26,30 @@ export default function MLEvaluationPage() {
 
   return (
     <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-8 pb-10">
-      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-slate-200">
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-cmd-border">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2 flex items-center gap-3">
+          <h1 className="text-3xl font-extrabold text-cmd-text tracking-tight mb-2 flex items-center gap-3">
             <BrainCircuit className="w-8 h-8 text-purple-600" />
             Machine Learning Evaluation
           </h1>
-          <p className="text-slate-500 font-medium text-sm max-w-2xl leading-relaxed">
+          <p className="text-cmd-text-muted font-medium text-sm max-w-2xl leading-relaxed">
             Methodology demonstration for predictive risk classification. Review feature importance and model performance metrics.
           </p>
         </div>
       </div>
 
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-slate-200 border-dashed">
+        <div className="flex flex-col items-center justify-center py-20 bg-cmd-card rounded-3xl border border-cmd-border border-dashed">
           <Loader2 className="w-8 h-8 text-purple-600 animate-spin mb-4" />
-          <p className="text-slate-500 font-medium">Evaluating ML model metrics...</p>
+          <p className="text-cmd-text-muted font-medium">Evaluating ML model metrics...</p>
         </div>
       ) : data ? (
         <MLExplanation data={data} />
       ) : (
-        <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-slate-200 border-dashed">
+        <div className="flex flex-col items-center justify-center py-20 bg-cmd-card rounded-3xl border border-cmd-border border-dashed">
           <AlertTriangle className="w-8 h-8 text-rose-500 mb-4" />
-          <p className="text-slate-700 font-bold">Error loading ML evaluation data.</p>
-          <p className="text-slate-500 text-sm mt-1">Please ensure the backend engine is running.</p>
+          <p className="text-cmd-text-secondary font-bold">Error loading ML evaluation data.</p>
+          <p className="text-cmd-text-muted text-sm mt-1">Please ensure the backend engine is running.</p>
         </div>
       )}
     </div>

@@ -30,15 +30,15 @@ export const CapacityBreakdown: React.FC<CapacityBreakdownProps> = ({ dimensions
   if (!dimensions || dimensions.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-xl shadow-xs border border-gray-200 p-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-200 pb-3 mb-6 gap-2">
+    <div className="bg-cmd-card rounded-xl shadow-xs border border-cmd-border p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-cmd-border pb-3 mb-6 gap-2">
         <div>
-          <h3 className="text-lg font-bold text-gray-900">Per-Dimension Infrastructure Capacity</h3>
-          <p className="text-xs text-gray-500 mt-0.5">
+          <h3 className="text-lg font-bold text-cmd-text">Per-Dimension Infrastructure Capacity</h3>
+          <p className="text-xs text-cmd-text-muted mt-0.5">
             Physical infrastructure converted to people-supported capacity equivalents.
           </p>
         </div>
-        <span className="text-xs font-semibold px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full border border-gray-200 self-start sm:self-auto">
+        <span className="text-xs font-semibold px-2.5 py-1 bg-cmd-secondary/50 text-cmd-text-secondary rounded-full border border-cmd-border self-start sm:self-auto">
           8 Evaluated Dimensions
         </span>
       </div>
@@ -53,20 +53,20 @@ export const CapacityBreakdown: React.FC<CapacityBreakdownProps> = ({ dimensions
           const usedPct = Math.min(100, (existingPeople / totalPeople) * 100);
           const reqPct = Math.min(100 - usedPct, (incomingPeople / totalPeople) * 100);
 
-          let statusBg = "bg-emerald-50";
-          let statusBorder = "border-emerald-200";
-          let statusText = "text-emerald-700";
+          let statusBg = "bg-cmd-success/10";
+          let statusBorder = "border-cmd-success/30";
+          let statusText = "text-cmd-success";
           let barColor = "bg-emerald-500";
 
           if (dim.status === 'Critical' || surplus < 0) {
-            statusBg = "bg-rose-50";
-            statusBorder = "border-rose-200";
-            statusText = "text-rose-700";
+            statusBg = "bg-cmd-critical/10";
+            statusBorder = "border-cmd-critical/30";
+            statusText = "text-cmd-critical";
             barColor = "bg-rose-500";
           } else if (dim.status === 'Warning') {
-            statusBg = "bg-amber-50";
-            statusBorder = "border-amber-200";
-            statusText = "text-amber-700";
+            statusBg = "bg-cmd-warning/10";
+            statusBorder = "border-cmd-warning/30";
+            statusText = "text-cmd-warning";
             barColor = "bg-amber-500";
           }
 
@@ -74,38 +74,38 @@ export const CapacityBreakdown: React.FC<CapacityBreakdownProps> = ({ dimensions
             <div key={idx} className={`p-4 rounded-xl border ${statusBorder} ${statusBg} transition-all`}>
               <div className="flex justify-between items-start mb-2">
                 <div>
-                  <h4 className="font-bold text-sm text-gray-900">{dim.dimension}</h4>
+                  <h4 className="font-bold text-sm text-cmd-text">{dim.dimension}</h4>
                   {dim.raw_unit && dim.raw_max_capacity !== undefined && (
-                    <span className="text-[11px] text-gray-500 font-mono">
+                    <span className="text-[11px] text-cmd-text-muted font-mono">
                       Physical: {dim.raw_current_utilization?.toLocaleString()} / {dim.raw_max_capacity?.toLocaleString()} {dim.raw_unit}
                     </span>
                   )}
                 </div>
-                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-white ${statusText} border ${statusBorder} shadow-2xs`}>
+                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-cmd-card ${statusText} border ${statusBorder} shadow-2xs`}>
                   {dim.status.toUpperCase()}
                 </span>
               </div>
 
               {/* Conversion factor annotation */}
               {dim.conversion_standard && (
-                <div className="text-[10px] text-gray-500 italic mb-2">
+                <div className="text-[10px] text-cmd-text-muted italic mb-2">
                   Factor: {dim.conversion_standard}
                 </div>
               )}
 
               {/* People-supported metrics */}
-              <div className="bg-white/80 rounded-lg p-2.5 border border-gray-100 text-xs text-gray-700 mb-3 space-y-1">
+              <div className="bg-cmd-card/80 rounded-lg p-2.5 border border-gray-100 text-xs text-cmd-text-secondary mb-3 space-y-1">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Total Supported:</span>
-                  <span className="font-semibold text-gray-900">{totalPeople.toLocaleString()} people</span>
+                  <span className="text-cmd-text-muted">Total Supported:</span>
+                  <span className="font-semibold text-cmd-text">{totalPeople.toLocaleString()} people</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Available Headroom:</span>
-                  <span className="font-semibold text-blue-700">{(dim.additional_capacity || 0).toLocaleString()} people</span>
+                  <span className="text-cmd-text-muted">Available Headroom:</span>
+                  <span className="font-semibold text-cmd-info">{(dim.additional_capacity || 0).toLocaleString()} people</span>
                 </div>
                 <div className="flex justify-between pt-1 border-t border-gray-100">
-                  <span className="font-medium text-gray-700">Post-Relocation Balance:</span>
-                  <span className={`font-bold ${surplus < 0 ? 'text-rose-600' : 'text-emerald-700'}`}>
+                  <span className="font-medium text-cmd-text-secondary">Post-Relocation Balance:</span>
+                  <span className={`font-bold ${surplus < 0 ? 'text-cmd-critical' : 'text-cmd-success'}`}>
                     {surplus > 0 ? '+' : ''}{surplus.toLocaleString()} people
                   </span>
                 </div>

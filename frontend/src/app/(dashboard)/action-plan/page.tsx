@@ -65,10 +65,10 @@ export default function ActionPlanPage() {
       <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-8 pb-10">
         
         {/* Page Header */}
-        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-slate-200">
+        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-cmd-border">
           <div>
-            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Government Action Plan</h1>
-            <p className="text-slate-500 font-medium text-sm max-w-2xl leading-relaxed">
+            <h1 className="text-3xl font-extrabold text-cmd-text tracking-tight mb-2">Government Action Plan</h1>
+            <p className="text-cmd-text-muted font-medium text-sm max-w-2xl leading-relaxed">
               Executive summary of disaster relocation priorities, assignments, and critical field dispatch actions.
             </p>
           </div>
@@ -86,8 +86,8 @@ export default function ActionPlanPage() {
               />
             )}
             
-            <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-2.5 rounded-lg flex items-center shadow-sm text-xs font-bold uppercase tracking-wider">
-              <Send className="w-4 h-4 mr-2 text-blue-600" />
+            <div className="bg-cmd-info/10 border border-cmd-info/30 text-cmd-info px-4 py-2.5 rounded-lg flex items-center shadow-sm text-xs font-bold uppercase tracking-wider">
+              <Send className="w-4 h-4 mr-2 text-cmd-info" />
               <span>Action Dispatch Active</span>
             </div>
             
@@ -96,16 +96,16 @@ export default function ActionPlanPage() {
         </div>
 
       {loading ? (
-        <div className="flex flex-col justify-center items-center h-64 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
+        <div className="flex flex-col justify-center items-center h-64 bg-cmd-secondary rounded-2xl border border-cmd-border border-dashed">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
-          <p className="text-sm font-medium text-slate-500">Compiling executive summary...</p>
+          <p className="text-sm font-medium text-cmd-text-muted">Compiling executive summary...</p>
         </div>
       ) : error ? (
-        <div className="bg-rose-50 border border-rose-200 p-6 rounded-2xl shadow-sm flex items-start gap-4">
-          <ShieldAlert className="w-6 h-6 text-rose-600 flex-shrink-0 mt-0.5" />
+        <div className="bg-cmd-critical/10 border border-cmd-critical/30 p-6 rounded-2xl shadow-sm flex items-start gap-4">
+          <ShieldAlert className="w-6 h-6 text-cmd-critical flex-shrink-0 mt-0.5" />
           <div>
             <h3 className="font-bold text-rose-800">Connection Error</h3>
-            <p className="text-sm text-rose-700 mt-1">{error}</p>
+            <p className="text-sm text-cmd-critical mt-1">{error}</p>
           </div>
         </div>
       ) : (
@@ -115,7 +115,7 @@ export default function ActionPlanPage() {
           
           {/* ElevenLabs Attribution */}
           <div className="text-center mt-2 mb-4">
-            <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">
+            <p className="text-[10px] font-medium text-cmd-text-muted uppercase tracking-widest">
               AI Voice Briefing powered by ElevenLabs
             </p>
           </div>

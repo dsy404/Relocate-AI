@@ -46,7 +46,7 @@ export interface AlertRule {
 
 const SEVERITY_CONFIG: Record<string, { bg: string; border: string; text: string; badge: string; icon: string; ring: string }> = {
   CRITICAL: {
-    bg: "bg-red-50/70",
+    bg: "bg-cmd-critical/10/70",
     border: "border-red-300",
     text: "text-red-800",
     badge: "bg-red-600 text-white shadow-sm shadow-red-200",
@@ -62,7 +62,7 @@ const SEVERITY_CONFIG: Record<string, { bg: string; border: string; text: string
     ring: "focus:ring-orange-500",
   },
   WARNING: {
-    bg: "bg-amber-50/70",
+    bg: "bg-cmd-warning/10/70",
     border: "border-amber-300",
     text: "text-amber-800",
     badge: "bg-amber-500 text-white shadow-sm shadow-amber-200",
@@ -70,8 +70,8 @@ const SEVERITY_CONFIG: Record<string, { bg: string; border: string; text: string
     ring: "focus:ring-amber-500",
   },
   INFO: {
-    bg: "bg-blue-50/70",
-    border: "border-blue-300",
+    bg: "bg-cmd-info/10/70",
+    border: "border-cmd-info/50",
     text: "text-blue-800",
     badge: "bg-blue-600 text-white shadow-sm shadow-blue-200",
     icon: "ℹ️",
@@ -220,13 +220,13 @@ export default function NotificationsPage() {
   return (
     <div className="w-full max-w-[1600px] mx-auto space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-cmd-card p-6 rounded-2xl shadow-sm border border-cmd-border">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black text-cmd-text tracking-tight">
               Alert Engine & Incident Command
             </h1>
-            <span className="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold flex items-center gap-1.5 border border-emerald-200">
+            <span className="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold flex items-center gap-1.5 border border-cmd-success/30">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               Live Event Monitor
             </span>
@@ -251,7 +251,7 @@ export default function NotificationsPage() {
             <button
               onClick={handleAcknowledgeAll}
               disabled={loading}
-              className="px-4 py-2 text-xs font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition border border-gray-300 disabled:opacity-50 whitespace-nowrap"
+              className="px-4 py-2 text-xs font-bold text-cmd-text-secondary bg-cmd-secondary/50 hover:bg-gray-200 rounded-xl transition border border-cmd-border disabled:opacity-50 whitespace-nowrap"
             >
               ✓ Acknowledge All ({summary.unacknowledged})
             </button>
@@ -272,7 +272,7 @@ export default function NotificationsPage() {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-300 text-red-800 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
+        <div className="bg-cmd-critical/10 border border-red-300 text-red-800 px-4 py-3 rounded-xl text-sm flex items-center gap-2">
           <span>⚠️</span>
           <span>{error}</span>
         </div>
@@ -281,19 +281,19 @@ export default function NotificationsPage() {
       {/* KPI Overview Summary Cards */}
       {summary && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
-            <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Total Alerts</div>
-            <div className="text-2xl font-black text-gray-900 mt-1">{summary.total}</div>
+          <div className="bg-cmd-card border border-cmd-border rounded-xl p-4 shadow-sm">
+            <div className="text-[11px] font-bold text-cmd-text-muted uppercase tracking-wider">Total Alerts</div>
+            <div className="text-2xl font-black text-cmd-text mt-1">{summary.total}</div>
             <div className="text-[10px] text-gray-400 mt-0.5">Persisted in SQLite</div>
           </div>
 
-          <div className="bg-red-50/80 border border-red-200 rounded-xl p-4 shadow-sm">
-            <div className="text-[11px] font-bold text-red-700 uppercase tracking-wider flex items-center justify-between">
+          <div className="bg-cmd-critical/10/80 border border-cmd-critical/30 rounded-xl p-4 shadow-sm">
+            <div className="text-[11px] font-bold text-cmd-critical uppercase tracking-wider flex items-center justify-between">
               <span>Critical</span>
               <span>🚨</span>
             </div>
-            <div className="text-2xl font-black text-red-700 mt-1">{summary.critical}</div>
-            <div className="text-[10px] text-red-500 mt-0.5">Immediate intervention</div>
+            <div className="text-2xl font-black text-cmd-critical mt-1">{summary.critical}</div>
+            <div className="text-[10px] text-cmd-critical mt-0.5">Immediate intervention</div>
           </div>
 
           <div className="bg-orange-50/80 border border-orange-200 rounded-xl p-4 shadow-sm">
@@ -305,13 +305,13 @@ export default function NotificationsPage() {
             <div className="text-[10px] text-orange-500 mt-0.5">Blocked roads / Deficits</div>
           </div>
 
-          <div className="bg-amber-50/80 border border-amber-200 rounded-xl p-4 shadow-sm">
-            <div className="text-[11px] font-bold text-amber-700 uppercase tracking-wider flex items-center justify-between">
+          <div className="bg-cmd-warning/10/80 border border-cmd-warning/30 rounded-xl p-4 shadow-sm">
+            <div className="text-[11px] font-bold text-cmd-warning uppercase tracking-wider flex items-center justify-between">
               <span>Warning</span>
               <span>⚡</span>
             </div>
-            <div className="text-2xl font-black text-amber-700 mt-1">{summary.warning}</div>
-            <div className="text-[10px] text-amber-600 mt-0.5">Capacity & Conflicts</div>
+            <div className="text-2xl font-black text-cmd-warning mt-1">{summary.warning}</div>
+            <div className="text-[10px] text-cmd-warning mt-0.5">Capacity & Conflicts</div>
           </div>
 
           <div className="bg-purple-50/80 border border-purple-200 rounded-xl p-4 shadow-sm">
@@ -323,30 +323,30 @@ export default function NotificationsPage() {
             <div className="text-[10px] text-purple-500 mt-0.5">Unacknowledged</div>
           </div>
 
-          <div className="bg-emerald-50/80 border border-emerald-200 rounded-xl p-4 shadow-sm">
-            <div className="text-[11px] font-bold text-emerald-700 uppercase tracking-wider flex items-center justify-between">
+          <div className="bg-cmd-success/10/80 border border-cmd-success/30 rounded-xl p-4 shadow-sm">
+            <div className="text-[11px] font-bold text-cmd-success uppercase tracking-wider flex items-center justify-between">
               <span>Resolved</span>
               <span>✓</span>
             </div>
-            <div className="text-2xl font-black text-emerald-700 mt-1">{summary.resolved}</div>
-            <div className="text-[10px] text-emerald-600 mt-0.5">Closed incidents</div>
+            <div className="text-2xl font-black text-cmd-success mt-1">{summary.resolved}</div>
+            <div className="text-[10px] text-cmd-success mt-0.5">Closed incidents</div>
           </div>
         </div>
       )}
 
       {/* Navigation Tabs */}
-      <div className="flex gap-2 border-b border-gray-200 pb-2">
+      <div className="flex gap-2 border-b border-cmd-border pb-2">
         <button
           onClick={() => setActiveTab("alerts")}
           className={`px-5 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 ${
             activeTab === "alerts"
               ? "bg-gray-900 text-white shadow-sm"
-              : "bg-white text-gray-600 hover:text-gray-900 border border-gray-200"
+              : "bg-cmd-card text-gray-600 hover:text-cmd-text border border-cmd-border"
           }`}
         >
           <span>Active Incident Ledger</span>
           <span className={`text-xs px-2 py-0.5 rounded-full font-mono ${
-            activeTab === "alerts" ? "bg-white/20 text-white" : "bg-gray-100 text-gray-700"
+            activeTab === "alerts" ? "bg-cmd-card/20 text-white" : "bg-cmd-secondary/50 text-cmd-text-secondary"
           }`}>
             {displayedAlerts.length}
           </span>
@@ -357,12 +357,12 @@ export default function NotificationsPage() {
           className={`px-5 py-2 rounded-xl text-sm font-bold transition flex items-center gap-2 ${
             activeTab === "rules"
               ? "bg-gray-900 text-white shadow-sm"
-              : "bg-white text-gray-600 hover:text-gray-900 border border-gray-200"
+              : "bg-cmd-card text-gray-600 hover:text-cmd-text border border-cmd-border"
           }`}
         >
           <span>Configured Trigger Rules</span>
           <span className={`text-xs px-2 py-0.5 rounded-full font-mono ${
-            activeTab === "rules" ? "bg-white/20 text-white" : "bg-gray-100 text-gray-700"
+            activeTab === "rules" ? "bg-cmd-card/20 text-white" : "bg-cmd-secondary/50 text-cmd-text-secondary"
           }`}>
             {rules.length}
           </span>
@@ -373,7 +373,7 @@ export default function NotificationsPage() {
       {activeTab === "alerts" && (
         <div className="space-y-4">
           {/* Controls / Filter Deck */}
-          <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
+          <div className="bg-cmd-card rounded-2xl p-4 shadow-sm border border-cmd-border flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
             {/* Search Input */}
             <div className="relative flex-1 max-w-md">
               <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
@@ -384,7 +384,7 @@ export default function NotificationsPage() {
                 placeholder="Search by title, village, site, or trigger type..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 text-xs bg-gray-50 hover:bg-gray-100 focus:bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                className="w-full pl-10 pr-4 py-2 text-xs bg-cmd-secondary hover:bg-cmd-secondary/50 focus:bg-cmd-card border border-cmd-border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               />
             </div>
 
@@ -406,7 +406,7 @@ export default function NotificationsPage() {
                         : sev === "INFO"
                         ? "bg-blue-600 text-white shadow-sm"
                         : "bg-gray-900 text-white shadow-sm"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      : "bg-cmd-secondary/50 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
                   {sev}
@@ -424,7 +424,7 @@ export default function NotificationsPage() {
                   className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
                     filterStatus === st
                       ? "bg-gray-900 text-white shadow-sm"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      : "bg-cmd-secondary/50 text-gray-600 hover:bg-gray-200"
                   }`}
                 >
                   {st === "ACTIVE" ? "Unacknowledged / Active" : st}
@@ -436,10 +436,10 @@ export default function NotificationsPage() {
           {/* Alert Cards Stream */}
           <div className="space-y-3">
             {displayedAlerts.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center text-gray-500">
+              <div className="bg-cmd-card rounded-2xl border border-cmd-border p-12 text-center text-cmd-text-muted">
                 <div className="text-4xl mb-3">🛡️</div>
                 <h3 className="text-base font-bold text-gray-800">No matching system alerts</h3>
-                <p className="text-xs text-gray-500 mt-1 max-w-md mx-auto">
+                <p className="text-xs text-cmd-text-muted mt-1 max-w-md mx-auto">
                   No active incidents match current criteria. System event triggers continuously monitor field updates, optimizer capacity, and simulation stress tests.
                 </p>
               </div>
@@ -449,9 +449,9 @@ export default function NotificationsPage() {
                 return (
                   <div
                     key={alert.id}
-                    className={`bg-white rounded-2xl border ${
+                    className={`bg-cmd-card rounded-2xl border ${
                       alert.is_resolved
-                        ? "border-gray-200 opacity-60 hover:opacity-100"
+                        ? "border-cmd-border opacity-60 hover:opacity-100"
                         : conf.border
                     } p-5 shadow-sm transition hover:shadow-md relative overflow-hidden flex flex-col md:flex-row gap-4 justify-between items-start`}
                   >
@@ -472,12 +472,12 @@ export default function NotificationsPage() {
                         </span>
 
                         {/* Alert Type */}
-                        <span className="text-[10px] font-mono font-bold bg-gray-100 text-gray-800 px-2 py-0.5 rounded-md border border-gray-200">
+                        <span className="text-[10px] font-mono font-bold bg-cmd-secondary/50 text-gray-800 px-2 py-0.5 rounded-md border border-cmd-border">
                           {alert.type}
                         </span>
 
                         {/* Source Event Badge */}
-                        <span className="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md border border-blue-200 flex items-center gap-1">
+                        <span className="text-[10px] font-bold bg-cmd-info/10 text-cmd-info px-2 py-0.5 rounded-md border border-cmd-info/30 flex items-center gap-1">
                           <span>⚡</span>
                           <span>{alert.source_event}</span>
                         </span>
@@ -488,7 +488,7 @@ export default function NotificationsPage() {
                             <span>✓</span> Resolved ({formatTimestamp(alert.resolved_at)})
                           </span>
                         ) : alert.is_acknowledged ? (
-                          <span className="text-[10px] font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md border border-blue-300 flex items-center gap-1">
+                          <span className="text-[10px] font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md border border-cmd-info/50 flex items-center gap-1">
                             <span>✓</span> Acknowledged ({formatTimestamp(alert.acknowledged_at)})
                           </span>
                         ) : (
@@ -504,10 +504,10 @@ export default function NotificationsPage() {
                       </div>
 
                       {/* Title & Description */}
-                      <h3 className="text-base font-bold text-gray-900 tracking-tight flex items-center gap-2">
+                      <h3 className="text-base font-bold text-cmd-text tracking-tight flex items-center gap-2">
                         {alert.title}
                       </h3>
-                      <p className="text-xs text-gray-700 mt-1 leading-relaxed">
+                      <p className="text-xs text-cmd-text-secondary mt-1 leading-relaxed">
                         {alert.description}
                       </p>
 
@@ -516,7 +516,7 @@ export default function NotificationsPage() {
                         {alert.habitation_id && (
                           <Link
                             href={`/field-verification?hab_id=${alert.habitation_id}`}
-                            className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-lg border border-blue-200 transition"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-cmd-info bg-cmd-info/10 hover:bg-blue-100 px-3 py-1 rounded-lg border border-cmd-info/30 transition"
                           >
                             <span>📍 Habitation:</span>
                             <span>{alert.habitation_name || alert.habitation_id}</span>
@@ -528,7 +528,7 @@ export default function NotificationsPage() {
                         {alert.site_id && (
                           <Link
                             href={`/capacity?site_id=${alert.site_id}`}
-                            className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1 rounded-lg border border-emerald-200 transition"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-cmd-success bg-cmd-success/10 hover:bg-emerald-100 px-3 py-1 rounded-lg border border-cmd-success/30 transition"
                           >
                             <span>🏢 Relocation Site:</span>
                             <span>{alert.site_name || alert.site_id}</span>
@@ -538,7 +538,7 @@ export default function NotificationsPage() {
                         )}
 
                         {alert.rpi !== undefined && alert.rpi !== null && (
-                          <span className="text-xs text-gray-500 font-mono">
+                          <span className="text-xs text-cmd-text-muted font-mono">
                             RPI Score: <strong className="text-gray-800">{alert.rpi.toFixed(1)}</strong>
                           </span>
                         )}
@@ -551,7 +551,7 @@ export default function NotificationsPage() {
                       {alert.habitation_id ? (
                         <Link
                           href={`/field-verification?hab_id=${alert.habitation_id}`}
-                          className="px-3.5 py-1.5 text-xs font-bold text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-300 transition flex items-center gap-1.5 whitespace-nowrap"
+                          className="px-3.5 py-1.5 text-xs font-bold text-cmd-text-secondary bg-cmd-secondary hover:bg-cmd-secondary/50 rounded-xl border border-cmd-border transition flex items-center gap-1.5 whitespace-nowrap"
                         >
                           <span>Open Habitation</span>
                           <span className="text-gray-400">→</span>
@@ -559,7 +559,7 @@ export default function NotificationsPage() {
                       ) : alert.site_id ? (
                         <Link
                           href={`/capacity?site_id=${alert.site_id}`}
-                          className="px-3.5 py-1.5 text-xs font-bold text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-300 transition flex items-center gap-1.5 whitespace-nowrap"
+                          className="px-3.5 py-1.5 text-xs font-bold text-cmd-text-secondary bg-cmd-secondary hover:bg-cmd-secondary/50 rounded-xl border border-cmd-border transition flex items-center gap-1.5 whitespace-nowrap"
                         >
                           <span>Open Safe Site</span>
                           <span className="text-gray-400">→</span>
@@ -571,7 +571,7 @@ export default function NotificationsPage() {
                         <button
                           onClick={() => handleAcknowledge(alert.id)}
                           disabled={actionInProgress === alert.id}
-                          className="px-3.5 py-1.5 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-xl border border-blue-200 transition disabled:opacity-50 whitespace-nowrap"
+                          className="px-3.5 py-1.5 text-xs font-bold text-cmd-info bg-cmd-info/10 hover:bg-blue-100 rounded-xl border border-cmd-info/30 transition disabled:opacity-50 whitespace-nowrap"
                         >
                           {actionInProgress === alert.id ? "Saving..." : "✓ Acknowledge"}
                         </button>
@@ -582,7 +582,7 @@ export default function NotificationsPage() {
                         <button
                           onClick={() => handleResolve(alert.id)}
                           disabled={actionInProgress === alert.id}
-                          className="px-3.5 py-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-xl border border-emerald-200 transition disabled:opacity-50 whitespace-nowrap"
+                          className="px-3.5 py-1.5 text-xs font-bold text-cmd-success bg-cmd-success/10 hover:bg-emerald-100 rounded-xl border border-cmd-success/30 transition disabled:opacity-50 whitespace-nowrap"
                         >
                           {actionInProgress === alert.id ? "Saving..." : "✓ Resolve Incident"}
                         </button>
@@ -598,17 +598,17 @@ export default function NotificationsPage() {
 
       {/* ─── TAB 2: RULES SPECIFICATION ─── */}
       {activeTab === "rules" && (
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-cmd-card rounded-2xl shadow-sm border border-cmd-border overflow-hidden">
           <div className="p-5 border-b border-gray-100">
-            <h2 className="text-base font-bold text-gray-900">Configured Autonomous Event Triggers</h2>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <h2 className="text-base font-bold text-cmd-text">Configured Autonomous Event Triggers</h2>
+            <p className="text-xs text-cmd-text-muted mt-0.5">
               These trigger specifications continuously listen to database mutations, ground verifications, capacity thresholds, and environmental stress simulations.
             </p>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-gray-50 text-gray-500 font-bold uppercase border-b border-gray-200 text-[10px]">
+              <thead className="bg-cmd-secondary text-cmd-text-muted font-bold uppercase border-b border-cmd-border text-[10px]">
                 <tr>
                   <th className="py-3 px-4">Rule Code</th>
                   <th className="py-3 px-4">Trigger Name</th>
@@ -621,9 +621,9 @@ export default function NotificationsPage() {
                 {rules.map((rule) => {
                   const conf = SEVERITY_CONFIG[rule.severity] || SEVERITY_CONFIG.INFO;
                   return (
-                    <tr key={rule.id} className="hover:bg-gray-50 transition">
-                      <td className="py-3.5 px-4 font-mono text-gray-500">{rule.id}</td>
-                      <td className="py-3.5 px-4 font-bold text-gray-900">{rule.name}</td>
+                    <tr key={rule.id} className="hover:bg-cmd-secondary transition">
+                      <td className="py-3.5 px-4 font-mono text-cmd-text-muted">{rule.id}</td>
+                      <td className="py-3.5 px-4 font-bold text-cmd-text">{rule.name}</td>
                       <td className="py-3.5 px-4 text-gray-600">{rule.description}</td>
                       <td className="py-3.5 px-4 text-center">
                         <span className={`text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full ${conf.badge}`}>
@@ -631,7 +631,7 @@ export default function NotificationsPage() {
                         </span>
                       </td>
                       <td className="py-3.5 px-4 text-center">
-                        <span className="text-[10px] font-bold uppercase bg-gray-100 text-gray-700 px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] font-bold uppercase bg-cmd-secondary/50 text-cmd-text-secondary px-2 py-0.5 rounded-md">
                           {rule.category}
                         </span>
                       </td>

@@ -38,7 +38,7 @@ const formatFactorName = (name: string) => {
 
 export const SiteComparison: React.FC<SiteComparisonProps> = ({ sites }) => {
   if (!sites || sites.length === 0) {
-    return <div className="p-4 text-center text-gray-500">No candidate sites available for comparison.</div>;
+    return <div className="p-4 text-center text-cmd-text-muted">No candidate sites available for comparison.</div>;
   }
 
   // Get factor keys from the first site with breakdown
@@ -51,35 +51,35 @@ export const SiteComparison: React.FC<SiteComparisonProps> = ({ sites }) => {
     const maxScore = Math.max(...scores);
     
     if (currentScore === maxScore && scores.filter(s => s === maxScore).length === 1) {
-      return 'bg-emerald-50 text-emerald-900 font-bold';
+      return 'bg-cmd-success/10 text-emerald-900 font-bold';
     }
     return '';
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-xs overflow-hidden border border-gray-200">
-      <div className="p-5 bg-gray-50/75 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+    <div className="bg-cmd-card rounded-xl shadow-xs overflow-hidden border border-cmd-border">
+      <div className="p-5 bg-cmd-secondary/75 border-b border-cmd-border flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
-          <h3 className="text-base font-bold text-gray-900">Multi-Criteria Factor Matrix</h3>
-          <p className="text-xs text-gray-500 mt-0.5">
+          <h3 className="text-base font-bold text-cmd-text">Multi-Criteria Factor Matrix</h3>
+          <p className="text-xs text-cmd-text-muted mt-0.5">
             Side-by-side comparison across safety, terrain, utilities, and accessibility dimensions.
           </p>
         </div>
-        <span className="text-xs font-semibold px-2.5 py-1 bg-white text-gray-700 rounded-full border border-gray-200 self-start sm:self-auto">
+        <span className="text-xs font-semibold px-2.5 py-1 bg-cmd-card text-cmd-text-secondary rounded-full border border-cmd-border self-start sm:self-auto">
           {sites.length} Safe Sites Evaluated
         </span>
       </div>
       
       <div className="overflow-x-auto">
         <table className="w-full text-xs text-left">
-          <thead className="text-[11px] text-gray-700 uppercase bg-gray-100/75 border-b border-gray-200">
+          <thead className="text-[11px] text-cmd-text-secondary uppercase bg-cmd-secondary/50/75 border-b border-cmd-border">
             <tr>
               <th className="px-5 py-3 font-bold">Evaluation Factor</th>
               {sites.map(site => (
-                <th key={site.site_id} className="px-5 py-3 text-center border-l border-gray-200 min-w-[140px]">
-                  <div className="text-sm font-bold text-gray-900">{site.site_name}</div>
-                  <div className="text-[11px] font-normal text-gray-500 mt-0.5">
-                    Score: <span className="font-extrabold text-blue-700">{site.overall_suitability_score || site.total_score}/100</span>
+                <th key={site.site_id} className="px-5 py-3 text-center border-l border-cmd-border min-w-[140px]">
+                  <div className="text-sm font-bold text-cmd-text">{site.site_name}</div>
+                  <div className="text-[11px] font-normal text-cmd-text-muted mt-0.5">
+                    Score: <span className="font-extrabold text-cmd-info">{site.overall_suitability_score || site.total_score}/100</span>
                   </div>
                   {site.distance_km !== null && site.distance_km !== undefined && (
                     <div className="text-[10px] text-gray-400 font-medium mt-0.5">
@@ -90,9 +90,9 @@ export const SiteComparison: React.FC<SiteComparisonProps> = ({ sites }) => {
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 text-gray-700">
+          <tbody className="divide-y divide-gray-100 text-cmd-text-secondary">
             {factors.map(factor => (
-              <tr key={factor} className="hover:bg-blue-50/20 transition-colors">
+              <tr key={factor} className="hover:bg-cmd-info/10/20 transition-colors">
                 <td className="px-5 py-3 font-semibold text-gray-800 whitespace-nowrap">
                   {formatFactorName(factor)}
                   <span className="block text-[10px] text-gray-400 font-normal">

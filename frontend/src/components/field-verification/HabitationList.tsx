@@ -28,7 +28,7 @@ export default function HabitationList({ habitations, onSelect }: HabitationList
       <h2 className="text-xl font-bold text-gray-800 border-b pb-2">Assigned Habitations</h2>
       
       {habitations.length === 0 ? (
-        <div className="text-center p-8 text-gray-500 bg-gray-50 rounded-lg">
+        <div className="text-center p-8 text-cmd-text-muted bg-cmd-secondary rounded-lg">
           No habitations assigned to you.
         </div>
       ) : (
@@ -38,12 +38,12 @@ export default function HabitationList({ habitations, onSelect }: HabitationList
             onClick={() => onSelect(hab)}
             className={`p-4 rounded-xl shadow-sm border cursor-pointer transition-all active:scale-95 ${
               hab.status === 'verified' 
-                ? 'bg-green-50 border-green-200' 
-                : 'bg-white border-gray-200 hover:border-blue-300 hover:shadow-md'
+                ? 'bg-cmd-success/10 border-cmd-success/30' 
+                : 'bg-cmd-card border-cmd-border hover:border-cmd-info/50 hover:shadow-md'
             }`}
           >
             <div className="flex justify-between items-start mb-2">
-              <h3 className="font-semibold text-lg text-gray-900">{hab.name}</h3>
+              <h3 className="font-semibold text-lg text-cmd-text">{hab.name}</h3>
               <span className={`text-xs px-2 py-1 rounded-full font-medium ${
                 hab.status === 'verified' ? 'bg-green-200 text-green-800' : 'bg-orange-100 text-orange-800'
               }`}>
@@ -53,10 +53,10 @@ export default function HabitationList({ habitations, onSelect }: HabitationList
             
             <div className="flex justify-between text-sm text-gray-600">
               <div className="flex items-center">
-                <span className="w-4 h-4 mr-1 text-red-500">📍</span>
+                <span className="w-4 h-4 mr-1 text-cmd-critical">📍</span>
                 {hab.distance}
               </div>
-              <div className="font-mono bg-gray-100 px-2 rounded">
+              <div className="font-mono bg-cmd-secondary/50 px-2 rounded">
                 System RPI: {hab.rpi.toFixed(1)}
               </div>
             </div>
