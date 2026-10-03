@@ -26,20 +26,20 @@ export default function Header() {
   const pageTitle = routeTitles[pathname] || 'Dashboard';
   
   const [time, setTime] = useState<string>('');
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>('light');
 
   useEffect(() => {
     // Check initial theme from document attribute if set
-    if (document.documentElement.getAttribute('data-theme') === 'light') {
-      setTheme('light');
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      setTheme('dark');
     }
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    if (newTheme === 'light') {
-      document.documentElement.setAttribute('data-theme', 'light');
+    if (newTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
     } else {
       document.documentElement.removeAttribute('data-theme');
     }
