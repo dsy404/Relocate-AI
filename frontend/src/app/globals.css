@@ -52,3 +52,8 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
+
+/* Dark mode map tiles filter */
+.map-tiles-dark {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%) saturate(20%);
+}
