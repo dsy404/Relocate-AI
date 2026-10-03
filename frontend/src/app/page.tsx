@@ -61,18 +61,18 @@ import dynamic from 'next/dynamic';
 
 const LandingMap = dynamic(() => import('@/components/map/LandingMap'), {
   ssr: false,
-  loading: () => <div className="absolute inset-0 bg-[#0a0f1c] animate-pulse" />
+  loading: () => <div className="absolute inset-0 bg-slate-50 animate-pulse" />
 });
 
 // Abstracted Map Component
 const MapVisualization = ({ activeStage }: { activeStage: number }) => {
   return (
-    <div className="relative w-full h-full bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 shadow-2xl flex items-center justify-center">
+    <div className="relative w-full h-full bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-2xl flex items-center justify-center">
       {/* Base Dark Map of India */}
       <LandingMap />
       
       {/* Map Vignette/Overlay for cinematic feel */}
-      <div className="absolute inset-0 z-0 pointer-events-none shadow-[inset_0_0_100px_rgba(10,15,28,1)]"></div>
+      <div className="absolute inset-0 z-0 pointer-events-none shadow-[inset_0_0_100px_rgba(255,255,255,1)]"></div>
       
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         {/* Stage 1: Identify Risk (Red Alert) */}
@@ -162,11 +162,11 @@ const MapVisualization = ({ activeStage }: { activeStage: number }) => {
 
       {/* Disclaimers */}
       <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-        <div className="text-[10px] text-slate-500 font-mono">
+        <div className="text-[10px] text-slate-9000 font-mono">
           GEO_LAT: 23.6345<br/>
           GEO_LNG: 85.5113
         </div>
-        <div className="text-[10px] text-slate-500 text-right uppercase">
+        <div className="text-[10px] text-slate-9000 text-right uppercase">
           Stylized Representation<br/>3D Terrain Limited by Demo Data
         </div>
       </div>
@@ -201,27 +201,27 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0a0f1c] text-slate-50 font-sans selection:bg-blue-500/30">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-200">
       
       {/* ────────────────────────────────────────────────────────────────────────
           NAVIGATION
       ──────────────────────────────────────────────────────────────────────── */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0f1c]/80 backdrop-blur-xl border-b border-slate-800">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-slate-50/80 backdrop-blur-xl border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
-              <Map className="w-4 h-4 text-white" />
+              <Map className="w-4 h-4 text-slate-900" />
             </div>
-            <span className="text-xl font-extrabold tracking-tight text-white">RELOCATE AI</span>
+            <span className="text-xl font-extrabold tracking-tight text-slate-900">RELOCATE AI</span>
           </div>
           
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-400">
-            <a href="#overview" className="hover:text-white transition-colors">Overview</a>
-            <a href="#workflow" className="hover:text-white transition-colors">Decision Workflow</a>
-            <a href="#capabilities" className="hover:text-white transition-colors">Capabilities</a>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-500">
+            <a href="#overview" className="hover:text-slate-900 transition-colors">Overview</a>
+            <a href="#workflow" className="hover:text-slate-900 transition-colors">Decision Workflow</a>
+            <a href="#capabilities" className="hover:text-slate-900 transition-colors">Capabilities</a>
           </nav>
 
-          <Link href="/dashboard" className="px-5 py-2.5 bg-white text-slate-900 text-sm font-bold rounded-full hover:bg-slate-200 transition-colors">
+          <Link href="/dashboard" className="px-5 py-2.5 bg-slate-900 text-white text-sm font-bold rounded-full hover:bg-slate-800 transition-colors">
             ENTER PLATFORM &rarr;
           </Link>
         </div>
@@ -232,7 +232,7 @@ export default function LandingPage() {
       ──────────────────────────────────────────────────────────────────────── */}
       <section id="overview" className="relative pt-40 pb-20 md:pt-52 md:pb-32 px-6 overflow-hidden">
         {/* Background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-100/50 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div 
@@ -257,7 +257,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-10"
+            className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed mb-10"
           >
             Identify high-risk habitations, understand vulnerability, evaluate candidate destinations, and support relocation planning through explainable geospatial intelligence.
           </motion.p>
@@ -268,10 +268,10 @@ export default function LandingPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link href="/dashboard" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+            <Link href="/dashboard" className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-slate-900 font-bold rounded-lg transition-colors flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.4)]">
               ENTER PLATFORM &rarr;
             </Link>
-            <a href="#workflow" className="w-full sm:w-auto px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg transition-colors flex items-center justify-center border border-slate-700">
+            <a href="#workflow" className="w-full sm:w-auto px-8 py-4 bg-slate-200 hover:bg-slate-300 text-slate-900 font-bold rounded-lg transition-colors flex items-center justify-center border border-slate-300">
               EXPLORE THE WORKFLOW &darr;
             </a>
           </motion.div>
@@ -280,7 +280,7 @@ export default function LandingPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
-            className="mt-16 inline-flex items-center gap-2 text-xs font-semibold text-slate-500 uppercase tracking-widest"
+            className="mt-16 inline-flex items-center gap-2 text-xs font-semibold text-slate-9000 uppercase tracking-widest"
           >
             <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
             DEMO ENVIRONMENT &bull; SYNTHETIC DATA
@@ -291,7 +291,7 @@ export default function LandingPage() {
       {/* ────────────────────────────────────────────────────────────────────────
           SCROLL-DRIVEN WORKFLOW SECTION
       ──────────────────────────────────────────────────────────────────────── */}
-      <section id="workflow" className="relative bg-[#050810] border-y border-slate-800/50">
+      <section id="workflow" className="relative bg-slate-100 border-y border-slate-200/50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row">
             
@@ -301,9 +301,9 @@ export default function LandingPage() {
                 <div key={stage.id} className="workflow-stage flex flex-col justify-center min-h-[50vh]">
                   <div className={`transition-all duration-500 ${activeStage === stage.id ? 'opacity-100 scale-100' : 'opacity-30 scale-95'}`}>
                     <div className="text-blue-500 font-mono font-bold text-lg mb-2">STAGE 0{stage.id}</div>
-                    <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-white">{stage.title}</h2>
-                    <p className="text-xl text-slate-300 font-medium mb-4 leading-relaxed">{stage.desc}</p>
-                    <p className="text-base text-slate-500 leading-relaxed border-l-2 border-slate-700 pl-4">{stage.detail}</p>
+                    <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-slate-900">{stage.title}</h2>
+                    <p className="text-xl text-slate-600 font-medium mb-4 leading-relaxed">{stage.desc}</p>
+                    <p className="text-base text-slate-9000 leading-relaxed border-l-2 border-slate-300 pl-4">{stage.detail}</p>
                   </div>
                 </div>
               ))}
@@ -327,23 +327,23 @@ export default function LandingPage() {
       {/* ────────────────────────────────────────────────────────────────────────
           CAPABILITIES SECTION
       ──────────────────────────────────────────────────────────────────────── */}
-      <section id="capabilities" className="py-32 px-6 bg-[#0a0f1c]">
+      <section id="capabilities" className="py-32 px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">INTELLIGENCE AT EVERY STEP</h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">
               A comprehensive suite of analytical engines working together to produce explainable and optimized relocation plans.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {capabilities.map((cap, i) => (
-              <div key={i} className="bg-slate-900/50 border border-slate-800 p-8 rounded-3xl hover:bg-slate-800/80 transition-colors">
+              <div key={i} className="bg-white/50 border border-slate-200 p-8 rounded-3xl hover:bg-slate-800/80 transition-colors">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6 text-blue-400">
                   <cap.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-sm font-bold text-slate-200 mb-3 uppercase tracking-wider">{cap.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{cap.desc}</p>
+                <h3 className="text-sm font-bold text-slate-800 mb-3 uppercase tracking-wider">{cap.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{cap.desc}</p>
               </div>
             ))}
           </div>
@@ -353,10 +353,10 @@ export default function LandingPage() {
       {/* ────────────────────────────────────────────────────────────────────────
           VOICE COPILOT SECTION
       ──────────────────────────────────────────────────────────────────────── */}
-      <section className="py-24 px-6 border-y border-slate-800/50 bg-gradient-to-b from-[#0a0f1c] to-[#050810]">
-        <div className="max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
+      <section className="py-24 px-6 border-y border-slate-200/50 bg-gradient-to-b from-[#0a0f1c] to-[#050810]">
+        <div className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-100/50 rounded-full blur-3xl pointer-events-none" />
           
           <div className="relative z-10">
             <div className="w-16 h-16 rounded-2xl bg-indigo-500/20 flex items-center justify-center mx-auto mb-8 border border-indigo-500/30 shadow-[0_0_30px_rgba(99,102,241,0.2)]">
@@ -364,20 +364,20 @@ export default function LandingPage() {
             </div>
             
             <h2 className="text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">MEET YOUR VOICE COPILOT</h2>
-            <p className="text-lg text-slate-400 mb-10 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-500 mb-10 max-w-2xl mx-auto">
               Ask questions about risk, explore relocation options, and understand the available evidence through natural conversation.
             </p>
             
             <div className="flex flex-col gap-3 mb-10 max-w-md mx-auto">
-              <div className="bg-slate-950 border border-slate-800 rounded-xl py-3 px-5 text-sm text-slate-300 italic text-left">
+              <div className="bg-slate-50 border border-slate-200 rounded-xl py-3 px-5 text-sm text-slate-600 italic text-left">
                 "Which habitation has the highest calculated risk?"
               </div>
-              <div className="bg-slate-950 border border-slate-800 rounded-xl py-3 px-5 text-sm text-slate-300 italic text-left">
+              <div className="bg-slate-50 border border-slate-200 rounded-xl py-3 px-5 text-sm text-slate-600 italic text-left">
                 "What candidate relocation sites are available?"
               </div>
             </div>
             
-            <Link href="/dashboard" className="inline-flex items-center justify-center px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg transition-colors">
+            <Link href="/dashboard" className="inline-flex items-center justify-center px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-slate-900 font-bold rounded-lg transition-colors">
               EXPLORE VOICE COPILOT &rarr;
             </Link>
           </div>
@@ -387,8 +387,8 @@ export default function LandingPage() {
       {/* ────────────────────────────────────────────────────────────────────────
           FINAL CTA
       ──────────────────────────────────────────────────────────────────────── */}
-      <section className="py-32 px-6 text-center relative overflow-hidden bg-[#0a0f1c]">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full max-w-3xl bg-blue-600/10 rounded-t-full blur-[100px] pointer-events-none" />
+      <section className="py-32 px-6 text-center relative overflow-hidden bg-slate-50">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full max-w-3xl bg-blue-100/50 rounded-t-full blur-[100px] pointer-events-none" />
         
         <div className="relative z-10 max-w-3xl mx-auto">
           <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-8">
@@ -396,15 +396,15 @@ export default function LandingPage() {
             UNDERSTAND THE PEOPLE.<br/>
             PLAN THE NEXT ACTION.
           </h2>
-          <p className="text-xl text-slate-400 mb-12">
+          <p className="text-xl text-slate-500 mb-12">
             Explore how RELOCATE AI connects geospatial risk intelligence with relocation planning and supporting evidence.
           </p>
           
           <div className="flex flex-col items-center gap-6">
-            <Link href="/dashboard" className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors shadow-[0_0_30px_rgba(37,99,235,0.4)] text-lg">
+            <Link href="/dashboard" className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-slate-900 font-bold rounded-lg transition-colors shadow-[0_0_30px_rgba(37,99,235,0.4)] text-lg">
               ENTER PLATFORM &rarr;
             </Link>
-            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-sm font-semibold text-slate-500 hover:text-white transition-colors uppercase tracking-widest">
+            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-sm font-semibold text-slate-9000 hover:text-slate-900 transition-colors uppercase tracking-widest">
               BACK TO TOP &uarr;
             </button>
           </div>

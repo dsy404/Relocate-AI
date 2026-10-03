@@ -23,12 +23,12 @@ export default function LandingMap() {
         scrollWheelZoom={false}
         doubleClickZoom={false}
         touchZoom={false}
-        style={{ height: '100%', width: '100%', background: '#0a0f1c' }}
+        style={{ height: '100%', width: '100%', background: '#ffffff' }}
       >
         <TileLayer
           attribution='&copy; OpenStreetMap contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          className="map-tiles-dark"
+          className="map-tiles-light"
         />
       </MapContainer>
     </div>
