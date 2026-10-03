@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { NecessityDecision, NecessityData } from '@/components/relocation/NecessityDecision';
-
 import { apiClient } from '@/lib/api';
+import { Settings2, Loader2, AlertTriangle, ArrowRight } from 'lucide-react';
+
 const DEMO_HABITATION_ID = "HAB001";
 
 export default function NecessityPage() {
@@ -42,64 +43,85 @@ export default function NecessityPage() {
   };
 
   return (
-    <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-8 pb-10">
+      {/* Page Header */}
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-slate-200">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Relocation Necessity Classifier</h1>
-          <p className="text-gray-500 mt-1">Rule-based decision engine assigning habitations to action categories.</p>
+          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Relocation Necessity Classifier</h1>
+          <p className="text-slate-500 font-medium text-sm max-w-2xl leading-relaxed">
+            Rule-based decision engine assigning habitations to action categories based on composite risk profiling.
+          </p>
         </div>
-        <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-2 rounded-lg flex items-center shadow-sm">
-          <svg className="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
-          </svg>
-          <span className="text-sm font-medium">Rule Engine Active</span>
+        <div className="flex items-center gap-2">
+          <div className="bg-indigo-50 border border-indigo-200 text-indigo-700 px-4 py-2.5 rounded-lg flex items-center shadow-sm text-xs font-bold uppercase tracking-wider">
+            <Settings2 className="w-4 h-4 mr-2 text-indigo-600" />
+            <span>Rule Engine Active</span>
+          </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Simulation Console</h3>
-        <p className="text-sm text-gray-600 mb-6">
-          Adjust the synthetic risk score below to see how the decision engine re-evaluates the habitation's relocation necessity.
-        </p>
+      {/* Simulation Console */}
+      <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-slate-100 pb-6">
+          <div>
+            <h3 className="text-lg font-bold text-slate-900 tracking-tight">Simulation Console</h3>
+            <p className="text-sm text-slate-500 font-medium mt-1">
+              Adjust the synthetic risk score below to see how the decision engine re-evaluates the habitation's relocation necessity.
+            </p>
+          </div>
+          <div className="bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl flex items-center gap-3">
+             <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Active Target</span>
+             <span className="text-sm font-black text-indigo-700">{DEMO_HABITATION_ID}</span>
+          </div>
+        </div>
         
-        <div className="flex items-center gap-6">
-          <div className="flex-1">
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="flex-1 w-full">
             <input 
               type="range" 
               min="0" 
               max="100" 
               value={riskSlider} 
               onChange={handleSliderChange}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              className="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
             />
-            <div className="flex justify-between text-xs text-gray-400 mt-2 font-medium">
-              <span>0 (Safe)</span>
-              <span>50 (Moderate)</span>
-              <span>100 (Critical)</span>
+            <div className="flex justify-between text-[11px] font-bold uppercase tracking-wider text-slate-400 mt-4">
+              <span className="flex flex-col items-start"><span className="text-emerald-500 mb-1">0</span> Safe</span>
+              <span className="flex flex-col items-center"><span className="text-amber-500 mb-1">50</span> Moderate</span>
+              <span className="flex flex-col items-end"><span className="text-rose-500 mb-1">100</span> Critical</span>
             </div>
           </div>
-          <div className="w-20 text-center">
-            <span className="text-3xl font-bold text-blue-600">{riskSlider}</span>
+          <div className="w-24 text-center shrink-0">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Input RPI</span>
+            <span className="text-5xl font-black text-indigo-600 tracking-tighter">{riskSlider}</span>
           </div>
           <button 
             onClick={handleSimulate}
-            className="px-6 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition-colors shadow-sm"
+            className="w-full md:w-auto px-8 py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-colors shadow-sm flex items-center justify-center gap-2 shrink-0 group"
           >
-            Evaluate
+            Evaluate Engine
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center h-48 bg-white rounded-xl shadow-sm border border-gray-100">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="flex flex-col justify-center items-center h-64 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
+          <Loader2 className="animate-spin h-8 w-8 text-indigo-600 mb-4" />
+          <p className="text-sm font-medium text-slate-500">Evaluating classification rules...</p>
         </div>
       ) : error ? (
-        <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md shadow-sm">
-          <p className="text-sm text-red-700">{error}</p>
+        <div className="bg-rose-50 border border-rose-200 p-6 rounded-2xl shadow-sm flex items-start gap-4">
+          <AlertTriangle className="w-6 h-6 text-rose-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <h3 className="font-bold text-rose-800">Engine Error</h3>
+            <p className="text-sm text-rose-700 mt-1">{error}</p>
+          </div>
         </div>
       ) : data ? (
-        <NecessityDecision data={data} />
+        <div className="animate-in fade-in duration-500">
+           <NecessityDecision data={data} />
+        </div>
       ) : null}
     </div>
   );

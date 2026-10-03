@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-
+import { BrainCircuit, Loader2, AlertTriangle } from 'lucide-react';
 import MLExplanation from '@/components/ml/MLExplanation';
-
 import { apiClient } from '@/lib/api';
 
 export default function MLEvaluationPage() {
@@ -26,22 +25,32 @@ export default function MLEvaluationPage() {
   }, []);
 
   return (
-    <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-6">
-      <div className="mb-2">
-        <h1 className="text-3xl font-bold text-gray-900">Machine Learning Evaluation</h1>
-        <p className="mt-2 text-sm text-gray-600">
-          Methodology demonstration for predictive risk classification.
-        </p>
+    <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-8 pb-10">
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-slate-200">
+        <div>
+          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2 flex items-center gap-3">
+            <BrainCircuit className="w-8 h-8 text-purple-600" />
+            Machine Learning Evaluation
+          </h1>
+          <p className="text-slate-500 font-medium text-sm max-w-2xl leading-relaxed">
+            Methodology demonstration for predictive risk classification. Review feature importance and model performance metrics.
+          </p>
+        </div>
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-slate-200 border-dashed">
+          <Loader2 className="w-8 h-8 text-purple-600 animate-spin mb-4" />
+          <p className="text-slate-500 font-medium">Evaluating ML model metrics...</p>
         </div>
       ) : data ? (
         <MLExplanation data={data} />
       ) : (
-        <div className="text-center text-red-500 py-12">Error loading ML evaluation data.</div>
+        <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-slate-200 border-dashed">
+          <AlertTriangle className="w-8 h-8 text-rose-500 mb-4" />
+          <p className="text-slate-700 font-bold">Error loading ML evaluation data.</p>
+          <p className="text-slate-500 text-sm mt-1">Please ensure the backend engine is running.</p>
+        </div>
       )}
     </div>
   );

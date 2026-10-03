@@ -7,6 +7,7 @@ import VoiceBriefingPlayer from '@/components/voice/VoiceBriefingPlayer';
 
 import { API_BASE_URL } from '@/lib/api';
 import ExportButton from '@/components/reports/ExportButton';
+import { Send, Activity, ShieldAlert } from 'lucide-react';
 
 const API_URL = API_BASE_URL;
 
@@ -61,13 +62,18 @@ export default function ActionPlanPage() {
         }
       `}</style>
       
-      <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-6">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+      <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-8 pb-10">
+        
+        {/* Page Header */}
+        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-slate-200">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Government Action Plan</h1>
-            <p className="text-gray-500 mt-1">Executive summary of disaster relocation priorities and assignments.</p>
+            <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Government Action Plan</h1>
+            <p className="text-slate-500 font-medium text-sm max-w-2xl leading-relaxed">
+              Executive summary of disaster relocation priorities, assignments, and critical field dispatch actions.
+            </p>
           </div>
-          <div className="flex gap-3 no-print items-center">
+          
+          <div className="flex flex-wrap gap-3 items-center no-print">
             {/* AI Voice Briefing — Brief Me */}
             {!loading && !error && stats && (
               <VoiceBriefingPlayer
@@ -79,31 +85,37 @@ export default function ActionPlanPage() {
                 size="md"
               />
             )}
-            <div className="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-2 rounded-lg flex items-center shadow-sm">
-              <svg className="w-5 h-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
-              </svg>
-              <span className="text-sm font-medium">Action Dispatch Active</span>
+            
+            <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-2.5 rounded-lg flex items-center shadow-sm text-xs font-bold uppercase tracking-wider">
+              <Send className="w-4 h-4 mr-2 text-blue-600" />
+              <span>Action Dispatch Active</span>
             </div>
+            
             <ExportButton />
           </div>
         </div>
 
       {loading ? (
-        <div className="flex justify-center items-center h-64 bg-white rounded-xl shadow-sm border border-gray-100">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="flex flex-col justify-center items-center h-64 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mb-4"></div>
+          <p className="text-sm font-medium text-slate-500">Compiling executive summary...</p>
         </div>
       ) : error ? (
-        <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md shadow-sm mb-6">
-          <p className="text-sm text-red-700">{error}</p>
+        <div className="bg-rose-50 border border-rose-200 p-6 rounded-2xl shadow-sm flex items-start gap-4">
+          <ShieldAlert className="w-6 h-6 text-rose-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <h3 className="font-bold text-rose-800">Connection Error</h3>
+            <p className="text-sm text-rose-700 mt-1">{error}</p>
+          </div>
         </div>
       ) : (
         <>
           {stats && <StatsCards stats={stats} />}
           {rows && <PriorityTable rows={rows} />}
+          
           {/* ElevenLabs Attribution */}
           <div className="text-center mt-2 mb-4">
-            <p className="text-[10px] text-gray-400">
+            <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">
               AI Voice Briefing powered by ElevenLabs
             </p>
           </div>

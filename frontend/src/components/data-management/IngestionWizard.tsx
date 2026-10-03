@@ -56,7 +56,7 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
 
   // Target Canonical Fields based on Category
   const getTargetFields = (cat: string) => {
-    if (cat === "habitations") {
+    if (cat === "habitations" || cat === "population") {
       return [
         { key: "__ignore__", label: "-- Ignore this column --" },
         { key: "name", label: "Village / Habitation Name (Required)" },
@@ -68,7 +68,7 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
         { key: "slope", label: "Slope (Degrees)" },
         { key: "aspect", label: "Aspect (Degrees)" },
       ];
-    } else if (cat === "hazards") {
+    } else if (cat === "hazards" || cat === "flood") {
       return [
         { key: "__ignore__", label: "-- Ignore this column --" },
         { key: "type", label: "Hazard Type (e.g. Flood, Landslide) (Required)" },
@@ -76,16 +76,45 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
         { key: "latitude", label: "Centroid Latitude" },
         { key: "longitude", label: "Centroid Longitude" },
       ];
-    } else {
+    } else if (cat === "administrative") {
       return [
         { key: "__ignore__", label: "-- Ignore this column --" },
-        { key: "name", label: "Site Name (Required)" },
+        { key: "name", label: "Region / Boundary Name (Required)" },
+        { key: "level", label: "Admin Level (e.g., District, State)" },
+        { key: "latitude", label: "Centroid Latitude" },
+        { key: "longitude", label: "Centroid Longitude" },
+      ];
+    } else if (cat === "healthcare" || cat === "candidate_sites") {
+      return [
+        { key: "__ignore__", label: "-- Ignore this column --" },
+        { key: "name", label: "Facility / Site Name (Required)" },
         { key: "latitude", label: "Latitude (Required)" },
         { key: "longitude", label: "Longitude (Required)" },
-        { key: "area_capacity", label: "Area Capacity (Score or Units)" },
-        { key: "infrastructure_score", label: "Infrastructure Score" },
+        { key: "capacity", label: "Capacity (Beds/Score)" },
+        { key: "type", label: "Type (Hospital, Clinic, Camp)" },
+      ];
+    } else if (cat === "roads") {
+      return [
+        { key: "__ignore__", label: "-- Ignore this column --" },
+        { key: "name", label: "Road Name (Required)" },
+        { key: "type", label: "Road Type (Highway, Local)" },
+        { key: "status", label: "Status (Open, Blocked)" },
+      ];
+    } else if (cat === "dem") {
+      return [
+        { key: "__ignore__", label: "-- Ignore this column --" },
+        { key: "name", label: "Raster Name (Required)" },
+        { key: "resolution", label: "Resolution (Meters)" },
       ];
     }
+    
+    // Fallback
+    return [
+      { key: "__ignore__", label: "-- Ignore this column --" },
+      { key: "name", label: "Name (Required)" },
+      { key: "latitude", label: "Latitude (Required)" },
+      { key: "longitude", label: "Longitude (Required)" },
+    ];
   };
 
   // ── Step 1 Handler: Inspect ──────────────────────────────────────────
@@ -266,9 +295,17 @@ export default function IngestionWizard({ onImportSuccess }: IngestionWizardProp
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option value="habitations">Habitations & Population (Villages, Wards)</option>
-                <option value="hazards">Hazard Polygons (Flood, Landslide)</option>
-                <option value="candidate_sites">Candidate Relocation Sites</option>
+                <optgroup label="Core Relocation Models">
+                  <option value="habitations">Population & Demographics (Villages, Wards)</option>
+                  <option value="hazards">Flood & Hazard Polygons</option>
+                  <option value="candidate_sites">Candidate Relocation Sites</option>
+                </optgroup>
+                <optgroup label="Supplementary Geospatial Layers">
+                  <option value="administrative">Administrative Boundaries</option>
+                  <option value="dem">DEM / Elevation (GeoTIFF / Raster)</option>
+                  <option value="roads">Road Network</option>
+                  <option value="healthcare">Healthcare & Essential Facilities</option>
+                </optgroup>
               </select>
             </div>
 

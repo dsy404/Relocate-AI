@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { apiClient } from '@/lib/api';
+import { ShieldCheck, MapPin, Search, Filter, CheckCircle2, AlertTriangle, XCircle, Users, Activity, FileText, ArrowRight, Loader2 } from 'lucide-react';
 
 export interface VerificationHabitation {
   id: string;
@@ -177,75 +178,82 @@ export default function FieldVerificationPage() {
   });
 
   return (
-    <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-6">
+    <div className="w-full max-w-[1600px] mx-auto flex flex-col gap-8 pb-10">
+      
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gray-200 pb-4">
+      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 pb-6 border-b border-slate-200">
         <div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-black text-gray-900 tracking-tight">Field Verification Console</h1>
-            <span className="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-200">
-              Live Backend Connected
-            </span>
-          </div>
-          <p className="text-sm text-gray-500 mt-1">
+          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Field Verification Console</h1>
+          <p className="text-slate-500 font-medium text-sm max-w-2xl leading-relaxed">
             Ground-truth verification console with automated cascading recalculation: Field Report → Vulnerability → Hazard → Risk → Necessity → Optimizer.
           </p>
         </div>
 
         {/* Action / Navigation Tabs */}
-        <div className="flex items-center gap-3">
-          <div className="bg-gray-100 p-1 rounded-lg flex gap-1 border border-gray-200">
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="bg-slate-100/80 p-1.5 rounded-xl flex gap-1 border border-slate-200 shadow-sm">
             <button
               onClick={() => setActiveTab('FORM')}
-              className={`px-4 py-1.5 rounded-md text-xs font-bold transition ${activeTab === 'FORM' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'FORM' ? 'bg-white text-blue-700 shadow-sm ring-1 ring-slate-200/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'}`}
             >
               Verification Console
             </button>
             <button
               onClick={() => { setActiveTab('AUDIT'); fetchHistory(); }}
-              className={`px-4 py-1.5 rounded-md text-xs font-bold transition ${activeTab === 'AUDIT' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-600 hover:text-gray-900'}`}
+              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'AUDIT' ? 'bg-white text-blue-700 shadow-sm ring-1 ring-slate-200/50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'}`}
             >
               Audit Trail ({history.length})
             </button>
           </div>
           <Link
-            href="/dashboard"
-            className="text-xs bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 px-3.5 py-2 rounded-lg font-semibold transition"
+            href="/action-plan"
+            className="text-xs bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 hover:text-slate-900 px-4 py-2.5 rounded-xl font-bold transition-all shadow-sm flex items-center gap-2"
           >
+            <FileText className="w-3.5 h-3.5" />
             Action Plan
           </Link>
           <Link
             href="/optimizer"
-            className="text-xs bg-blue-600 text-white hover:bg-blue-700 px-3.5 py-2 rounded-lg font-bold shadow-sm transition"
+            className="text-xs bg-blue-600 text-white hover:bg-blue-700 px-4 py-2.5 rounded-xl font-bold shadow-sm transition-all flex items-center gap-2"
           >
+            <Activity className="w-3.5 h-3.5" />
             Relocation Optimizer
           </Link>
         </div>
       </div>
 
       {activeTab === 'FORM' && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+          
           {/* Left Panel: Habitation Directory */}
-          <div className="lg:col-span-4 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col h-[780px] overflow-hidden">
-            <div className="p-4 bg-gray-50 border-b border-gray-200 space-y-3">
+          <div className="xl:col-span-4 bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col h-[850px] overflow-hidden">
+            <div className="p-6 bg-slate-50/50 border-b border-slate-200 space-y-4">
               <div className="flex justify-between items-center">
-                <h3 className="font-bold text-gray-900 text-sm">Habitation Directory</h3>
-                <span className="text-xs text-gray-500">{filteredHabitations.length} total</span>
+                <h3 className="font-extrabold text-slate-900 text-sm tracking-tight flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-slate-400" />
+                  Habitation Directory
+                </h3>
+                <span className="text-xs font-bold text-slate-500 bg-slate-200/50 px-2.5 py-1 rounded-md">{filteredHabitations.length} Total</span>
               </div>
-              <input
-                type="text"
-                placeholder="Search by name or ID..."
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
-                className="w-full text-xs px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <div className="flex flex-wrap gap-1">
+              
+              <div className="relative">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                <input
+                  type="text"
+                  placeholder="Search by name or ID..."
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  className="w-full text-sm font-medium pl-10 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all placeholder:text-slate-400"
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 pt-1">
                 {['ALL', 'VERIFIED', 'NEEDS_VERIFICATION', 'CONFLICTING_DATA', 'OUTDATED'].map(status => (
                   <button
                     key={status}
                     onClick={() => setFilterStatus(status)}
-                    className={`text-[10px] px-2 py-0.5 rounded font-medium transition ${
-                      filterStatus === status ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    className={`text-[10px] px-2.5 py-1 rounded-md font-bold transition-all uppercase tracking-wider ${
+                      filterStatus === status ? 'bg-slate-800 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                     }`}
                   >
                     {status.replace('_', ' ')}
@@ -254,7 +262,7 @@ export default function FieldVerificationPage() {
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto divide-y divide-gray-100">
+            <div className="flex-1 overflow-y-auto divide-y divide-slate-100/80 bg-slate-50/30">
               {filteredHabitations.map(hab => {
                 const isSelected = hab.id === selectedHabId;
                 const isBlocked = hab.road_status === 'BLOCKED' || hab.road_accessible === false;
@@ -262,30 +270,45 @@ export default function FieldVerificationPage() {
                   <div
                     key={hab.id}
                     onClick={() => handleSelectHabitation(hab)}
-                    className={`p-3.5 cursor-pointer transition-colors ${
-                      isSelected ? 'bg-blue-50/80 border-l-4 border-blue-600' : 'hover:bg-gray-50'
+                    className={`p-5 cursor-pointer transition-all ${
+                      isSelected ? 'bg-blue-50/80 border-l-4 border-blue-600 shadow-sm relative z-10' : 'hover:bg-white border-l-4 border-transparent'
                     }`}
                   >
-                    <div className="flex justify-between items-start">
-                      <div className="font-bold text-gray-900 text-sm">{hab.name}</div>
-                      <span className="text-[10px] font-mono text-gray-400">{hab.id}</span>
+                    <div className="flex justify-between items-start mb-2">
+                      <div className="font-extrabold text-slate-900 text-sm tracking-tight">{hab.name}</div>
+                      <span className="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded uppercase tracking-wider">{hab.id}</span>
                     </div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-gray-500">Pop: {hab.population}</span>
-                      <span className="text-xs font-semibold text-blue-600">RPI: {hab.risk_score.toFixed(1)}</span>
+                    
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                        <Users className="w-3.5 h-3.5 text-slate-400" />
+                        {hab.population}
+                      </span>
+                      <span className="text-xs font-black text-rose-600 flex items-center gap-1 bg-rose-50 px-2 py-0.5 rounded-md">
+                        RPI: {hab.risk_score.toFixed(1)}
+                      </span>
                       {isBlocked ? (
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-red-100 text-red-800 border border-red-200">
-                          ROAD BLOCKED
+                        <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200 flex items-center gap-1 shrink-0">
+                          <XCircle className="w-3 h-3" />
+                          Blocked
                         </span>
                       ) : (
-                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-green-100 text-green-800">
-                          ROAD OPEN
+                        <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1 shrink-0">
+                          <CheckCircle2 className="w-3 h-3" />
+                          Open
                         </span>
                       )}
                     </div>
-                    <div className="mt-1.5 flex items-center justify-between text-[11px] text-gray-400">
-                      <span className="truncate max-w-[180px]">{hab.verification_status}</span>
-                      <span>{hab.necessity_category}</span>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${
+                        hab.verification_status === 'VERIFIED' ? 'bg-emerald-50 text-emerald-700' :
+                        hab.verification_status === 'NEEDS_VERIFICATION' ? 'bg-amber-50 text-amber-700' :
+                        'bg-slate-100 text-slate-600'
+                      }`}>
+                        {hab.verification_status.replace('_', ' ')}
+                      </span>
+                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{hab.necessity_category}</span>
                     </div>
                   </div>
                 );
@@ -294,322 +317,359 @@ export default function FieldVerificationPage() {
           </div>
 
           {/* Right Panel: Verification Form & Cascading Impact Modal */}
-          <div className="lg:col-span-8 space-y-6">
+          <div className="xl:col-span-8 space-y-8">
             {currentHab ? (
-              <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
+              <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                
                 {/* Habitation Banner */}
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h2 className="text-xl font-black text-gray-900">{currentHab.name}</h2>
-                      <span className="text-xs font-mono bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">
+                <div className="bg-slate-900 text-white p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 opacity-20 pointer-events-none" />
+                  
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h2 className="text-2xl font-black tracking-tight">{currentHab.name}</h2>
+                      <span className="text-xs font-bold uppercase tracking-widest bg-white/10 text-white px-2.5 py-1 rounded-md border border-white/20">
                         {currentHab.id}
                       </span>
                     </div>
-                    <p className="text-xs text-gray-500 mt-0.5">
-                      Coordinates: {currentHab.latitude.toFixed(4)}, {currentHab.longitude.toFixed(4)} | Elevation: {currentHab.elevation}m | Slope: {currentHab.slope}°
+                    <p className="text-sm font-medium text-slate-300 flex flex-wrap items-center gap-4">
+                      <span><span className="text-slate-400">Lat:</span> {currentHab.latitude.toFixed(4)}</span>
+                      <span><span className="text-slate-400">Lng:</span> {currentHab.longitude.toFixed(4)}</span>
+                      <span><span className="text-slate-400">Elev:</span> {currentHab.elevation}m</span>
+                      <span><span className="text-slate-400">Slope:</span> {currentHab.slope}°</span>
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  
+                  <div className="relative z-10 flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl backdrop-blur-sm">
                     <div className="text-right">
-                      <div className="text-xs text-gray-400 uppercase font-semibold">Baseline RPI</div>
-                      <div className="text-xl font-black text-gray-900">{currentHab.risk_score.toFixed(1)}</div>
+                      <div className="text-[10px] uppercase font-bold tracking-widest text-slate-400 mb-1">Baseline RPI</div>
+                      <div className="text-3xl font-black text-white leading-none">{currentHab.risk_score.toFixed(1)}</div>
                     </div>
-                    <span className="text-xs px-2.5 py-1 rounded-md bg-amber-100 text-amber-900 font-bold border border-amber-200">
-                      {currentHab.necessity_category}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Section 1: Verifier Credentials & Metadata */}
-                <div>
-                  <h3 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-                    1. Verifier Identity & Audit Metadata
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="w-px h-10 bg-white/10 mx-2" />
                     <div>
-                      <label className="block text-xs font-semibold text-gray-700 mb-1">Verifier Name / Badge ID</label>
-                      <input
-                        type="text"
-                        required
-                        value={verifierName}
-                        onChange={e => setVerifierName(e.target.value)}
-                        className="w-full text-sm p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700 mb-1">Verification Status</label>
-                      <select
-                        value={verificationStatus}
-                        onChange={e => setVerificationStatus(e.target.value)}
-                        className="w-full text-sm p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                      >
-                        <option value="VERIFIED">VERIFIED (Ground truth confirmed)</option>
-                        <option value="NEEDS_VERIFICATION">NEEDS_VERIFICATION (Pending follow-up)</option>
-                        <option value="CONFLICTING_DATA">CONFLICTING_DATA (Discrepancy with satellite)</option>
-                        <option value="OUTDATED">OUTDATED (Seasonal resurvey needed)</option>
-                      </select>
+                      <div className="text-[10px] uppercase font-bold tracking-widest text-slate-400 mb-1">Necessity</div>
+                      <span className="text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                        {currentHab.necessity_category}
+                      </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Section 2: Evacuation Road Accessibility Trigger */}
-                <div className="border-t border-gray-100 pt-4">
-                  <h3 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                    2. Evacuation Corridor & Transit Accessibility
-                  </h3>
-                  <div className="bg-amber-50/70 border border-amber-200 p-4 rounded-xl space-y-3">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                      <div>
-                        <span className="text-sm font-bold text-gray-900 block">Primary Evacuation Road Status</span>
-                        <p className="text-xs text-gray-600">
-                          Reporting a road as blocked or damaged automatically triggers vulnerability escalation (+25 points) and recalculates the risk & relocation necessity.
-                        </p>
-                      </div>
-                      <div className="flex gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setRoadStatus('OPEN')}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
-                            roadStatus === 'OPEN' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-white text-gray-700 border border-gray-300'
-                          }`}
-                        >
-                          <span>✓</span> Road Open
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setRoadStatus('BLOCKED')}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
-                            roadStatus === 'BLOCKED' ? 'bg-red-600 text-white shadow-sm' : 'bg-white text-gray-700 border border-gray-300'
-                          }`}
-                        >
-                          <span>⚠️</span> Road Blocked
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setRoadStatus('DAMAGED')}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
-                            roadStatus === 'DAMAGED' ? 'bg-amber-600 text-white shadow-sm' : 'bg-white text-gray-700 border border-gray-300'
-                          }`}
-                        >
-                          <span>🔧</span> Road Damaged
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Section 3: Socio-Economic Infrastructure */}
-                <div className="border-t border-gray-100 pt-4">
-                  <h3 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-                    3. Ground-Truth Socio-Economic & Utility Observations
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700 mb-1">Drinking Water Availability</label>
-                      <select
-                        value={waterAvail}
-                        onChange={e => setWaterAvail(e.target.value)}
-                        className="w-full text-sm p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                      >
-                        <option value="ABUNDANT">ABUNDANT (Protected aquifer)</option>
-                        <option value="ADEQUATE">ADEQUATE (Meets 70 LPCD)</option>
-                        <option value="SCARCE">SCARCE (Severe deficit +15 vuln)</option>
-                        <option value="CONTAMINATED">CONTAMINATED (Toxic / flood silt +15 vuln)</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700 mb-1">Housing Structure Condition</label>
-                      <select
-                        value={housingCondition}
-                        onChange={e => setHousingCondition(e.target.value)}
-                        className="w-full text-sm p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                      >
-                        <option value="PUCCA_GOOD">PUCCA_GOOD (Concrete structural stability)</option>
-                        <option value="SEMI_PUCCA">SEMI_PUCCA (Partial brick/mortar +10 vuln)</option>
-                        <option value="KUTCHA_VULNERABLE">KUTCHA_VULNERABLE (Mud/thatch +20 vuln)</option>
-                        <option value="DAMAGED">DAMAGED (Cracked / post-disaster +20 vuln)</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-700 mb-1">Emergency Healthcare Access</label>
-                      <div className="flex items-center h-10">
-                        <label className="relative inline-flex items-center cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={healthcareAccessible}
-                            onChange={e => setHealthcareAccessible(e.target.checked)}
-                            className="sr-only peer"
-                          />
-                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                          <span className="ml-3 text-xs font-medium text-gray-700">
-                            {healthcareAccessible ? 'Clinic Route Clear' : 'Clinic Route Severed (+10 vuln)'}
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Section 4: Geotechnical & Hazard Observations */}
-                <div className="border-t border-gray-100 pt-4">
-                  <h3 className="text-xs font-black uppercase tracking-wider text-gray-500 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-purple-600"></span>
-                    4. Active Hazard Field Observations
-                  </h3>
+                <div className="p-6 md:p-8 space-y-10">
+                  {/* Section 1: Verifier Credentials & Metadata */}
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 mb-1">Field Hazard Sighting</label>
-                    <select
-                      value={hazardObs}
-                      onChange={e => setHazardObs(e.target.value)}
-                      className="w-full text-sm p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    >
-                      <option value="NONE">NONE (No active hazard expansion)</option>
-                      <option value="RISING_WATER">RISING_WATER (River bank breaching +25 hazard)</option>
-                      <option value="ACTIVE_SLOPE_CRACK">ACTIVE_SLOPE_CRACK (Tensile fissures observed +30 hazard)</option>
-                      <option value="DEBRIS_FLOW">DEBRIS_FLOW (Active slope washout +30 hazard)</option>
-                      <option value="FLASH_FLOOD">FLASH_FLOOD (Sudden inundation +25 hazard)</option>
-                    </select>
+                    <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                      1. Verifier Identity & Audit Metadata
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Verifier Name / Badge ID</label>
+                        <input
+                          type="text"
+                          required
+                          value={verifierName}
+                          onChange={e => setVerifierName(e.target.value)}
+                          className="w-full text-sm font-semibold p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Verification Status</label>
+                        <div className="relative">
+                          <select
+                            value={verificationStatus}
+                            onChange={e => setVerificationStatus(e.target.value)}
+                            className="w-full text-sm font-semibold p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white appearance-none cursor-pointer"
+                          >
+                            <option value="VERIFIED">Verified (Ground truth confirmed)</option>
+                            <option value="NEEDS_VERIFICATION">Needs Verification (Pending follow-up)</option>
+                            <option value="CONFLICTING_DATA">Conflicting Data (Discrepancy with satellite)</option>
+                            <option value="OUTDATED">Outdated (Seasonal resurvey needed)</option>
+                          </select>
+                          <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="mt-4">
-                    <label className="block text-xs font-semibold text-gray-700 mb-1">Field Officer Detailed Notes</label>
-                    <textarea
-                      rows={3}
-                      placeholder="Record qualitative observations, culvert conditions, local community feedback..."
-                      value={notes}
-                      onChange={e => setNotes(e.target.value)}
-                      className="w-full text-sm p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                    ></textarea>
+                  {/* Section 2: Evacuation Road Accessibility Trigger */}
+                  <div>
+                    <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                      2. Evacuation Corridor & Transit Accessibility
+                    </h3>
+                    <div className="bg-amber-50/50 border border-amber-200 p-6 rounded-2xl">
+                      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                        <div className="max-w-xl">
+                          <span className="text-sm font-bold text-amber-950 block mb-1">Primary Evacuation Road Status</span>
+                          <p className="text-xs font-medium text-amber-800/80 leading-relaxed">
+                            Reporting a road as blocked or damaged automatically triggers vulnerability escalation (+25 points) and recalculates the overall risk & relocation necessity score.
+                          </p>
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                          <button
+                            type="button"
+                            onClick={() => setRoadStatus('OPEN')}
+                            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                              roadStatus === 'OPEN' ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/10' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                            }`}
+                          >
+                            <CheckCircle2 className="w-4 h-4" /> Road Open
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setRoadStatus('BLOCKED')}
+                            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                              roadStatus === 'BLOCKED' ? 'bg-rose-600 text-white shadow-md shadow-rose-900/10' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                            }`}
+                          >
+                            <XCircle className="w-4 h-4" /> Road Blocked
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setRoadStatus('DAMAGED')}
+                            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                              roadStatus === 'DAMAGED' ? 'bg-amber-500 text-white shadow-md shadow-amber-900/10' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                            }`}
+                          >
+                            <AlertTriangle className="w-4 h-4" /> Road Damaged
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Section 3: Socio-Economic Infrastructure */}
+                  <div>
+                    <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                      3. Ground-Truth Socio-Economic Observations
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Drinking Water</label>
+                        <div className="relative">
+                          <select
+                            value={waterAvail}
+                            onChange={e => setWaterAvail(e.target.value)}
+                            className="w-full text-sm font-semibold p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white appearance-none cursor-pointer"
+                          >
+                            <option value="ABUNDANT">Abundant (Protected aquifer)</option>
+                            <option value="ADEQUATE">Adequate (Meets 70 LPCD)</option>
+                            <option value="SCARCE">Scarce (+15 vuln)</option>
+                            <option value="CONTAMINATED">Contaminated (+15 vuln)</option>
+                          </select>
+                          <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Housing Condition</label>
+                        <div className="relative">
+                          <select
+                            value={housingCondition}
+                            onChange={e => setHousingCondition(e.target.value)}
+                            className="w-full text-sm font-semibold p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white appearance-none cursor-pointer"
+                          >
+                            <option value="PUCCA_GOOD">Pucca Good (Stable)</option>
+                            <option value="SEMI_PUCCA">Semi-Pucca (+10 vuln)</option>
+                            <option value="KUTCHA_VULNERABLE">Kutcha Vulnerable (+20 vuln)</option>
+                            <option value="DAMAGED">Damaged (+20 vuln)</option>
+                          </select>
+                          <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Healthcare Access</label>
+                        <div className="flex items-center h-12 bg-slate-50 border border-slate-300 rounded-xl px-4 cursor-pointer" onClick={() => setHealthcareAccessible(!healthcareAccessible)}>
+                          <div className={`w-12 h-6 rounded-full transition-colors relative flex items-center px-1 ${healthcareAccessible ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                            <div className={`w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${healthcareAccessible ? 'translate-x-6' : 'translate-x-0'}`} />
+                          </div>
+                          <span className={`ml-3 text-xs font-bold ${healthcareAccessible ? 'text-slate-900' : 'text-slate-500'}`}>
+                            {healthcareAccessible ? 'Clinic Route Clear' : 'Route Severed (+10)'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Section 4: Geotechnical & Hazard Observations */}
+                  <div>
+                    <h3 className="text-[11px] font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                      4. Active Hazard Field Observations
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Field Hazard Sighting</label>
+                        <div className="relative">
+                          <select
+                            value={hazardObs}
+                            onChange={e => setHazardObs(e.target.value)}
+                            className="w-full text-sm font-semibold p-3 pr-10 border border-slate-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-all bg-slate-50 hover:bg-white appearance-none cursor-pointer"
+                          >
+                            <option value="NONE">None (No active expansion)</option>
+                            <option value="RISING_WATER">Rising Water (+25 hazard)</option>
+                            <option value="ACTIVE_SLOPE_CRACK">Active Slope Crack (+30 hazard)</option>
+                            <option value="DEBRIS_FLOW">Debris Flow (+30 hazard)</option>
+                            <option value="FLASH_FLOOD">Flash Flood (+25 hazard)</option>
+                          </select>
+                          <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">Field Officer Detailed Notes</label>
+                        <textarea
+                          rows={3}
+                          placeholder="Record qualitative observations, culvert conditions..."
+                          value={notes}
+                          onChange={e => setNotes(e.target.value)}
+                          className="w-full text-sm font-medium p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-slate-50 hover:bg-white resize-none"
+                        ></textarea>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* Submit Action */}
-                <div className="border-t border-gray-100 pt-4 flex justify-end">
+                <div className="bg-slate-50 p-6 md:p-8 border-t border-slate-200 flex justify-end">
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-md transition flex items-center gap-2 text-sm disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl shadow-sm transition-all flex items-center gap-3 text-sm disabled:opacity-70 disabled:cursor-not-allowed group"
                   >
                     {submitting ? (
                       <>
-                        <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                        <Loader2 className="w-5 h-5 animate-spin" />
                         Executing Cascading Recalculation...
                       </>
                     ) : (
                       <>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Submit Field Verification & Recalculate System
+                        Submit Field Verification & Recalculate
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </>
                     )}
                   </button>
                 </div>
               </form>
             ) : (
-              <div className="bg-white rounded-xl p-12 text-center border border-gray-200">
-                <p className="text-gray-500">Select a habitation from the directory to start verification.</p>
+              <div className="bg-white rounded-3xl p-16 text-center border border-slate-200 border-dashed flex flex-col items-center justify-center h-[400px]">
+                <MapPin className="w-12 h-12 text-slate-300 mb-4" />
+                <p className="text-slate-500 font-medium text-lg">Select a habitation from the directory to start verification.</p>
               </div>
             )}
 
             {/* Recalculation Impact Proof Card */}
             {recalcResult && (
-              <div className="bg-white rounded-xl shadow-lg border-2 border-blue-500 p-6 space-y-5 animate-in fade-in duration-300">
-                <div className="flex justify-between items-start border-b border-gray-100 pb-3">
+              <div className="bg-white rounded-3xl shadow-xl shadow-blue-900/5 border-2 border-blue-500 p-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex justify-between items-start border-b border-slate-100 pb-5">
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5 mb-3">
+                      <ShieldCheck className="w-3.5 h-3.5" />
                       Cascading Recalculation Complete
                     </span>
-                    <h3 className="text-xl font-black text-gray-900 mt-1">
-                      {recalcResult.habitation.name} ({recalcResult.habitation.id}) — Before vs. After Impact
+                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">
+                      {recalcResult.habitation.name} <span className="text-slate-400 font-bold ml-1 text-lg">({recalcResult.habitation.id})</span>
                     </h3>
                   </div>
                   <button
                     onClick={() => setRecalcResult(null)}
-                    className="text-gray-400 hover:text-gray-600 text-sm font-bold"
+                    className="text-slate-400 hover:text-slate-900 transition-colors p-2"
                   >
-                    ✕ Close
+                    <XCircle className="w-6 h-6" />
                   </button>
                 </div>
 
                 {/* Before vs After Metric Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                   {/* Vulnerability */}
-                  <div className="border border-gray-200 rounded-xl p-4 bg-gray-50/50">
-                    <span className="text-xs uppercase font-bold text-gray-500">Vulnerability Score</span>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-lg font-bold text-gray-500 line-through">
+                  <div className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50">
+                    <span className="text-[11px] uppercase font-bold tracking-widest text-slate-500">Vulnerability Score</span>
+                    <div className="flex items-baseline gap-3 mt-2">
+                      <span className="text-xl font-bold text-slate-400 line-through">
                         {recalcResult.before.vulnerability_score.toFixed(1)}
                       </span>
-                      <span className="text-2xl font-black text-blue-700">
+                      <span className="text-3xl font-black text-blue-600">
                         {recalcResult.after.vulnerability_score.toFixed(1)}
                       </span>
-                      <span className="text-xs font-bold text-red-600">
+                      <span className="text-xs font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
                         +{recalcResult.difference.vulnerability_delta}
                       </span>
                     </div>
                   </div>
 
                   {/* RPI Risk Score */}
-                  <div className="border border-gray-200 rounded-xl p-4 bg-gray-50/50">
-                    <span className="text-xs uppercase font-bold text-gray-500">Relocation Priority (RPI)</span>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-lg font-bold text-gray-500 line-through">
+                  <div className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50">
+                    <span className="text-[11px] uppercase font-bold tracking-widest text-slate-500">Relocation Priority (RPI)</span>
+                    <div className="flex items-baseline gap-3 mt-2">
+                      <span className="text-xl font-bold text-slate-400 line-through">
                         {recalcResult.before.rpi.toFixed(1)}
                       </span>
-                      <span className="text-2xl font-black text-red-600">
+                      <span className="text-3xl font-black text-rose-600">
                         {recalcResult.after.rpi.toFixed(1)}
                       </span>
-                      <span className="text-xs font-bold text-red-600">
+                      <span className="text-xs font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md">
                         +{recalcResult.difference.rpi_delta}
                       </span>
                     </div>
                   </div>
 
                   {/* Relocation Necessity */}
-                  <div className="border border-gray-200 rounded-xl p-4 bg-gray-50/50">
-                    <span className="text-xs uppercase font-bold text-gray-500">Relocation Urgency Tier</span>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-sm font-bold text-gray-500 line-through">
+                  <div className="border border-slate-200 rounded-2xl p-5 bg-slate-50/50">
+                    <span className="text-[11px] uppercase font-bold tracking-widest text-slate-500">Relocation Urgency Tier</span>
+                    <div className="flex flex-col gap-2 mt-2">
+                      <span className="text-sm font-bold text-slate-400 line-through">
                         {recalcResult.before.necessity_category}
                       </span>
-                      <span className="text-xs text-gray-400">→</span>
-                      <span className="text-sm font-black px-2.5 py-0.5 rounded bg-red-100 text-red-800 border border-red-200">
-                        {recalcResult.after.necessity_category}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <ArrowRight className="w-4 h-4 text-slate-400" />
+                        <span className="text-sm font-black uppercase tracking-wider px-3 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200">
+                          {recalcResult.after.necessity_category}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Relocation Destination Before vs After */}
-                <div className="border border-blue-100 bg-blue-50/40 rounded-xl p-4 flex justify-between items-center">
+                <div className="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div>
-                    <span className="text-xs uppercase font-bold text-blue-900 block">Optimizer Destination Allocation</span>
-                    <div className="text-sm text-gray-700 mt-0.5">
-                      Prior: <span className="font-semibold">{recalcResult.before.assigned_site_name}</span> → Refreshed:{' '}
-                      <span className="font-bold text-blue-700">{recalcResult.after.assigned_site_name}</span>
+                    <span className="text-[11px] uppercase font-black tracking-widest text-indigo-900 block mb-1">Optimizer Destination Allocation Re-Assigned</span>
+                    <div className="text-sm text-indigo-950 font-medium flex items-center gap-2 flex-wrap">
+                      <span className="line-through opacity-60">{recalcResult.before.assigned_site_name}</span> 
+                      <ArrowRight className="w-4 h-4 opacity-50" /> 
+                      <span className="font-bold text-indigo-700 bg-white px-2 py-1 rounded-md shadow-sm border border-indigo-100">{recalcResult.after.assigned_site_name}</span>
                     </div>
                   </div>
                   <Link
                     href="/optimizer"
-                    className="text-xs bg-blue-600 text-white font-bold px-3 py-1.5 rounded-lg shadow-sm hover:bg-blue-700 transition"
+                    className="text-xs bg-indigo-600 text-white font-bold px-4 py-2 rounded-xl shadow-sm hover:bg-indigo-700 transition-colors shrink-0"
                   >
                     View Optimizer Ledger
                   </Link>
                 </div>
 
                 {/* Pipeline Progression Steps */}
-                <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Automated Cascading Execution Log</h4>
-                  <div className="bg-slate-900 text-emerald-400 p-4 rounded-lg font-mono text-xs space-y-1">
+                <div className="pt-2">
+                  <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
+                    <Activity className="w-3.5 h-3.5" />
+                    Automated Cascading Execution Log
+                  </h4>
+                  <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl font-mono text-xs space-y-2.5 shadow-inner">
                     {recalcResult.cascading_pipeline_steps.map((step, idx) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <span className="text-slate-500">[{new Date().toLocaleTimeString()}]</span>
-                        <span>{step}</span>
+                      <div key={idx} className="flex items-start gap-3 text-emerald-400/90">
+                        <span className="text-slate-500 shrink-0 mt-0.5">[{new Date().toLocaleTimeString()}]</span>
+                        <span className="leading-relaxed">{step}</span>
                       </div>
                     ))}
                   </div>
@@ -622,67 +682,69 @@ export default function FieldVerificationPage() {
 
       {/* Tab 2: Audit Trail & Provenance Ledger */}
       {activeTab === 'AUDIT' && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-5 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="p-6 md:p-8 bg-slate-50/50 border-b border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h2 className="text-base font-bold text-gray-900">Field Verification Audit Trail & Provenance Ledger</h2>
-              <p className="text-xs text-gray-500 mt-0.5">Non-destructive history preserving original source records and timestamped ground truth submissions.</p>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">Field Verification Audit Trail & Provenance Ledger</h2>
+              <p className="text-sm text-slate-500 font-medium mt-1">Non-destructive history preserving original source records and timestamped ground truth submissions.</p>
             </div>
             <button
               onClick={fetchHistory}
-              className="text-xs bg-white text-gray-700 border border-gray-300 px-3 py-1.5 rounded-lg font-semibold hover:bg-gray-50"
+              className="text-xs bg-white text-slate-700 border border-slate-300 px-4 py-2.5 rounded-xl font-bold hover:bg-slate-50 shadow-sm transition-all"
             >
               Refresh Log
             </button>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 text-sm">
-              <thead className="bg-gray-50 text-gray-600 text-xs font-semibold uppercase tracking-wider">
+            <table className="min-w-full text-sm text-left whitespace-nowrap">
+              <thead className="bg-white text-slate-500 text-[10px] font-bold uppercase tracking-widest border-b border-slate-200">
                 <tr>
-                  <th className="py-3 px-4 text-left">Timestamp</th>
-                  <th className="py-3 px-4 text-left">Habitation</th>
-                  <th className="py-3 px-4 text-left">Verifier</th>
-                  <th className="py-3 px-4 text-left">Road Status</th>
-                  <th className="py-3 px-4 text-left">Verification Status</th>
-                  <th className="py-3 px-4 text-left">Recalculation Impact (Δ)</th>
-                  <th className="py-3 px-4 text-left">Notes</th>
+                  <th className="py-4 px-6">Timestamp</th>
+                  <th className="py-4 px-6">Habitation</th>
+                  <th className="py-4 px-6">Verifier</th>
+                  <th className="py-4 px-6">Road Status</th>
+                  <th className="py-4 px-6">Verification Status</th>
+                  <th className="py-4 px-6">Recalc Impact (Δ)</th>
+                  <th className="py-4 px-6">Notes</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {history.map(item => (
-                  <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="py-3 px-4 font-mono text-xs text-gray-500">
+                  <tr key={item.id} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="py-4 px-6 font-mono text-[11px] text-slate-500">
                       {item.verified_at ? new Date(item.verified_at).toLocaleString() : '—'}
                     </td>
-                    <td className="py-3 px-4">
-                      <div className="font-semibold text-gray-900">{item.habitation_name}</div>
-                      <span className="text-xs text-gray-400 font-mono">{item.habitation_id}</span>
+                    <td className="py-4 px-6">
+                      <div className="font-bold text-slate-900">{item.habitation_name}</div>
+                      <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{item.habitation_id}</span>
                     </td>
-                    <td className="py-3 px-4 font-medium text-gray-800">{item.verifier_name}</td>
-                    <td className="py-3 px-4">
-                      <span className={`text-xs px-2 py-0.5 rounded font-bold ${
-                        item.road_status === 'BLOCKED' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                    <td className="py-4 px-6 font-semibold text-slate-700">{item.verifier_name}</td>
+                    <td className="py-4 px-6">
+                      <span className={`text-[10px] px-2.5 py-1 rounded-md font-bold uppercase tracking-wider ${
+                        item.road_status === 'BLOCKED' ? 'bg-rose-100 text-rose-800' : 
+                        item.road_status === 'DAMAGED' ? 'bg-amber-100 text-amber-800' :
+                        'bg-emerald-100 text-emerald-800'
                       }`}>
                         {item.road_status}
                       </span>
                     </td>
-                    <td className="py-3 px-4">
-                      <span className="text-xs px-2 py-0.5 rounded bg-blue-50 text-blue-700 font-semibold border border-blue-100">
-                        {item.verification_status}
+                    <td className="py-4 px-6">
+                      <span className="text-[10px] px-2.5 py-1 rounded-md bg-blue-50 text-blue-700 font-bold border border-blue-100 uppercase tracking-wider">
+                        {item.verification_status.replace('_', ' ')}
                       </span>
                     </td>
-                    <td className="py-3 px-4 font-mono text-xs">
+                    <td className="py-4 px-6 font-mono text-[11px]">
                       {item.recalculation_diff ? (
-                        <div className="space-y-0.5">
-                          <span className="text-blue-700 block">Δ Vuln: +{item.recalculation_diff.vulnerability_delta}</span>
-                          <span className="text-red-700 block">Δ RPI: +{item.recalculation_diff.rpi_delta}</span>
+                        <div className="flex flex-col gap-1 font-bold">
+                          <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded w-max">Δ Vuln: +{item.recalculation_diff.vulnerability_delta}</span>
+                          <span className="text-rose-600 bg-rose-50 px-2 py-0.5 rounded w-max">Δ RPI: +{item.recalculation_diff.rpi_delta}</span>
                         </div>
                       ) : (
-                        <span className="text-gray-400">—</span>
+                        <span className="text-slate-300">—</span>
                       )}
                     </td>
-                    <td className="py-3 px-4 text-xs text-gray-600 max-w-xs truncate">
+                    <td className="py-4 px-6 text-[11px] font-medium text-slate-500 max-w-[200px] truncate" title={item.notes}>
                       {item.notes || '—'}
                     </td>
                   </tr>

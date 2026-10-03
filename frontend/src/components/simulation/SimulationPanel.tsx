@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { apiClient } from '@/lib/api';
+import { CloudLightning, ShieldAlert, ArrowRight, RefreshCw, Activity, Users, AlertTriangle, ArrowRightLeft, ShieldCheck, MapPin } from 'lucide-react';
 
 export interface ScenarioHabitation {
   habitation_id: string;
@@ -117,95 +118,106 @@ export default function SimulationPanel() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Mandatory Demo Simulation Banner */}
-      <div className="bg-gradient-to-r from-amber-500 via-orange-600 to-red-600 text-white px-6 py-3.5 rounded-xl shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-        <div className="flex items-center gap-3">
-          <span className="text-2xl animate-pulse">⚠️</span>
+      <div className="bg-gradient-to-r from-amber-500 via-orange-600 to-rose-600 text-white p-6 rounded-3xl shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+        <div className="flex items-start md:items-center gap-4 relative z-10">
+          <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-sm border border-white/20">
+            <AlertTriangle className="w-8 h-8 text-white" />
+          </div>
           <div>
-            <span className="font-black tracking-wider text-sm sm:text-base uppercase block">
-              DEMO LIVE-UPDATE SIMULATION
+            <span className="text-lg font-black tracking-widest uppercase block mb-1">
+              Demo Live-Update Simulation
             </span>
-            <span className="text-xs text-amber-100 font-sans">
+            <span className="text-sm text-amber-50 font-medium max-w-2xl block leading-relaxed">
               Sandboxed demonstration model. Simulations run in memory and do NOT permanently alter production database records.
             </span>
           </div>
         </div>
-        <span className="text-xs bg-black/30 font-mono px-3 py-1 rounded-full border border-white/20 whitespace-nowrap">
-          DB Safety Lock: ACTIVE
-        </span>
+        <div className="relative z-10 flex items-center gap-2 bg-black/20 font-mono text-xs px-4 py-2 rounded-xl border border-white/20 backdrop-blur-sm shadow-inner shrink-0">
+          <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <span className="font-bold text-white tracking-widest">DB Safety Lock: ACTIVE</span>
+        </div>
       </div>
 
       {/* Scenario Control Deck */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-5">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 pb-4">
+      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-100 pb-6">
           <div>
-            <h2 className="text-lg font-bold text-gray-900">Environmental Scenario Controls</h2>
-            <p className="text-xs text-gray-500 mt-0.5">Adjust simulated precipitation intensity to observe downstream hazard amplification and optimizer reassignments.</p>
+            <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+              <CloudLightning className="w-5 h-5 text-indigo-600" />
+              Environmental Scenario Controls
+            </h2>
+            <p className="text-sm font-medium text-slate-500 mt-1">Adjust simulated precipitation intensity to observe downstream hazard amplification and optimizer reassignments.</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 w-full md:w-auto">
             <button
               onClick={handleReset}
               disabled={loading}
-              className="px-4 py-2 text-xs font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition disabled:opacity-50"
+              className="flex-1 md:flex-none px-5 py-3 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all disabled:opacity-50 flex items-center justify-center gap-2 shadow-sm"
             >
+              <RefreshCw className="w-4 h-4" />
               Reset Scenario
             </button>
             <button
               onClick={() => executeSimulation(baselineRainfall, scenarioRainfall)}
               disabled={loading}
-              className="px-5 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-sm transition flex items-center gap-2 disabled:opacity-50"
+              className="flex-1 md:flex-none px-6 py-3 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 disabled:opacity-70 group"
             >
               {loading ? (
-                <svg className="animate-spin h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                <RefreshCw className="w-4 h-4 animate-spin" />
               ) : (
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <Activity className="w-4 h-4 group-hover:scale-110 transition-transform" />
               )}
               Run Simulation
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Baseline Rainfall */}
-          <div className="space-y-2 p-4 bg-gray-50 rounded-xl border border-gray-200">
+          <div className="space-y-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
             <div className="flex justify-between items-center">
-              <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Baseline Rainfall</label>
-              <span className="text-sm font-black font-mono text-gray-900 bg-white px-2.5 py-1 rounded border border-gray-300">
+              <label className="text-[11px] font-black text-slate-500 uppercase tracking-widest">Baseline Rainfall</label>
+              <span className="text-lg font-black font-mono text-slate-800 bg-white px-3 py-1.5 rounded-lg border border-slate-300 shadow-sm">
                 {baselineRainfall} mm/day
               </span>
             </div>
-            <p className="text-xs text-gray-500">Historical regional average monsoon baseline precipitation.</p>
+            <p className="text-sm font-medium text-slate-500">Historical regional average monsoon baseline precipitation.</p>
           </div>
 
           {/* Scenario Rainfall Slider */}
-          <div className="space-y-2 p-4 bg-blue-50/60 rounded-xl border border-blue-200">
-            <div className="flex justify-between items-center">
-              <label className="text-xs font-bold text-blue-900 uppercase tracking-wider">Simulated Scenario Rainfall</label>
-              <div className="flex items-center gap-2">
-                <span className={`text-xs font-bold px-2 py-0.5 rounded ${
-                  rainfallSurge > 0 ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
+          <div className="space-y-4 p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+            <div className="flex justify-between items-center relative z-10">
+              <label className="text-[11px] font-black text-indigo-900 uppercase tracking-widest">Simulated Scenario Rainfall</label>
+              <div className="flex items-center gap-3">
+                <span className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1.5 rounded-lg border shadow-sm ${
+                  rainfallSurge > 0 ? 'bg-rose-100 text-rose-800 border-rose-200' : 'bg-emerald-100 text-emerald-800 border-emerald-200'
                 }`}>
                   {rainfallSurge >= 0 ? `+${rainfallSurge} mm surge` : `${rainfallSurge} mm drop`}
                 </span>
-                <span className="text-sm font-black font-mono text-blue-700 bg-white px-2.5 py-1 rounded border border-blue-300">
+                <span className="text-lg font-black font-mono text-indigo-700 bg-white px-3 py-1.5 rounded-lg border border-indigo-200 shadow-sm">
                   {scenarioRainfall} mm/day
                 </span>
               </div>
             </div>
-            <input
-              type="range"
-              min="50"
-              max="350"
-              step="5"
-              value={scenarioRainfall}
-              onChange={e => setScenarioRainfall(Number(e.target.value))}
-              className="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
-            />
-            <div className="flex justify-between text-[10px] font-mono text-gray-400">
-              <span>Moderate (50 mm)</span>
-              <span>Baseline (120 mm)</span>
-              <span>Extreme Cloudburst (350 mm)</span>
+            <div className="relative z-10 pt-2">
+              <input
+                type="range"
+                min="50"
+                max="350"
+                step="5"
+                value={scenarioRainfall}
+                onChange={e => setScenarioRainfall(Number(e.target.value))}
+                className="w-full h-3 bg-indigo-200 rounded-full appearance-none cursor-pointer accent-indigo-600 shadow-inner"
+              />
+              <div className="flex justify-between text-[10px] font-bold font-mono text-indigo-400 mt-3 px-1 uppercase tracking-wider">
+                <span>Moderate (50)</span>
+                <span>Baseline (120)</span>
+                <span>Extreme (350)</span>
+              </div>
             </div>
           </div>
         </div>
@@ -213,140 +225,164 @@ export default function SimulationPanel() {
 
       {/* Impact Summary Metric Cards */}
       {result && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Red Zones Delta */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Red-Zone Habitations</span>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-2xl font-black text-gray-800">{result.summary.baseline_red_zones}</span>
-              <span className="text-xs text-gray-400">→</span>
-              <span className="text-2xl font-black text-red-600">{result.summary.scenario_red_zones}</span>
-              <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${
-                result.summary.red_zone_delta > 0 ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'
-              }`}>
-                {result.summary.red_zone_delta >= 0 ? `+${result.summary.red_zone_delta}` : result.summary.red_zone_delta}
+          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group hover:border-rose-200 transition-colors">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-rose-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10">
+              <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-1.5 mb-3">
+                <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
+                Red-Zone Habitations
               </span>
+              <div className="flex items-baseline gap-3">
+                <span className="text-3xl font-bold text-slate-300 line-through decoration-slate-200">{result.summary.baseline_red_zones}</span>
+                <span className="text-4xl font-black text-slate-900">{result.summary.scenario_red_zones}</span>
+                <span className={`text-xs font-black px-2.5 py-1 rounded-md ${
+                  result.summary.red_zone_delta > 0 ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-600'
+                }`}>
+                  {result.summary.red_zone_delta >= 0 ? `+${result.summary.red_zone_delta}` : result.summary.red_zone_delta}
+                </span>
+              </div>
+              <p className="text-xs font-medium text-slate-500 mt-3">Critical & Immediate urgency zones</p>
             </div>
-            <p className="text-xs text-gray-500 mt-1">Critical & Immediate urgency zones</p>
           </div>
 
           {/* Affected Population */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Displaced / At-Risk Population</span>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-2xl font-black text-gray-800">
-                {result.summary.baseline_affected_population.toLocaleString()}
+          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group hover:border-amber-200 transition-colors">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10">
+              <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-1.5 mb-3">
+                <Users className="w-3.5 h-3.5 text-amber-500" />
+                Displaced / At-Risk Pop
               </span>
-              <span className="text-xs text-gray-400">→</span>
-              <span className="text-2xl font-black text-amber-600">
-                {result.summary.scenario_affected_population.toLocaleString()}
-              </span>
+              <div className="flex items-baseline gap-3">
+                <span className="text-3xl font-bold text-slate-300 line-through decoration-slate-200">
+                  {(result.summary.baseline_affected_population / 1000).toFixed(1)}k
+                </span>
+                <span className="text-4xl font-black text-slate-900">
+                  {(result.summary.scenario_affected_population / 1000).toFixed(1)}k
+                </span>
+              </div>
+              <p className="text-xs font-bold text-amber-600 bg-amber-50 inline-block px-2 py-0.5 rounded-md mt-3 border border-amber-100">
+                +{result.summary.affected_population_delta.toLocaleString()} newly affected
+              </p>
             </div>
-            <p className="text-xs text-amber-600 font-semibold mt-1">
-              +{result.summary.affected_population_delta.toLocaleString()} additional population requiring action
-            </p>
           </div>
 
           {/* Urgency Escalations */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Urgency Category Shifts</span>
-            <div className="mt-1">
-              <span className="text-2xl font-black text-purple-700">
-                {result.summary.habitations_urgency_changed}
+          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group hover:border-purple-200 transition-colors">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10">
+              <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-1.5 mb-3">
+                <Activity className="w-3.5 h-3.5 text-purple-500" />
+                Urgency Category Shifts
               </span>
-              <span className="text-xs text-gray-500 ml-1.5">Habitations escalated</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-black text-slate-900">
+                  {result.summary.habitations_urgency_changed}
+                </span>
+                <span className="text-sm font-bold text-slate-400">habitations</span>
+              </div>
+              <p className="text-xs font-medium text-slate-500 mt-3">Transitions to Short-Term/Immediate</p>
             </div>
-            <p className="text-xs text-gray-500 mt-1">Transitions to Short-Term / Immediate</p>
           </div>
 
           {/* Optimizer Reassignments */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Optimizer Site Reassignments</span>
-            <div className="mt-1">
-              <span className="text-2xl font-black text-blue-700">
-                {result.summary.habitations_site_reassigned}
+          <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 relative overflow-hidden group hover:border-blue-200 transition-colors">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/3 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10">
+              <span className="text-[11px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-1.5 mb-3">
+                <ArrowRightLeft className="w-3.5 h-3.5 text-blue-500" />
+                Optimizer Reroutes
               </span>
-              <span className="text-xs text-gray-500 ml-1.5">Corridors rerouted</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-black text-slate-900">
+                  {result.summary.habitations_site_reassigned}
+                </span>
+                <span className="text-sm font-bold text-slate-400">corridors</span>
+              </div>
+              <p className="text-xs font-medium text-slate-500 mt-3">Due to priority greedy reallocation</p>
             </div>
-            <p className="text-xs text-gray-500 mt-1">Due to priority greedy reallocation</p>
           </div>
         </div>
       )}
 
       {/* Differential Habitation Ledger Table */}
       {result && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-5 bg-gray-50 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="p-6 md:p-8 bg-slate-50/50 border-b border-slate-200 flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
             <div>
-              <h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
-                <span>Differential Scenario Impact Ledger</span>
-                <span className="text-xs font-normal text-gray-500 bg-gray-200 px-2 py-0.5 rounded">
-                  Baseline ({baselineRainfall}mm) vs. Scenario ({scenarioRainfall}mm)
+              <h3 className="text-lg font-black text-slate-900 flex items-center gap-3">
+                Differential Scenario Impact Ledger
+                <span className="text-[10px] font-bold text-indigo-700 bg-indigo-100 px-2.5 py-1 rounded-md uppercase tracking-widest border border-indigo-200">
+                  Base ({baselineRainfall}mm) vs Scen ({scenarioRainfall}mm)
                 </span>
               </h3>
-              <p className="text-xs text-gray-500 mt-0.5">
+              <p className="text-sm text-slate-500 font-medium mt-1">
                 Highlights habitations whose hazard, risk category, relocation urgency, or recommended safe site changed under this simulation.
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              <input
-                type="text"
-                placeholder="Filter habitations..."
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                className="text-xs px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <div className="flex gap-1">
+            <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
+              <div className="relative flex-1 xl:flex-none">
+                <input
+                  type="text"
+                  placeholder="Filter habitations..."
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  className="w-full xl:w-64 text-sm font-medium pl-4 pr-4 py-2.5 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
+                />
+              </div>
+              <div className="flex flex-wrap gap-1.5">
                 <button
                   onClick={() => setFilter('ALL')}
-                  className={`text-xs px-2.5 py-1 rounded font-semibold transition ${
-                    filter === 'ALL' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 border border-gray-300'
+                  className={`text-[11px] px-3 py-2 rounded-lg font-bold uppercase tracking-wider transition-all ${
+                    filter === 'ALL' ? 'bg-slate-800 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
                   }`}
                 >
                   All ({result.comparison.length})
                 </button>
                 <button
                   onClick={() => setFilter('IMPACTED')}
-                  className={`text-xs px-2.5 py-1 rounded font-semibold transition ${
-                    filter === 'IMPACTED' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 border border-gray-300'
+                  className={`text-[11px] px-3 py-2 rounded-lg font-bold uppercase tracking-wider transition-all ${
+                    filter === 'IMPACTED' ? 'bg-blue-600 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
                   }`}
                 >
-                  Impacted Only
+                  Impacted
                 </button>
                 <button
                   onClick={() => setFilter('RED_ZONES')}
-                  className={`text-xs px-2.5 py-1 rounded font-semibold transition ${
-                    filter === 'RED_ZONES' ? 'bg-red-600 text-white' : 'bg-white text-red-700 border border-red-200'
+                  className={`text-[11px] px-3 py-2 rounded-lg font-bold uppercase tracking-wider transition-all ${
+                    filter === 'RED_ZONES' ? 'bg-rose-600 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
                   }`}
                 >
                   Red Zones
                 </button>
                 <button
                   onClick={() => setFilter('REASSIGNED')}
-                  className={`text-xs px-2.5 py-1 rounded font-semibold transition ${
-                    filter === 'REASSIGNED' ? 'bg-purple-600 text-white' : 'bg-white text-purple-700 border border-purple-200'
+                  className={`text-[11px] px-3 py-2 rounded-lg font-bold uppercase tracking-wider transition-all ${
+                    filter === 'REASSIGNED' ? 'bg-purple-600 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
                   }`}
                 >
-                  Site Reassigned
+                  Reassigned
                 </button>
               </div>
             </div>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 text-sm">
-              <thead className="bg-gray-50 text-gray-600 text-xs font-semibold uppercase tracking-wider">
+            <table className="min-w-full text-sm text-left whitespace-nowrap">
+              <thead className="bg-white text-slate-500 text-[10px] font-bold uppercase tracking-widest border-b border-slate-200">
                 <tr>
-                  <th className="py-3 px-4 text-left">Habitation & Demographics</th>
-                  <th className="py-3 px-4 text-center">Hazard Score (Base → Scen)</th>
-                  <th className="py-3 px-4 text-center">RPI Risk & Category</th>
-                  <th className="py-3 px-4 text-center">Relocation Urgency</th>
-                  <th className="py-3 px-4 text-left">Recommended Destination</th>
-                  <th className="py-3 px-4 text-center">Impact Badges</th>
+                  <th className="py-4 px-6">Habitation & Demographics</th>
+                  <th className="py-4 px-6 text-center">Hazard (Base → Scen)</th>
+                  <th className="py-4 px-6 text-center">RPI & Risk Category</th>
+                  <th className="py-4 px-6 text-center">Relocation Urgency</th>
+                  <th className="py-4 px-6">Recommended Destination</th>
+                  <th className="py-4 px-6 text-center">Impact Badges</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-slate-100">
                 {filteredHabitations.map(item => {
                   const diff = item.difference;
                   const isRedZone = item.scenario.risk_category.includes('Red Zone') || item.scenario.urgency === 'Immediate';
@@ -355,14 +391,17 @@ export default function SimulationPanel() {
                     <tr
                       key={item.habitation_id}
                       className={`transition-colors ${
-                        isRedZone ? 'bg-red-50/40' : diff.is_impacted ? 'bg-amber-50/20' : 'hover:bg-gray-50'
+                        isRedZone ? 'bg-rose-50/30' : diff.is_impacted ? 'bg-amber-50/20' : 'hover:bg-slate-50/50'
                       }`}
                     >
                       {/* Habitation */}
-                      <td className="py-3 px-4">
-                        <div className="font-bold text-gray-900">{item.habitation_name}</div>
-                        <div className="flex items-center gap-2 text-xs text-gray-500 font-mono mt-0.5">
-                          <span>{item.habitation_id}</span>
+                      <td className="py-4 px-6">
+                        <div className="font-extrabold text-slate-900 mb-1 flex items-center gap-2">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                          {item.habitation_name}
+                        </div>
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                          <span className="bg-slate-100 px-1.5 py-0.5 rounded">{item.habitation_id}</span>
                           <span>•</span>
                           <span>Pop: {item.population}</span>
                           <span>•</span>
@@ -371,82 +410,92 @@ export default function SimulationPanel() {
                       </td>
 
                       {/* Hazard Score */}
-                      <td className="py-3 px-4 text-center font-mono">
-                        <span className="text-gray-500">{item.baseline.hazard_score.toFixed(1)}</span>
-                        <span className="text-gray-400 mx-1.5">→</span>
-                        <span className={`font-bold ${diff.hazard_delta > 0 ? 'text-red-600' : 'text-gray-900'}`}>
-                          {item.scenario.hazard_score.toFixed(1)}
-                        </span>
+                      <td className="py-4 px-6 text-center">
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-sm font-bold text-slate-400 line-through decoration-slate-300">{item.baseline.hazard_score.toFixed(1)}</span>
+                          <ArrowRight className="w-3 h-3 text-slate-300" />
+                          <span className={`text-base font-black ${diff.hazard_delta > 0 ? 'text-rose-600' : 'text-slate-900'}`}>
+                            {item.scenario.hazard_score.toFixed(1)}
+                          </span>
+                        </div>
                         {diff.hazard_delta > 0 && (
-                          <div className="text-[10px] text-red-600 font-semibold">+{diff.hazard_delta}</div>
+                          <div className="text-[10px] font-black text-rose-600 bg-rose-50 inline-block px-1.5 py-0.5 rounded mt-1">
+                            +{diff.hazard_delta.toFixed(1)}
+                          </div>
                         )}
                       </td>
 
                       {/* RPI Risk & Category */}
-                      <td className="py-3 px-4 text-center">
-                        <div className="font-mono">
-                          <span className="text-gray-500">{item.baseline.rpi.toFixed(1)}</span>
-                          <span className="text-gray-400 mx-1.5">→</span>
-                          <span className={`font-black ${item.scenario.rpi >= 76 ? 'text-red-600' : 'text-gray-900'}`}>
+                      <td className="py-4 px-6 text-center">
+                        <div className="flex items-center justify-center gap-2">
+                          <span className="text-sm font-bold text-slate-400 line-through decoration-slate-300">{item.baseline.rpi.toFixed(1)}</span>
+                          <ArrowRight className="w-3 h-3 text-slate-300" />
+                          <span className={`text-base font-black ${item.scenario.rpi >= 76 ? 'text-rose-600' : 'text-slate-900'}`}>
                             {item.scenario.rpi.toFixed(1)}
                           </span>
                         </div>
-                        <div className="text-xs text-gray-500 mt-0.5">
+                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">
                           {item.scenario.risk_category}
                         </div>
                       </td>
 
                       {/* Urgency */}
-                      <td className="py-3 px-4 text-center">
+                      <td className="py-4 px-6 text-center">
                         {diff.urgency_changed ? (
-                          <div className="flex items-center justify-center gap-1">
-                            <span className="text-xs text-gray-400 line-through">{item.baseline.urgency}</span>
-                            <span className="text-xs text-gray-400">→</span>
-                            <span className="text-xs font-bold px-2 py-0.5 rounded bg-red-100 text-red-800 border border-red-200">
+                          <div className="flex items-center justify-center gap-2">
+                            <span className="text-xs font-bold text-slate-400 line-through decoration-slate-300">{item.baseline.urgency}</span>
+                            <ArrowRight className="w-3 h-3 text-slate-300" />
+                            <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200">
                               {item.scenario.urgency}
                             </span>
                           </div>
                         ) : (
-                          <span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-gray-700 font-medium">
+                          <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md bg-slate-100 text-slate-600">
                             {item.scenario.urgency}
                           </span>
                         )}
                       </td>
 
                       {/* Destination Site */}
-                      <td className="py-3 px-4">
+                      <td className="py-4 px-6">
                         {diff.site_changed ? (
-                          <div>
-                            <div className="text-xs text-gray-400 line-through">{item.baseline.recommended_site}</div>
-                            <div className="text-xs font-bold text-blue-700 flex items-center gap-1">
-                              <span>→ {item.scenario.recommended_site}</span>
+                          <div className="flex flex-col gap-1">
+                            <div className="text-xs font-bold text-slate-400 line-through decoration-slate-300 flex items-center gap-1">
+                              <MapPin className="w-3 h-3" /> {item.baseline.recommended_site}
+                            </div>
+                            <div className="text-xs font-black text-indigo-700 flex items-center gap-1.5 bg-indigo-50 px-2 py-1 rounded-md border border-indigo-100 w-fit">
+                              <ArrowRight className="w-3 h-3" /> {item.scenario.recommended_site}
                             </div>
                           </div>
                         ) : (
-                          <span className="text-xs text-gray-800 font-medium">{item.scenario.recommended_site}</span>
+                          <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                            <MapPin className="w-3 h-3 text-slate-400" /> {item.scenario.recommended_site}
+                          </span>
                         )}
                       </td>
 
                       {/* Badges */}
-                      <td className="py-3 px-4 text-center">
-                        <div className="flex flex-wrap gap-1 justify-center">
+                      <td className="py-4 px-6 text-center">
+                        <div className="flex flex-wrap gap-1.5 justify-center">
                           {diff.risk_category_changed && (
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-orange-100 text-orange-800 border border-orange-200">
-                              Risk Escalated
+                            <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-amber-100 text-amber-800 border border-amber-200">
+                              Escalated
                             </span>
                           )}
                           {diff.urgency_changed && (
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-red-100 text-red-800 border border-red-200">
-                              Urgency Shifted
+                            <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-rose-100 text-rose-800 border border-rose-200">
+                              Urgency Shift
                             </span>
                           )}
                           {diff.site_changed && (
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 border border-purple-200">
-                              Site Rerouted
+                            <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md bg-purple-100 text-purple-800 border border-purple-200">
+                              Rerouted
                             </span>
                           )}
                           {!diff.is_impacted && (
-                            <span className="text-[10px] text-gray-400 font-medium">No Change</span>
+                            <span className="text-[9px] font-bold uppercase tracking-widest text-slate-300">
+                              No Change
+                            </span>
                           )}
                         </div>
                       </td>
