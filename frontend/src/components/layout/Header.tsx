@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { User, ShieldAlert } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const routeTitles: Record<string, string> = {
   '/dashboard': 'Command Center',
@@ -30,12 +31,17 @@ export default function Header() {
           {pageTitle}
         </h1>
         
-        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-rose-50 border border-rose-200 rounded-full">
+        <motion.div 
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-rose-50 border border-rose-200 rounded-full"
+        >
           <ShieldAlert className="w-4 h-4 text-rose-600" />
           <span className="text-xs font-bold text-rose-700 uppercase tracking-wide">
             Ramgarh District (Demo)
           </span>
-        </div>
+        </motion.div>
       </div>
       
       <div className="flex items-center space-x-5">
@@ -45,9 +51,13 @@ export default function Header() {
             <span className="text-xs text-slate-500 font-medium">Demo Mode</span>
           </div>
         </div>
-        <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center cursor-pointer hover:bg-slate-200 transition-colors">
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center cursor-pointer hover:bg-slate-200 transition-colors shadow-sm"
+        >
           <User className="w-5 h-5 text-slate-600" />
-        </div>
+        </motion.div>
       </div>
     </header>
   );

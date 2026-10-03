@@ -7,6 +7,7 @@ import {
   Home, Target, ClipboardList, CheckSquare, Users, 
   Bell, CloudRain, Brain
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const routeGroups = [
   {
@@ -74,18 +75,32 @@ export default function Sidebar() {
                 const isActive = pathname === route.path || (pathname?.startsWith(route.path) && route.path !== '/');
                 const Icon = route.icon;
                 return (
-                  <Link 
-                    key={route.name} 
-                    href={route.path}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 text-sm font-medium ${
-                      isActive 
-                        ? 'bg-blue-600/10 text-blue-400' 
-                        : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
-                    }`}
+                  <motion.div
+                    key={route.name}
+                    whileHover={{ scale: 1.02, x: 2 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-blue-400' : 'text-slate-500'}`} />
-                    {route.name}
-                  </Link>
+                    <Link 
+                      href={route.path}
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 text-sm font-medium ${
+                        isActive 
+                          ? 'bg-blue-600/10 text-blue-400' 
+                          : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                      }`}
+                    >
+                      <Icon className={`w-4 h-4 ${isActive ? 'text-blue-400' : 'text-slate-500'}`} />
+                      {route.name}
+                      {isActive && (
+                        <motion.div
+                          layoutId="sidebarActiveIndicator"
+                          className="absolute left-0 w-1 h-6 bg-blue-500 rounded-r-full"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      )}
+                    </Link>
+                  </motion.div>
                 );
               })}
             </nav>
